@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/Background_signin">
+    android:background="@drawable/background_signin">
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/emailLayout"
         style="@style/LoginTextInputOuterFieldStyle"
-        android:layout_width="372dp"
-        android:layout_height="39dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="350dp"
         app:boxBackgroundColor="@color/white"
@@ -22,12 +21,8 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/emailEt"
             style="@style/LoginTextInputInnerFieldStyle"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:hint="Type your Email"
-            android:inputType="textEmailAddress"
-            android:paddingLeft="10dp"
-            android:paddingTop="10dp" />
+            android:hint="@string/hint_email"
+            android:inputType="textEmailAddress" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <!-- Repeat the same modification for passwordLayout and confirmPasswordLayout -->
@@ -35,14 +30,13 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/passwordLayout"
         style="@style/LoginTextInputOuterFieldStyle"
-        android:layout_width="370dp"
-        android:layout_height="37dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="16dp"
         app:boxStrokeColor="@color/lavendar"
         app:hintTextColor="@color/lavendar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.609"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/emailLayout"
         app:passwordToggleEnabled="true">
@@ -52,17 +46,15 @@
             style="@style/LoginTextInputInnerFieldStyle"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="Type Your Password"
-            android:inputType="textPassword"
-            android:paddingLeft="10dp"
-            android:paddingTop="10dp" />
+            android:hint="@string/hint_pass"
+            android:inputType="textPassword" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/confirmPasswordLayout"
         style="@style/LoginTextInputOuterFieldStyle"
-        android:layout_width="369dp"
-        android:layout_height="36dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="16dp"
         app:boxStrokeColor="@color/lavendar"
@@ -77,23 +69,21 @@
             android:id="@+id/confirmPassEt"
             style="@style/LoginTextInputInnerFieldStyle"
             android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:hint="Retype Your Password"
-            android:inputType="textPassword"
-            android:paddingLeft="10dp"
-            android:paddingTop="10dp" />
+            android:layout_height="match_parent"
+            android:hint="@string/hint_confpass"
+            android:inputType="textPassword" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/button"
         android:layout_width="91dp"
-        android:layout_height="30dp"
+        android:layout_height="40dp"
         android:layout_marginHorizontal="16dp"
         android:background="@drawable/rect"
         android:gravity="center"
-        android:text="Sign Up"
+        android:text="@string/Sign_Up"
         android:textColor="@color/white"
-        android:textSize="15dp"
+        android:textSize="15sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -106,17 +96,24 @@
         android:id="@+id/textView"
         android:layout_width="136dp"
         android:layout_height="17dp"
-        android:text="Already Registered , Sign In !"
-        android:textColor="@color/black"
-        android:textSize="10dp"
         android:gravity="center"
         android:paddingTop="1dp"
+        android:text="@string/Already_reg"
+        android:textColor="@color/black"
+        android:textSize="10sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button"
         app:layout_constraintVertical_bias="0.15" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="14dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
