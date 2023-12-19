@@ -4,15 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background">
-
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="239dp"
-        android:layout_height="73dp"
-        app:srcCompat="@drawable/logoo"
-        tools:layout_editor_absoluteX="86dp"
-        tools:layout_editor_absoluteY="43dp" />
+    android:background="@drawable/Background_signin">
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/emailLayout"
