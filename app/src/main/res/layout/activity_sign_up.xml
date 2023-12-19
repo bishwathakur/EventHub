@@ -4,19 +4,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/add">
+    android:background="@drawable/background">
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="239dp"
+        android:layout_height="73dp"
+        app:srcCompat="@drawable/logoo"
+        tools:layout_editor_absoluteX="86dp"
+        tools:layout_editor_absoluteY="43dp" />
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/emailLayout"
         style="@style/LoginTextInputOuterFieldStyle"
-        android:layout_width="match_parent"
-        android:layout_height="25dp"
+        android:layout_width="372dp"
+        android:layout_height="39dp"
         android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="300dp"
-        android:background="@drawable/rounded_background"
-        app:boxBackgroundColor="@android:color/black"
+        android:layout_marginTop="350dp"
+        app:boxBackgroundColor="@color/white"
         app:hintTextColor="@color/lavendar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -28,49 +35,48 @@
             android:hint="Type your Email"
             android:inputType="textEmailAddress"
             android:paddingLeft="10dp"
-            android:paddingTop="1dp"/>
-</com.google.android.material.textfield.TextInputLayout>
+            android:paddingTop="10dp" />
+    </com.google.android.material.textfield.TextInputLayout>
 
+    <!-- Repeat the same modification for passwordLayout and confirmPasswordLayout -->
 
-<com.google.android.material.textfield.TextInputLayout
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/passwordLayout"
         style="@style/LoginTextInputOuterFieldStyle"
-        android:layout_width="match_parent"
-    android:layout_height="25dp"
+        android:layout_width="370dp"
+        android:layout_height="37dp"
         android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="24dp"
-    android:background="@drawable/rounded_background"
+        android:layout_marginTop="16dp"
         app:boxStrokeColor="@color/lavendar"
         app:hintTextColor="@color/lavendar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.609"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/emailLayout"
         app:passwordToggleEnabled="true">
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/passET"
-        style="@style/LoginTextInputInnerFieldStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Type Your Password"
-        android:inputType="textPassword"
-        android:paddingLeft="10dp"
-        android:paddingTop="1dp" />
-</com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/passET"
+            style="@style/LoginTextInputInnerFieldStyle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="Type Your Password"
+            android:inputType="textPassword"
+            android:paddingLeft="10dp"
+            android:paddingTop="10dp" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/confirmPasswordLayout"
         style="@style/LoginTextInputOuterFieldStyle"
-        android:layout_width="match_parent"
-        android:layout_height="25dp"
+        android:layout_width="369dp"
+        android:layout_height="36dp"
         android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="24dp"
-        android:background="@drawable/rounded_background"
+        android:layout_marginTop="16dp"
         app:boxStrokeColor="@color/lavendar"
         app:hintTextColor="@color/lavendar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.625"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/passwordLayout"
         app:passwordToggleEnabled="true">
@@ -79,11 +85,11 @@
             android:id="@+id/confirmPassEt"
             style="@style/LoginTextInputInnerFieldStyle"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
-            android:paddingTop="1dp"
+            android:layout_height="30dp"
             android:hint="Retype Your Password"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:paddingLeft="10dp"
+            android:paddingTop="10dp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <androidx.appcompat.widget.AppCompatButton
@@ -119,5 +125,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button"
         app:layout_constraintVertical_bias="0.15" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
 
