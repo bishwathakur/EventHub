@@ -23,7 +23,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/emailEt"
             style="@style/LoginTextInputInnerFieldStyle"
-            android:hint="Type your Email"
+            android:hint="@string/hint_email"
             android:inputType="textEmailAddress" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -46,19 +46,20 @@
             style="@style/LoginTextInputInnerFieldStyle"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="Type Your Password"
+            android:hint="@string/hint_pass"
             android:inputType="textPassword" />
     </com.google.android.material.textfield.TextInputLayout>
+
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/button"
-        android:layout_width="105dp"
-        android:layout_height="38dp"
+        android:layout_width="117dp"
+        android:layout_height="48dp"
         android:layout_marginHorizontal="16dp"
         android:background="@drawable/rect"
         android:gravity="center"
-        android:text="Sign In"
+        android:text="@string/Sign_In"
         android:textColor="@color/white"
-        android:textSize="15dp"
+        android:textSize="15sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -73,9 +74,9 @@
         android:layout_height="41dp"
         android:gravity="center"
         android:paddingTop="1dp"
-        android:text="Not Registered Yet , Sign Up !"
+        android:text="@string/Not_reg"
         android:textColor="@color/black"
-        android:textSize="12dp"
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -111,6 +112,12 @@
         android:orientation="vertical"
         app:layout_constraintGuide_begin="20dp" />
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="20dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
