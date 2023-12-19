@@ -63,7 +63,7 @@
         android:layout_width="0sp"
         android:layout_height="50sp"
         android:layout_marginHorizontal="16sp"
-        app:boxStrokeColor="@color/lavendar"
+        app:boxStrokeColor="@color/deeppurple"
         app:hintTextColor="@color/lavendar"
         app:layout_constraintDimensionRatio="37:5"
         app:layout_constraintEnd_toEndOf="@id/guideline2"
