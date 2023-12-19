@@ -14,6 +14,7 @@
         android:layout_height="50sp"
         android:layout_marginTop="350sp"
         app:boxBackgroundColor="@color/white"
+        app:boxStrokeColor="@color/deeppurple"
         app:hintTextColor="@color/lavendar"
         app:layout_constraintDimensionRatio="37:5"
         app:layout_constraintEnd_toEndOf="@id/guideline2"
@@ -25,7 +26,10 @@
             style="@style/LoginTextInputInnerFieldStyle"
             android:hint="@string/hint_email"
             android:inputType="textEmailAddress"
-            android:textColorHint="#757575" />
+            app:layout_constraintDimensionRatio="37:5"
+            app:layout_constraintEnd_toEndOf="@id/guideline2"
+            app:layout_constraintStart_toStartOf="@id/guideline"
+            android:paddingTop="6sp"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -34,7 +38,7 @@
         android:layout_width="0sp"
         android:layout_height="50sp"
         android:layout_marginHorizontal="16sp"
-        app:boxStrokeColor="@color/lavendar"
+        app:boxStrokeColor="@color/deeppurple"
         app:hintTextColor="@color/lavendar"
         app:layout_constraintDimensionRatio="37:5"
         app:layout_constraintEnd_toEndOf="@id/guideline2"
@@ -49,7 +53,8 @@
             android:layout_height="match_parent"
             android:hint="@string/hint_pass"
             android:inputType="textPassword"
-            android:textColorHint="#757575" />
+            android:textColorHint="#757575"
+            android:paddingTop="6sp"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <androidx.appcompat.widget.AppCompatButton

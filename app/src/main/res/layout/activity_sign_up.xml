@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/background_signup">
 
-    <!-- Repeat the same modification for passwordLayout and confirmPasswordLayout -->
+
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/emailLayout"
@@ -15,6 +15,7 @@
         android:layout_height="50sp"
         android:layout_marginTop="350sp"
         app:boxBackgroundColor="@color/white"
+        app:boxStrokeColor="@color/deeppurple"
         app:hintTextColor="@color/lavendar"
         app:layout_constraintDimensionRatio="37:5"
         app:layout_constraintEnd_toEndOf="@id/guideline2"
@@ -28,7 +29,8 @@
             android:inputType="textEmailAddress"
             app:layout_constraintDimensionRatio="37:5"
             app:layout_constraintEnd_toEndOf="@id/guideline2"
-            app:layout_constraintStart_toStartOf="@id/guideline" />
+            app:layout_constraintStart_toStartOf="@id/guideline"
+            android:paddingTop="6sp"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -37,7 +39,8 @@
         android:layout_width="0sp"
         android:layout_height="50sp"
         android:layout_marginHorizontal="16sp"
-        app:boxStrokeColor="@color/lavendar"
+        app:boxBackgroundColor="@color/white"
+        app:boxStrokeColor="@color/deeppurple"
         app:hintTextColor="@color/lavendar"
         app:layout_constraintDimensionRatio="37:5"
         app:layout_constraintEnd_toEndOf="@id/guideline2"
@@ -52,7 +55,8 @@
             android:inputType="textPassword"
             app:layout_constraintDimensionRatio="37:5"
             app:layout_constraintEnd_toEndOf="@id/guideline2"
-            app:layout_constraintStart_toStartOf="@id/guideline" />
+            app:layout_constraintStart_toStartOf="@id/guideline"
+            android:paddingTop="6sp"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -74,7 +78,8 @@
             android:id="@+id/confirmPassEt"
             style="@style/LoginTextInputInnerFieldStyle"
             android:hint="@string/hint_confpass"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:paddingTop="6sp"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <androidx.appcompat.widget.AppCompatButton
