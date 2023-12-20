@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import com.example.eventhub.databinding.ActivitySignUpBinding
 import com.google.firebase.auth.FirebaseAuth
@@ -51,12 +52,24 @@ class SignUpActivity : AppCompatActivity() {
                 }
             } else {
                 Toast.makeText(this, "Empty Fields Are not Allowed !!", Toast.LENGTH_SHORT).show()
-                setContentView(R.layout.activity_main)
-                return@setOnClickListener back.setOnClickListener{
-                    onBackPressed()
-                }
-
             }
+            setContentView(R.layout.activity_sign_up)
+            binding.backButton.setOnClickListener {
+                // Handle back button press
+                onBackPressedDispatcher.onBackPressed()
+            }
+
+            // Create an onBackPressedCallback
+            val callback = object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    // Your custom back button logic goes here
+                    // For example, you can finish the activity
+                    finish()
+                }
+            }
+
+            // Add the callback to the onBackPressedDispatcher
+            onBackPressedDispatcher.addCallback(this, callback)
         }
     }
 }
