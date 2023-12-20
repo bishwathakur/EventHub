@@ -75,7 +75,7 @@
         app:layout_constraintVertical_bias="0" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/gotosignup"
         android:layout_width="0sp"
         android:layout_height="0sp"
         android:gravity="center"

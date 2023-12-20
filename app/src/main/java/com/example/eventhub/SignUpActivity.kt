@@ -2,6 +2,7 @@ package com.example.eventhub
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.eventhub.databinding.ActivitySignUpBinding
@@ -16,11 +17,15 @@ class SignUpActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         binding = ActivitySignUpBinding.inflate(layoutInflater)
+        setContentView(R.layout.activity_main)
+        binding.backButton.setOnClickListener {
+            onBackPressed()
+        }
         setContentView(binding.root)
 
         firebaseAuth = FirebaseAuth.getInstance()
 
-        binding.textView.setOnClickListener {
+        binding.gotosignin.setOnClickListener {
             val intent = Intent(this, SignInActivity::class.java)
             startActivity(intent)
         }
@@ -46,6 +51,10 @@ class SignUpActivity : AppCompatActivity() {
                 }
             } else {
                 Toast.makeText(this, "Empty Fields Are not Allowed !!", Toast.LENGTH_SHORT).show()
+                setContentView(R.layout.activity_main)
+                return@setOnClickListener back.setOnClickListener{
+                    onBackPressed()
+                }
 
             }
         }

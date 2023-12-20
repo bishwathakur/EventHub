@@ -7,4 +7,6 @@
     <string name="Sign_In">Sign In</string>
     <string name="Already_reg">Already Registered , Sign In!</string>
     <string name="Not_reg">Not Registered Yet , Sign Up!</string>
+    <string name="back_button">back button</string>
+    <string name="events_list">Events List:-</string>
 </resources>

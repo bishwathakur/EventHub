@@ -7,7 +7,6 @@
     android:background="@drawable/background_signup">
 
 
-
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/emailLayout"
         style="@style/LoginTextInputOuterFieldStyle"
@@ -78,6 +77,7 @@
             android:hint="@string/hint_confpass"
             android:inputType="textPassword"
             android:paddingTop="6sp" />
+
     </com.google.android.material.textfield.TextInputLayout>
 
     <androidx.appcompat.widget.AppCompatButton
@@ -99,8 +99,21 @@
         app:layout_constraintVertical_bias="0"
         tools:ignore="TouchTargetSizeCheck" />
 
+    <ImageView
+        android:id="@+id/back_button"
+        android:layout_width="38dp"
+        android:layout_height="38dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_back"
+        android:contentDescription="@string/back_button"
+        android:clickable="true"
+        android:focusable="true" />
+
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/gotosignin"
         android:layout_width="0sp"
         android:layout_height="0sp"
         android:gravity="center"
