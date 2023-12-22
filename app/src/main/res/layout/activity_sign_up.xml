@@ -85,7 +85,7 @@
         android:layout_width="0sp"
         android:layout_height="0sp"
         android:layout_marginHorizontal="16sp"
-        android:background="@drawable/rect"
+        android:background="@drawable/rounded_lavendar_corner"
         android:gravity="center"
         android:text="@string/Sign_Up"
         android:textColor="@color/white"

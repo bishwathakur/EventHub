@@ -23,12 +23,16 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/emailEt"
             style="@style/LoginTextInputInnerFieldStyle"
+            android:gravity="center_vertical"
             android:hint="@string/hint_email"
             android:inputType="textEmailAddress"
+            android:paddingTop="6sp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textColorHighlight="@color/black"
+            android:textColorLink="@color/black"
             app:layout_constraintDimensionRatio="37:5"
             app:layout_constraintEnd_toEndOf="@id/guideline2"
-            app:layout_constraintStart_toStartOf="@id/guideline"
-            android:paddingTop="6sp"/>
+            app:layout_constraintStart_toStartOf="@id/guideline" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -52,8 +56,9 @@
             android:layout_height="match_parent"
             android:hint="@string/hint_pass"
             android:inputType="textPassword"
-            android:textColorHint="#757575"
-            android:paddingTop="6sp"/>
+            android:paddingTop="6sp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textColorHint="#757575" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <androidx.appcompat.widget.AppCompatButton
@@ -61,7 +66,7 @@
         android:layout_width="0sp"
         android:layout_height="0sp"
         android:layout_marginHorizontal="16sp"
-        android:background="@drawable/rect"
+        android:background="@drawable/rounded_lavendar_corner"
         android:gravity="center"
         android:text="@string/Sign_In"
         android:textColor="@color/white"
@@ -124,6 +129,18 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.76" />
+    <ImageView
+        android:id="@+id/back_button"
+        android:layout_width="38dp"
+        android:layout_height="38dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_back"
+        android:contentDescription="@string/back_button"
+        android:clickable="true"
+        android:focusable="true" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
