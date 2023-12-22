@@ -25,7 +25,7 @@ class SignInActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        binding.button.setOnClickListener {
+        binding.buttonSignin.setOnClickListener {
             val email = binding.emailEt.text.toString()
             val pass = binding.passET.text.toString()
 
@@ -44,6 +44,19 @@ class SignInActivity : AppCompatActivity() {
                 Toast.makeText(this, "Empty Fields Are not Allowed !!", Toast.LENGTH_SHORT).show()
 
             }
+            setContentView(R.layout.activity_sign_in)
+            binding.backButton.setOnClickListener {
+                // Handle back button press
+                onBackPressedDispatcher.onBackPressed()
+            }
+
+            // Create an onBackPressedCallback
+            val callback = object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    finish()
+                }
+            }
+            onBackPressedDispatcher.addCallback(this, callback)
 
         }
     }
@@ -52,7 +65,7 @@ class SignInActivity : AppCompatActivity() {
         super.onStart()
 
         if(firebaseAuth.currentUser != null){
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, Addprofile::class.java)
             startActivity(intent)
         }
     }
