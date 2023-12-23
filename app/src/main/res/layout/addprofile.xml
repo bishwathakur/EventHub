@@ -35,7 +35,8 @@
                     android:adjustViewBounds="true"
                     android:background="@android:color/transparent"
                     android:scaleType="centerInside"
-                    app:srcCompat="@drawable/ic_lavendar_back" />
+                    app:srcCompat="@drawable/ic_lavendar_back"
+                    android:contentDescription="BACK" />
 
                 <ImageView
                     android:id="@+id/imageButton"
@@ -127,7 +128,7 @@
                             android:id="@+id/etusermail"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="Email Address"
+                            android:hint="@string/hint_email"
                             android:inputType="textEmailAddress"
                             android:textColor="#232f34"
                             android:textColorHint="#4a6572" />
@@ -150,6 +151,7 @@
                                 android:textColorHint="#4a6572" />
 
                     </com.google.android.material.textfield.TextInputLayout>
+
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/userplacebox"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
