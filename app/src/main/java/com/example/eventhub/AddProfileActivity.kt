@@ -14,7 +14,7 @@ import com.google.firebase.database.FirebaseDatabase
 
 
 
-class Addprofile : AppCompatActivity() {
+class AddProfileActivity : AppCompatActivity() {
 
     private lateinit var binding: AddprofileBinding
     private lateinit var auth: FirebaseAuth
@@ -43,13 +43,15 @@ class Addprofile : AppCompatActivity() {
             if (uid != null) {
 
                 dataBaseReference.child(uid).setValue(user).addOnCompleteListener {
-                    if (it.isSuccessful) {
+                    if(it.isSuccessful) {
 
+                        val intent = Intent(this, MainActivity::class.java)
+                        startActivity(intent)
 
                     } else {
 
                         hideProgessBar()
-                        Toast.makeText(this@Addprofile, "Failed", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@AddProfileActivity, "Failed", Toast.LENGTH_SHORT).show()
                     }
                 }
             }
@@ -58,7 +60,7 @@ class Addprofile : AppCompatActivity() {
 
     private fun showProgressBar() {
 
-        dialog = Dialog(this@Addprofile)
+        dialog = Dialog(this@AddProfileActivity)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setContentView(R.layout.dialog_wait)
         dialog.setCanceledOnTouchOutside(false)

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="10dp"
-    tools:context=".Addprofile">
+    tools:context=".AddProfileActivity">
 
 
     <androidx.core.widget.NestedScrollView
@@ -178,7 +178,7 @@
                     <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/addButton"
                         android:layout_width="match_parent"
-                        android:layout_height="45dp"
+                        android:layout_height="48dp"
                         android:background="@drawable/rounded_lavendar_corner"
                         android:text="@string/add"
                         android:textColor="@color/black" />

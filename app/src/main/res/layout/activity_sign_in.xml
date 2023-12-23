@@ -75,7 +75,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/hint_pass"
-                        android:inputType="textEmailAddress"
+                        android:inputType="textPassword"
                         android:textColor="#232f34"
                         android:textColorHint="#4a6572" />
 
