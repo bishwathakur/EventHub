@@ -3,6 +3,7 @@ package com.example.eventhub
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import com.example.eventhub.databinding.ActivitySignInBinding
 import com.google.firebase.auth.FirebaseAuth
@@ -49,6 +50,20 @@ class SignInActivity : AppCompatActivity() {
             }
 
         }
+        binding.backButton.setOnClickListener {
+            // Handle back button press
+            onBackPressedDispatcher.onBackPressed()
+        }
+
+        // Create an onBackPressedCallback
+        val callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                finish()
+            }
+        }
+
+        // Add the callback to the onBackPressedDispatcher
+        onBackPressedDispatcher.addCallback(this, callback)
     }
 
 }

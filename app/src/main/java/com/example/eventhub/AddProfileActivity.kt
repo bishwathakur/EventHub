@@ -29,6 +29,8 @@ class AddProfileActivity : AppCompatActivity() {
         binding = AddprofileBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+
+
         auth = FirebaseAuth.getInstance()
         val uid = auth.currentUser?.uid
         dataBaseReference = FirebaseDatabase.getInstance().getReference("Users")
@@ -45,7 +47,7 @@ class AddProfileActivity : AppCompatActivity() {
             if (uid != null) {
 
                 dataBaseReference.child(uid).setValue(user).addOnCompleteListener {
-                    if(it.isSuccessful) {
+                    if (it.isSuccessful) {
 
                         val intent = Intent(this, MainActivity::class.java)
                         startActivity(intent)
@@ -69,16 +71,12 @@ class AddProfileActivity : AppCompatActivity() {
         dialog.show()
 
 
-
     }
-    private fun hideProgessBar(){
+
+    private fun hideProgessBar() {
         dialog.dismiss()
     }
-    override fun onStart() {
-        super.onStart()
-        val intent = Intent(this, MainActivity::class.java)
-        startActivity(intent)
-    }
+
 }
 
 
