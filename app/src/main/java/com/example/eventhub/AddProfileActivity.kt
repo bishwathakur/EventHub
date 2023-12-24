@@ -25,8 +25,10 @@ class AddProfileActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
+
         binding = AddprofileBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         auth = FirebaseAuth.getInstance()
         val uid = auth.currentUser?.uid
         dataBaseReference = FirebaseDatabase.getInstance().getReference("Users")
