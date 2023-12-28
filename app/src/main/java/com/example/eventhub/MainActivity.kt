@@ -27,7 +27,5 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        // Add the callback to the onBackPressedDispatcher
-        onBackPressedDispatcher.addCallback(this, callback)
     }
 }

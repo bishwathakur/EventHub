@@ -8,6 +8,7 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+
     <style name="Theme.LoginAndSignUp" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
 
@@ -42,7 +43,13 @@
         <item name="android:textSize">14sp</item>
         <item name="android:singleLine">true</item>
     </style>
-    
+
+    <style name="Base.Theme.LearnFragment" parent="Theme.Material3.DayNight.NoActionBar">
+
+        <item name="colorPrimary">@color/blue</item>
+        <item name="colorPrimaryVariant">@color/blue</item>
+        <item name="android:statusBarColor">@color/lavendar</item>
+        </style>
 
 
-</resources>
+        </resources>
