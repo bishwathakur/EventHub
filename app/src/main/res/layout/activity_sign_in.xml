@@ -9,8 +9,10 @@
 
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -37,10 +39,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="12dp"
                 android:orientation="vertical"
-                android:paddingTop="270dp"
-                android:layout_margin="12dp">
-
+                android:paddingTop="270dp">
 
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -48,6 +49,7 @@
                     style="@style/LoginTextInputOuterFieldStyle"
                     app:endIconMode="clear_text"
                     app:startIconDrawable="@drawable/ic_person">
+
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/emailEt"
                         android:layout_width="match_parent"
@@ -64,8 +66,8 @@
                     android:id="@+id/passwordLayout"
                     style="@style/LoginTextInputOuterFieldStyle"
                     android:paddingTop="20dp"
-                    app:startIconDrawable="@drawable/baseline_password_24"
-                    app:passwordToggleEnabled="true">
+                    app:passwordToggleEnabled="true"
+                    app:startIconDrawable="@drawable/baseline_password_24">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/passET"
@@ -84,15 +86,15 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="30dp"
+                android:layout_margin="12dp"
                 android:orientation="vertical"
-                android:layout_margin="12dp">
+                android:paddingTop="30dp">
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/buttonSignin"
+                    style="@style/BUTTON"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
-                    android:background="@drawable/rounded_lavendar_corner"
                     android:text="@string/Sign_In"
                     android:textColor="@color/black" />
 
@@ -102,11 +104,12 @@
                     android:layout_height="45dp"
                     android:gravity="center"
                     android:text="@string/Not_reg"
-                    android:textColor="@color/black"
+                    style="@style/TEXT"
                     android:textSize="13sp"
                     tools:ignore="TextSizeCheck" />
 
             </LinearLayout>
+
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>

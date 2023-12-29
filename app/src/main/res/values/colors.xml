@@ -18,4 +18,6 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="trans">#00000000</color>
+    <color name="blue">#5865F2</color>
+    <color name="dark">#343541</color>
 </resources>

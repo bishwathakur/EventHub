@@ -46,7 +46,7 @@
                     android:adjustViewBounds="true"
                     android:background="@drawable/rounded_background"
                     android:scaleType="centerInside"
-                    app:srcCompat="@drawable/logo" />
+                    app:srcCompat="@drawable/slice" />
 
                 <ImageView
                     android:id="@+id/imageButton1"
@@ -57,7 +57,7 @@
                     android:background="@android:color/transparent"
                     android:paddingTop="10dp"
                     android:scaleType="centerInside"
-                    app:srcCompat="@drawable/add_profilepic" />
+                    android:src="@drawable/add_profilepic" />
 
 
             </LinearLayout>
@@ -78,7 +78,7 @@
                         android:fontFamily="@font/roboto_bold"
                         android:gravity="center"
                         android:text="Let's Get Started!"
-                        android:textColor="@color/black"
+                        style="@style/TextAppearance.AppCompat.Subhead"
                         android:textSize="24sp" />
 
                     <TextView
@@ -89,7 +89,7 @@
                         android:fontFamily="@font/roboto_light"
                         android:gravity="center"
                         android:text="Enter your Personal Details"
-                        android:textColor="@color/black"
+                        style="@style/TEXT"
                         android:textSize="19sp" />
                 </LinearLayout>
                 <LinearLayout
@@ -180,8 +180,9 @@
                     <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/addButton"
                         android:layout_width="match_parent"
+                        style="@style/BUTTON"
                         android:layout_height="48dp"
-                        android:background="@drawable/rounded_lavendar_corner"
+                        android:background="@drawable/rounded_button_bg"
                         android:text="@string/add"
                         android:textColor="@color/black" />
 

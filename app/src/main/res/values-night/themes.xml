@@ -6,16 +6,41 @@
     <style name="Theme.EventHub" parent="Theme.MaterialComponents.NoActionBar">
         <!-- Primary brand color. -->
 
-        <item name="colorPrimary">@color/purple_500</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
-        <item name="colorOnPrimary">@color/white</item>
+
         <!-- Secondary brand color. -->
 
         <!-- Status bar color. -->
+        <item name="android:statusBarColor" >@color/lavendar</item>
 
-        <item name="android:statusBarColor" >@color/purple_700</item>
+        <!-- Bg style dark mode -->
+        <item name="android:windowBackground">@color/dark</item>
+
+
         <!-- Customize your theme here. -->
     </style>
+
+    <!-- Bg style dark mode -->
+    <style name="bg">
+
+    </style>
+
+    <!-- Button style dark mode -->
+    <style name="BUTTON">
+        <item name="android:background">@drawable/rounded_button_bg_dark</item>
+    </style>
+
+
+    <!-- text style dark mode -->
+    <style name="TEXT">
+        <item name="android:color">@color/white</item>
+    </style>
+
+
+    <!--invert text style dark mode -->
+    <style name="INV_TEXT">
+        <item name="android:color">@color/black</item>
+    </style>
+
 
 
 
@@ -31,8 +56,8 @@
     <style name="LoginTextInputInnerFieldStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textColor">@color/black</item>
-        <item name="android:textColorHint">@color/black</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textColorHint">@color/white</item>
         <item name="android:maxLines">1</item>
         <item name="android:textSize">14sp</item>
         <item name="android:singleLine">true</item>
