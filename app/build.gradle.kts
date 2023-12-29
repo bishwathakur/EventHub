@@ -89,6 +89,10 @@ dependencies {
     implementation("com.google.android.material:material:1.1.0-alpha09")
     implementation("com.google.android.material:material:1.5.0")
 
+
+    //Responsivity library
+    implementation ("com.intuit.sdp:sdp-android:1.1.0")
+
     //Firebase Libraries
 
     implementation(libs.firebase.database)

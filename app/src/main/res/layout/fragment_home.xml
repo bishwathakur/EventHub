@@ -1,43 +1,65 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8" ?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="wrap_content"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/background"
-    tools:context=".Home"
-    android:orientation="vertical">
+    tools:context=".Home">
 
-    <ImageView
-        android:id="@+id/back_button"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="15dp"
-        android:adjustViewBounds="true"
-        android:background="@android:color/transparent"
-        android:contentDescription="BACK"
-        app:srcCompat="@drawable/ic_back" />
 
-    <TextView
-        android:id="@+id/textView"
+    <LinearLayout
+        android:orientation="vertical"
+        android:id="@+id/frameLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:fontFamily="@font/baloo_paaji"
+        android:background="@color/lavendar">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="72dp"
+            android:contentDescription="bg"
+            android:fontFamily="@font/baloo_paaji"
+            android:gravity="center"
+            android:src="@drawable/slice" />
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:gravity="center"
         android:text="Events Around You \n R.N."
         android:textColor="@color/white"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent" />
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/home_rec"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="411dp"
+        android:layout_height="824dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/frameLayout"
         tools:listitem="@layout/item_events" />
 
 
-</LinearLayout>
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/uploadButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="20dp"
+        android:backgroundTint="@color/lavendar"
+        android:src="@drawable/baseline_add"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:tint="@color/white" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

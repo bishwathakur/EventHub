@@ -15,20 +15,6 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.backButton.setOnClickListener {
-            // Handle back button press
-            onBackPressedDispatcher.onBackPressed()
-        }
-
-        // Create an onBackPressedCallback
-        val callback = object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                finish()
-            }
-        }
-
-        // Add the callback to the onBackPressedDispatcher
-        onBackPressedDispatcher.addCallback(this, callback)
         }
 
     }
