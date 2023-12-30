@@ -40,12 +40,17 @@
 
     <!-- Bg style dark mode -->
     <style name="bg">
-        <item name="android:background">@color/trans</item>
+        <item name="android:background">#ba86fc</item>
     </style>
 
 
     <style name="CardColor">
         <item name="android:background">@color/white</item>
+    </style>
+
+
+    <style name="ProfileLayout">
+        <item name="backgroundColor">@color/trans</item>
     </style>
 
 

@@ -92,8 +92,7 @@
                         android:layout_height="wrap_content"
                         android:hint="@string/hint_confpass"
                         android:textColor="#232f34"
-                        android:textColorHint="#4a6572"
-                        app:passwordToggleEnabled="true" />
+                        android:textColorHint="#4a6572" />
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
 

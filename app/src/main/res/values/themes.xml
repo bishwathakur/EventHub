@@ -40,6 +40,10 @@
     </style>
 
 
+    <style name="ProfileLayout">
+        <item name="backgroundColor">@color/trans</item>
+    </style>
+
 
 
 
@@ -63,8 +67,7 @@
     </style>
 
 
-    #ba86fc
-    #6200ee
+
 
 
 
