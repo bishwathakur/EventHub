@@ -29,9 +29,14 @@
 
 
 
+    <style name="bg">
+        <item name="android:background">@color/lavendar</item>
+    </style>
 
-    <style name="addprofilepic">
-        <item name="app:srcCompat">@drawable/add_profilepic</item>
+
+    <style name="CardColor">
+        <item name="android:background">@color/white</item>
+        <item name="colorButtonNormal">@color/lavendar</item>
     </style>
 
 
@@ -56,6 +61,11 @@
         <item name="android:textSize">14sp</item>
         <item name="android:singleLine">true</item>
     </style>
+
+
+    #ba86fc
+    #6200ee
+
 
 
 

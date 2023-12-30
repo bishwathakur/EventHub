@@ -19,10 +19,7 @@
         <!-- Customize your theme here. -->
     </style>
 
-    <!-- Bg style dark mode -->
-    <style name="bg">
 
-    </style>
 
     <!-- Button style dark mode -->
     <style name="BUTTON">
@@ -39,6 +36,16 @@
     <!--invert text style dark mode -->
     <style name="INV_TEXT">
         <item name="android:color">@color/black</item>
+    </style>
+
+    <!-- Bg style dark mode -->
+    <style name="bg">
+        <item name="android:background">@color/trans</item>
+    </style>
+
+
+    <style name="CardColor">
+        <item name="android:background">@color/white</item>
     </style>
 
 
