@@ -5,7 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="wrap_content"
     android:layout_width="match_parent"
-    tools:context=".Home">
+    tools:context=".Home"
+    android:layout_marginTop="10dp">
 
 
     <LinearLayout
@@ -22,14 +23,15 @@
             android:src="@drawable/ic_back"/>
 
         <ImageView
+            android:paddingLeft="5dp"
             android:id="@+id/imageView"
-            android:layout_width="304dp"
+            android:layout_width="293dp"
             android:layout_height="72dp"
-            android:background="rou"
+            android:background="@drawable/rounded_background"
             android:contentDescription="bg"
             android:fontFamily="@font/baloo_paaji"
             android:gravity="center"
-            android:src="@drawable/slice" />
+            android:src="@drawable/logoo" />
 
     </LinearLayout>
 
