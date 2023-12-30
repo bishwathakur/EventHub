@@ -3,21 +3,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/home2">
+    app:startDestination="@id/home">
     <fragment
-        android:id="@+id/home2"
+        android:id="@+id/home"
         android:name="com.example.eventhub.Home"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
         <action
-            android:id="@+id/action_home2_to_profile"
+            android:id="@+id/action_home_to_profile"
             app:destination="@id/profile" />
         <action
-            android:id="@+id/action_home2_to_chats2"
-            app:destination="@id/chats2" />
+            android:id="@+id/action_home_to_chats"
+            app:destination="@id/chats" />
     </fragment>
+
     <fragment
-        android:id="@+id/chats2"
+        android:id="@+id/chats"
         android:name="com.example.eventhub.Chats"
         android:label="fragment_chats"
         tools:layout="@layout/fragment_chats" />
