@@ -44,6 +44,13 @@
     </style>
 
 
+
+    <!-- Text color-->
+    <style name="txtcolo">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+
     <style name="CardColor">
         <item name="android:background">@color/white</item>
     </style>

@@ -33,6 +33,11 @@
         <item name="android:background">@color/lavendar</item>
     </style>
 
+    <!-- Text color-->
+    <style name="txtcolo">
+        <item name="android:textColor">@color/b</item>
+    </style>
+
 
     <style name="CardColor">
         <item name="android:background">@color/white</item>
