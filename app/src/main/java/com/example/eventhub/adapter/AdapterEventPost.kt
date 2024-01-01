@@ -13,7 +13,7 @@ import com.google.firebase.database.core.Context
 class AdapterEventPost(val c:Context,val eventList:ArrayList<Event>) : RecyclerView.Adapter<AdapterEventPost.UserViewHolder>()
 {
     inner class UserViewHolder(val v: View) :RecyclerView.ViewHolder(v) {
-        val eventimage = v.findViewById<TextView>(R.id.ins_event_photo)
+//        val eventimage = v.findViewById<TextView>(R.id.ins_event_photo)
         val eventname = v.findViewById<TextView>(R.id.ins_event_name)
         val eventdate = v.findViewById<TextView>(R.id.ins_event_date)
         val eventvenue = v.findViewById<TextView>(R.id.ins_event_venue)

@@ -8,14 +8,7 @@
         android:id="@+id/home"
         android:name="com.example.eventhub.Home"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" >
-        <action
-            android:id="@+id/action_home_to_profile"
-            app:destination="@id/profile" />
-        <action
-            android:id="@+id/action_home_to_chats"
-            app:destination="@id/chats" />
-    </fragment>
+        tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/chats"
