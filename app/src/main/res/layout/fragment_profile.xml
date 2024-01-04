@@ -55,7 +55,7 @@
             app:layout_constraintTop_toBottomOf="@+id/profiletop">
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/dp"
+                android:id="@+id/userpfp"
                 android:layout_width="@dimen/_98sdp"
                 android:layout_height="@dimen/_98sdp"
                 android:foregroundGravity="center"
@@ -77,7 +77,7 @@
             android:layout_height="wrap_content"
             android:text="UPLOAD"
             android:textColor="#FFFFFF"
-            android:visibility="visible"
+            android:visibility="invisible"
             app:icon="@android:drawable/ic_menu_upload"
             app:iconTint="#FFFFFF"
             app:layout_constraintBottom_toBottomOf="@+id/profilepiclayout"

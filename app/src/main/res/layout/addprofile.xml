@@ -48,16 +48,21 @@
                     android:scaleType="centerInside"
                     app:srcCompat="@drawable/slice" />
 
-                <ImageView
-                    android:id="@+id/imageButton1"
-                    android:layout_width="222dp"
-                    android:layout_height="217dp"
-                    android:layout_gravity="center"
-                    android:adjustViewBounds="true"
-                    android:background="@android:color/transparent"
-                    android:paddingTop="10dp"
-                    android:scaleType="centerInside"
-                    android:src="@drawable/add_profilepic" />
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/etuserpfp"
+                        android:layout_width="222dp"
+                        android:layout_height="217dp"
+                        android:paddingTop="10dp"
+                        android:src="@drawable/add_profilepic"
+                        app:civ_border_width="2dp"
+                        app:civ_border_color="@color/lavendar"/>
+
+                </FrameLayout>
 
 
             </LinearLayout>
@@ -112,7 +117,7 @@
                             android:layout_height="wrap_content"
                             android:hint="@string/name"
                             android:inputType="textPersonName"
-                            android:textColor="#232f34"
+                            style="@style/txtcolo"
                             android:textColorHint="#4a6572" />
                     </com.google.android.material.textfield.TextInputLayout>
                     <com.google.android.material.textfield.TextInputLayout
@@ -130,7 +135,7 @@
                             android:layout_height="wrap_content"
                             android:hint="@string/hint_email"
                             android:inputType="textEmailAddress"
-                            android:textColor="#232f34"
+                            style="@style/txtcolo"
                             android:textColorHint="#4a6572" />
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -147,7 +152,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:hint="@string/userid"
-                                android:textColor="#232f34"
+                                style="@style/txtcolo"
                                 android:textColorHint="#4a6572" />
 
                     </com.google.android.material.textfield.TextInputLayout>
@@ -166,7 +171,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/location"
-                            android:textColor="#232f34"
+                            style="@style/txtcolo"
                             android:textColorHint="#4a6572" />
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -184,7 +189,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="Contact no."
-                            android:textColor="#232f34"
+                            style="@style/txtcolo"
                             android:textColorHint="#4a6572" />
                     </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>

@@ -54,7 +54,7 @@
                         android:layout_height="wrap_content"
                         android:hint="@string/hint_email"
                         android:inputType="textEmailAddress"
-                        android:textColor="#232f34"
+                        style="@style/txtcolo"
                         android:textColorHint="#4a6572" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -73,7 +73,7 @@
                         android:layout_height="wrap_content"
                         android:hint="@string/hint_pass"
                         android:inputType="textEmailAddress"
-                        android:textColor="#232f34"
+                        style="@style/txtcolo"
                         android:textColorHint="#4a6572" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -91,7 +91,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/hint_confpass"
-                        android:textColor="#232f34"
+                        style="@style/txtcolo"
                         android:textColorHint="#4a6572" />
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
