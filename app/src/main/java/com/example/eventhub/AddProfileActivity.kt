@@ -2,17 +2,25 @@ package com.example.eventhub
 
 import android.app.Dialog
 import android.content.Intent
+import android.media.Image
+import android.net.Uri
 import android.os.Bundle
+import android.view.View
 import android.view.Window
+import android.widget.Button
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.activity.result.ActivityResultCallback
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.example.eventhub.databinding.AddprofileBinding
 import com.example.eventhub.models.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
 
 
 class AddProfileActivity : AppCompatActivity() {
@@ -23,12 +31,17 @@ class AddProfileActivity : AppCompatActivity() {
     private lateinit var dialog: Dialog
 
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
 
         binding = AddprofileBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+
+
+
 
 
 
@@ -45,7 +58,7 @@ class AddProfileActivity : AppCompatActivity() {
             val userplace = binding.etuserplace.text.toString()
             val userphone = binding.etuserphone.text.toString()
 
-            val user = User(name, email, userid, userplace)
+            val user = User(name, email, userid, userplace, userphone)
             if (uid != null) {
 
                 dataBaseReference.child(uid).setValue(user).addOnCompleteListener {

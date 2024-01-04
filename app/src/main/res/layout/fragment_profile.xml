@@ -71,6 +71,21 @@
                 android:src="@drawable/baseline_add_a_photo_24" />
         </FrameLayout>
 
+        <Button
+            android:id="@+id/upload"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="UPLOAD"
+            android:textColor="#FFFFFF"
+            android:visibility="visible"
+            app:icon="@android:drawable/ic_menu_upload"
+            app:iconTint="#FFFFFF"
+            app:layout_constraintBottom_toBottomOf="@+id/profilepiclayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/profilepiclayout"
+            app:layout_constraintTop_toTopOf="@+id/profilepiclayout"
+            app:layout_constraintVertical_bias="0.52" />
+
         <LinearLayout
             android:id="@id/linearLayout2"
             android:layout_width="wrap_content"
