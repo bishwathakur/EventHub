@@ -43,6 +43,7 @@ class AddProfileActivity : AppCompatActivity() {
             val email = binding.etusermail.text.toString()
             val userid = binding.etuserid.text.toString()
             val userplace = binding.etuserplace.text.toString()
+            val userphone = binding.etuserphone.text.toString()
 
             val user = User(name, email, userid, userplace)
             if (uid != null) {
@@ -92,6 +93,8 @@ class AddProfileActivity : AppCompatActivity() {
     private fun hideProgessBar() {
         dialog.dismiss()
     }
+
+
 
 }
 

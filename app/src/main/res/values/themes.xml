@@ -7,10 +7,7 @@
         <!-- Primary brand color. -->
 
         <!-- Status bar color. -->
-
         <item name="android:statusBarColor" >@color/lavendar</item>
-
-
         <!-- Bg style dark mode -->
         <item name="android:windowBackground">@color/white</item>
 
@@ -35,7 +32,7 @@
 
     <!-- Text color-->
     <style name="txtcolo">
-        <item name="android:textColor">@color/b</item>
+        <item name="android:textColor">@color/black</item>
     </style>
 
 

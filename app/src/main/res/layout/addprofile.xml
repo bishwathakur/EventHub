@@ -169,6 +169,24 @@
                             android:textColor="#232f34"
                             android:textColorHint="#4a6572" />
                     </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/userphonebox"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="3dp"
+                        app:endIconMode="clear_text"
+                        app:startIconDrawable="@drawable/baseline_phone">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etuserphone"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Contact no."
+                            android:textColor="#232f34"
+                            android:textColorHint="#4a6572" />
+                    </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
