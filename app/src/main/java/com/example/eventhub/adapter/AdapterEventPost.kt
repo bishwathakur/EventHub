@@ -1,56 +1,105 @@
-package com.example.eventhub.adapter
+package com.example.socialmediaapp.adapter
 
-import android.content.Intent
+import android.content.Context
+import android.net.Uri
+import android.text.format.DateFormat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.RequestManager
+import com.example.eventhub.databinding.ItemEventsBinding
 import com.example.eventhub.R
 import com.example.eventhub.models.Event
+import com.example.eventhub.models.EventDetails
+import com.example.eventhub.repository.Repository
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.ValueEventListener
+import java.util.*
 
-class AdapterEventPost(private var events: MutableList<Event>) :
-    RecyclerView.Adapter<AdapterEventPost.ViewHolder>() {
+class AdapterPost(
+    private val context: Context,
+    private val repository: Repository,
+    private val glide: RequestManager,
+    private val auth: FirebaseAuth,
+    private val  binding: ItemEventsBinding
+) : RecyclerView.Adapter<AdapterPost.PostViewHolder>() {
 
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val itemImage: TextView = itemView.findViewById(R.id.ins_event_photo)
-        val itemName: TextView = itemView.findViewById(R.id.ins_event_name)
-        val itemDate: TextView = itemView.findViewById(R.id.ins_event_date)
-        val itemVenue: TextView = itemView.findViewById(R.id.ins_event_venue)
-        val itemUser: TextView = itemView.findViewById(R.id.ins_event_byuser)
+    inner class PostViewHolder(val binding: ItemEventsBinding) : RecyclerView.ViewHolder(binding.root)
 
-        init {
-            itemView.setOnClickListener {
-                // Handle click event if needed
-                // Example: val clickedEvent = events[adapterPosition]
-//
+    var posts: List<EventDetails> = ArrayList()
+    var myUid: String? = null
+
+    init {
+        myUid = auth.currentUser?.uid
+    }
+
+    fun setList(posts: List<EventDetails>) {
+        this.posts = posts
+        notifyDataSetChanged()
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder =
+        PostViewHolder(ItemEventsBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+
+    override fun getItemCount(): Int {
+        return posts.size
+    }
+
+    override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
+        val post = posts[position]
+        holder.binding.apply {
+            //user data
+            postUserName.text = post.userName
+            glide.load(post.userImage).into(postUserPicture)
+            //post data
+            //get time from timestamp
+            val cal = Calendar.getInstance(Locale.getDefault())
+            cal.timeInMillis = if (post.postTime.isNotEmpty()) post.postTime.toLong() else 0
+
+            val time = DateFormat.format("dd/MM/yyyy hh:mm aa", cal).toString()
+            postTimeIv.text = time
+            postCaption.text = post.caption
+            postLikesTV.text = post.postLikes.toString()
+            postCommentTV.text = post.postComments.toString()
+            postTextAnyone.text = post.postFans
+
+            // ... (continue adapting the code based on AdapterEventPost)
+            // ...
+
+            postLikeBtn.setOnClickListener {
+                onItemClickListenerForLike?.let { it(post) }
+                notifyDataSetChanged()
+            }
+
+            setLikes(holder, post.postId)
+
+            postUserPicture.setOnClickListener {
+                onItemClickListenerForGoingtoOwner?.let { it(post) }
+            }
+            postUserName.setOnClickListener {
+                onItemClickListenerForGoingtoOwner?.let { it(post) }
+            }
+
+            postCommentBtn.setOnClickListener {
+                onItemClickListener?.let { it(post) }
+            }
+
+            holder.itemView.setOnClickListener {
+                onItemClickListener?.let { it(post) }
             }
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_events, parent, false)
-        return ViewHolder(view)
-    }
+    // ... (continue adapting the code based on AdapterEventPost)
+    // ...
 
-    override fun getItemCount(): Int {
-        return events.size
-    }
+    // Add the missing functions for AdapterPost
+    // ...
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val currentEvent = events[position]
+    // You can copy the functions setLikes and translate from AdapterEventPost
+    // ...
 
-        // Update UI with event details
-        holder.itemImage.text = currentEvent.eventimage // Update with the correct property
-        holder.itemName.text = currentEvent.eventname
-        holder.itemDate.text = currentEvent.eventdate
-        holder.itemVenue.text = currentEvent.eventvenue
-        holder.itemUser.text = currentEvent.eventbyuser
-    }
-
-    // Add a method to update the data dynamically
-    fun addData(newEvent: Event) {
-        events.add(newEvent)
-        notifyItemInserted(events.size - 1)
-    }
 }
