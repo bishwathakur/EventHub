@@ -48,7 +48,7 @@
                 >
 
                 <TextView
-                    android:id="@+id/NameOfEvent"
+                    android:id="@+id/event_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="NameOfEvent"
@@ -68,7 +68,7 @@
                         android:orientation="vertical"
                         >
                         <TextView
-                            android:id="@+id/eventvenue"
+                            android:id="@+id/event_venue"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="EventVenue"
@@ -81,7 +81,15 @@
 
                     </LinearLayout>
 
+
                 </FrameLayout>
+                <TextView
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:id="@+id/event_time"
+                    android:text="33min "
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    />
 
             </LinearLayout>
 
@@ -140,7 +148,7 @@
             >
 
             <Button
-                android:id="@+id/post_like_btn"
+                android:id="@+id/event_like_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"

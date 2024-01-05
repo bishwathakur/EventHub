@@ -25,9 +25,9 @@ class AdapterPost(
     private val glide: RequestManager,
     private val auth: FirebaseAuth,
     private val  binding: ItemEventsBinding
-) : RecyclerView.Adapter<AdapterPost.PostViewHolder>() {
+) : RecyclerView.Adapter<AdapterPost.EventViewHolder>() {
 
-    inner class PostViewHolder(val binding: ItemEventsBinding) : RecyclerView.ViewHolder(binding.root)
+    inner class EventViewHolder(val binding: ItemEventsBinding) : RecyclerView.ViewHolder(binding.root)
 
     var posts: List<EventDetails> = ArrayList()
     var myUid: String? = null
@@ -41,18 +41,18 @@ class AdapterPost(
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder =
-        PostViewHolder(ItemEventsBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventViewHolder =
+        EventViewHolder(ItemEventsBinding.inflate(LayoutInflater.from(parent.context), parent, false))
 
     override fun getItemCount(): Int {
         return posts.size
     }
 
-    override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: EventViewHolder, position: Int) {
         val post = posts[position]
         holder.binding.apply {
             //user data
-            postUserName.text = post.userName
+            eventName.text = post.userName
             glide.load(post.userImage).into(postUserPicture)
             //post data
             //get time from timestamp
@@ -60,30 +60,32 @@ class AdapterPost(
             cal.timeInMillis = if (post.postTime.isNotEmpty()) post.postTime.toLong() else 0
 
             val time = DateFormat.format("dd/MM/yyyy hh:mm aa", cal).toString()
-            postTimeIv.text = time
-            postCaption.text = post.caption
+            eventTime.text = time
             postLikesTV.text = post.postLikes.toString()
             postCommentTV.text = post.postComments.toString()
-            postTextAnyone.text = post.postFans
 
             // ... (continue adapting the code based on AdapterEventPost)
             // ...
 
-            postLikeBtn.setOnClickListener {
+            val onItemClickListenerForLike: ((EventDetails) -> Unit)? = null
+            eventLikeBtn.setOnClickListener {
                 onItemClickListenerForLike?.let { it(post) }
                 notifyDataSetChanged()
             }
 
             setLikes(holder, post.postId)
 
+            val onItemClickListenerForGoingtoOwner: ((EventDetails) -> Unit)? = null
             postUserPicture.setOnClickListener {
                 onItemClickListenerForGoingtoOwner?.let { it(post) }
             }
-            postUserName.setOnClickListener {
+
+
+            eventName.setOnClickListener {
                 onItemClickListenerForGoingtoOwner?.let { it(post) }
             }
-
-            postCommentBtn.setOnClickListener {
+            val onItemClickListener: ((EventDetails) -> Unit)? = null
+            eventCommentBtn.setOnClickListener {
                 onItemClickListener?.let { it(post) }
             }
 
@@ -93,13 +95,27 @@ class AdapterPost(
         }
     }
 
-    // ... (continue adapting the code based on AdapterEventPost)
-    // ...
+    private fun setLikes(holder1: EventViewHolder, postKey: String) {
+        repository.refDatabase.child("Likes").addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                holder1.binding.apply {
+                    if (dataSnapshot.child(postKey).hasChild(myUid!!)) {
+                        //user has liked for this post
+                        eventLikeBtn.setCompoundDrawablesWithIntrinsicBounds(
+                            R.drawable.ic_like, 0, 0, 0)
+                        eventLikeBtn.text = "Liked"
+                    } else {
+                        //user has not liked for this post
+                        eventLikeBtn.setCompoundDrawablesWithIntrinsicBounds(
+                            R.drawable.ic_like_not, 0, 0, 0)
+                        eventLikeBtn.text = "Like"
+                    }
+                }
 
-    // Add the missing functions for AdapterPost
-    // ...
+            }
 
-    // You can copy the functions setLikes and translate from AdapterEventPost
-    // ...
+            override fun onCancelled(databaseError: DatabaseError) {}
+        })
+    }
 
 }
