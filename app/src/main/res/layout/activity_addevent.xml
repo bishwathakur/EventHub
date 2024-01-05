@@ -1,161 +1,162 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<androidx.core.widget.NestedScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".adapter.AddEventActivity">
+    tools:context=".AddEventActivity">
 
-
-    <LinearLayout
-        android:id="@+id/linearLayout"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/Addeventlayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/background_rounded"
-        android:orientation="vertical"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/background_rounded"
+            android:orientation="vertical"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="@dimen/_38sdp"
+                    android:layout_height="@dimen/_38sdp"
+                    android:layout_margin="@dimen/_8sdp"
+                    android:contentDescription="@string/back_button"
+                    android:src="@drawable/ic_back_black" />
+
+                <ImageView
+                    android:id="@+id/imageView4"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:layout_marginRight="@dimen/_50sdp"
+                    android:background="@drawable/rounded_background"
+                    android:contentDescription="bg"
+                    android:src="@drawable/logoo" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_12sdp"
+                android:gravity="center_horizontal"
+                android:text="ADD EVENT"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_18sdp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/ins_event_photo"
+            android:layout_width="@dimen/_120sdp"
+            android:layout_height="@dimen/_120sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+            android:src="@drawable/ic_addphoto"
+            app:civ_border_width="2dp"
+            app:civ_border_color="@color/lavendar"
+            android:layout_marginTop="@dimen/_12sdp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="@dimen/_38sdp"
-                android:layout_height="@dimen/_38sdp"
-                android:layout_margin="@dimen/_8sdp"
-                android:contentDescription="@string/back_button"
-                android:src="@drawable/ic_back_black" />
-
-            <ImageView
-                android:id="@+id/imageView4"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_30sdp"
-                android:layout_gravity="center"
-                android:layout_marginLeft="@dimen/_10sdp"
-                android:layout_marginRight="@dimen/_50sdp"
-                android:background="@drawable/rounded_background"
-                android:contentDescription="bg"
-                android:src="@drawable/logoo" />
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/_12sdp"
-            android:gravity="center_horizontal"
-            android:text="ADD EVENT"
-            android:textColor="@color/white"
-            android:textSize="@dimen/_18sdp"
-            android:textStyle="bold" />
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@+id/ins_event_photo"
+            android:layout_margin="@dimen/_12sdp">
 
-    </LinearLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/event_namebox"
+                style="@style/LoginTextInputOuterFieldStyle"
+                app:endIconMode="clear_text"
+                app:startIconDrawable="@drawable/ic_event">
 
-    <ImageView
-        android:id="@+id/ins_event_photo"
-        android:layout_width="@dimen/_120sdp"
-        android:layout_height="@dimen/_120sdp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        android:src="@drawable/ic_addphoto"
-        android:layout_marginTop="@dimen/_12sdp" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/ins_event_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/name_of_the_event"
+                    style="@style/txtcolo"
+                    android:textColorHint="#4a6572" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@+id/ins_event_photo"
-        android:layout_margin="@dimen/_12sdp">
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/event_namebox"
-            style="@style/LoginTextInputOuterFieldStyle"
-            app:endIconMode="clear_text"
-            app:startIconDrawable="@drawable/ic_event">
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/event_datebox"
+                style="@style/LoginTextInputOuterFieldStyle"
+                app:endIconMode="clear_text"
+                app:startIconDrawable="@drawable/ic_date">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/ins_event_name"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/ins_event_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/date_of_the_event"
+                    android:inputType="date"
+                    style="@style/txtcolo"
+                    android:textColorHint="#4a6572" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/event_venuebox"
+                style="@style/LoginTextInputOuterFieldStyle"
+                app:endIconMode="clear_text"
+                app:startIconDrawable="@drawable/baseline_place_24">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/ins_event_venue"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Venue Of The Event"
+                    style="@style/txtcolo"
+                    android:textColorHint="#4a6572" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/event_byuserbox"
+                style="@style/LoginTextInputOuterFieldStyle"
+                app:endIconMode="clear_text"
+                app:startIconDrawable="@drawable/ic_userid">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/ins_event_byuser"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/event_by_user"
+                    style="@style/txtcolo"
+                    android:textColorHint="#4a6572" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/addeventbtn"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/name_of_the_event"
-                android:textColor="#232f34"
-                android:textColorHint="#4a6572" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/event_datebox"
-            style="@style/LoginTextInputOuterFieldStyle"
-            app:endIconMode="clear_text"
-            app:startIconDrawable="@drawable/ic_date">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/ins_event_date"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/date_of_the_event"
-                android:textColor="#232f34"
-                android:textColorHint="#4a6572" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/event_venuebox"
-            style="@style/LoginTextInputOuterFieldStyle"
-            app:endIconMode="clear_text"
-            app:startIconDrawable="@drawable/baseline_place_24">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/ins_event_venue"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Venue Of The Event"
-                android:textColor="#232f34"
-                android:textColorHint="#4a6572" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/event_byuserbox"
-            style="@style/LoginTextInputOuterFieldStyle"
-            app:endIconMode="clear_text"
-            app:startIconDrawable="@drawable/ic_userid">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/ins_event_byuser"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/event_by_user"
-                android:textColor="#232f34"
-                android:textColorHint="#4a6572" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/buttonSignup"
-            android:layout_width="match_parent"
-            style="@style/BUTTON"
-            android:layout_height="45dp"
-            android:text="@string/add"
-            android:textColor="@color/black"
-            android:layout_marginTop="@dimen/_18sdp"
-            />
+                style="@style/BUTTON"
+                android:layout_height="45dp"
+                android:text="@string/add"
+                android:textColor="@color/black"
+                android:layout_marginTop="@dimen/_18sdp" />
 
 
 
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-
-
-
-    </LinearLayout>
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

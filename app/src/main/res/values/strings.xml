@@ -25,4 +25,7 @@
     <string name="event_by_user">Event By User</string>
     <string name="chats">Chats</string>
     <string name="register">Register</string>
+    <string name="eventbyuser">EventbyUser</string>
+    <string name="comments">Comments</string>
+    <string name="eventdate">EventDate</string>
 </resources>

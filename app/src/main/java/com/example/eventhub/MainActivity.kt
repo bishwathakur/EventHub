@@ -30,6 +30,7 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
+
     }
 
     private fun replaceFragment(fragment: Fragment) {
@@ -38,6 +39,8 @@ class MainActivity : AppCompatActivity() {
         fragmentTransaction.replace(R.id.main_fragment, fragment)
         fragmentTransaction.commit()
     }
+
+
 
 
 

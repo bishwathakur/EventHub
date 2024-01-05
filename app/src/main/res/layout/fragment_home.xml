@@ -19,12 +19,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <ImageView
-                android:layout_width="@dimen/_30sdp"
-                android:layout_height="@dimen/_30sdp"
-                android:layout_margin="@dimen/_8sdp"
-                android:contentDescription="@string/back_button"
-                android:src="@drawable/ic_back" />
+
 
             <ImageView
                 android:id="@+id/imageView"
@@ -34,7 +29,7 @@
                 android:background="@drawable/rounded_background"
                 android:contentDescription="bg"
                 android:src="@drawable/logoo"
-                android:layout_marginLeft="@dimen/_40sdp"
+                android:layout_marginLeft="@dimen/_70sdp"
                 android:layout_marginRight="@dimen/_70sdp"/>
 
         </LinearLayout>
@@ -73,19 +68,15 @@
             tools:listitem="@layout/item_events" />
 
 
-
-
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/addButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="20dp"
             android:backgroundTint="@color/lavendar"
             android:src="@drawable/baseline_add"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:tint="@color/white" />
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="@+id/imageView2"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

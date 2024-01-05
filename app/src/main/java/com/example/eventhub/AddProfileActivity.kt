@@ -81,9 +81,7 @@ class AddProfileActivity : AppCompatActivity() {
                             val mapImage = mapOf(
                                 "userpfp" to it.toString()
                             )
-                            val databaseReference =
-                                FirebaseDatabase.getInstance().getReference("Users")
-
+                            val databaseReference = FirebaseDatabase.getInstance().getReference("Userpfps")
                             databaseReference.child(userId).setValue(mapImage)
 
                         }
@@ -93,32 +91,29 @@ class AddProfileActivity : AppCompatActivity() {
             val email = binding.etusermail.text.toString()
             val userid = binding.etuserid.text.toString()
             val userplace = binding.etuserplace.text.toString()
-            val userpfp = uri.toString()
             val userphone = binding.etuserphone.text.toString()
+            val userpfp = uri.toString()
 
 
-            do {
-
-                if (userphone.matches(Regex("\\d{10}"))) {
-
-
-                    Toast.makeText(this@AddProfileActivity, "Phone number is valid", Toast.LENGTH_SHORT).show()
-                } else {
-
-
-                    Toast.makeText(this@AddProfileActivity, "Invalid phone number", Toast.LENGTH_SHORT).show()
-
-                }
-            }while (!userphone.matches(Regex("\\d{10}")))
+//            if (userphone.matches(Regex("\\d{10}"))) {
+//
+//
+//                Toast.makeText(this@AddProfileActivity, "Phone number is valid", Toast.LENGTH_SHORT).show()
+//
+//            } else {
+//
+//
+//                Toast.makeText(this@AddProfileActivity, "Invalid phone number", Toast.LENGTH_SHORT).show()
+//
+//            }
 
 
-
-
-            val user = User(name, email, userid, userplace, userphone, userpfp)
+            val user = User(name, email, userid, userplace, userphone)
             if (uid != null) {
 
-                dataBaseReference.child(uid).setValue(user).addOnCompleteListener {
-                    if (it.isSuccessful) {
+                dataBaseReference.child(uid).setValue(user)
+                    .addOnCompleteListener {task ->
+                    if (task.isSuccessful) {
 
                         val intent = Intent(this, MainActivity::class.java)
                         startActivity(intent)
@@ -127,10 +122,11 @@ class AddProfileActivity : AppCompatActivity() {
                     } else {
 
                         hideProgessBar()
-                        Toast.makeText(this@AddProfileActivity, "Failed", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@AddProfileActivity, "Failed: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
                     }
                 }
             }
+
         }
             binding.backButton.setOnClickListener {
                 // Handle back button press
@@ -148,15 +144,23 @@ class AddProfileActivity : AppCompatActivity() {
             onBackPressedDispatcher.addCallback(this, callback)
         }
 
+    private fun showProgressBar() {
+        if (!isFinishing && !isDestroyed) {
+            dialog = Dialog(this@AddProfileActivity)
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+            dialog.setContentView(R.layout.dialog_wait)
+            dialog.setCanceledOnTouchOutside(false)
 
-    private fun showProgressBar(){
+            // Set up any other dialog configurations here
 
-        dialog = Dialog(this@AddProfileActivity)
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        dialog.setContentView(R.layout.dialog_wait)
-        dialog.setCanceledOnTouchOutside(false)
-        dialog.show()
+            if (!isFinishing && !isDestroyed) {
+                dialog.show()
+            }
+        }
     }
+
+
+
     private fun hideProgessBar() {
         dialog.dismiss()
     }

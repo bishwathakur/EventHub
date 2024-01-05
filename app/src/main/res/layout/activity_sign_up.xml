@@ -72,7 +72,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/hint_pass"
-                        android:inputType="textEmailAddress"
+                        android:inputType="textPassword"
                         style="@style/txtcolo"
                         android:textColorHint="#4a6572" />
 
@@ -91,6 +91,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/hint_confpass"
+                        android:inputType="textPassword"
                         style="@style/txtcolo"
                         android:textColorHint="#4a6572" />
                 </com.google.android.material.textfield.TextInputLayout>

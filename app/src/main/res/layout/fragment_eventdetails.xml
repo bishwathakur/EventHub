@@ -18,8 +18,6 @@
             android:orientation="vertical">
 
             <androidx.cardview.widget.CardView
-                xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -94,7 +92,58 @@
                                         android:textSize="14sp" />
 
 
+                                </LinearLayout>
 
+                            </FrameLayout>
+
+
+                            <FrameLayout
+                                android:layout_width="190dp"
+                                android:layout_height="30dp"
+                                android:layout_gravity="right"
+                                android:layout_marginTop="8dp"
+                                android:background="@drawable/rounded_button_bgg"
+                                android:paddingHorizontal="20dp"
+                                android:paddingVertical="2dp">
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical"
+                                    android:layout_gravity="center">
+
+                                    <TextView
+                                        android:id="@+id/eventdate"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="@string/eventdate"
+                                        android:textColor="@color/white"
+                                        android:textSize="20sp" />
+
+                                </LinearLayout>
+
+                            </FrameLayout>
+
+                            <FrameLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"
+                                android:background="@drawable/rounded_button_bgg"
+                                android:paddingHorizontal="20dp"
+                                android:paddingVertical="2dp">
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:id="@+id/eventbyuser"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="@string/eventbyuser"
+                                        android:textColor="@color/white"
+                                        android:textSize="14sp" />
 
 
                                 </LinearLayout>
@@ -182,7 +231,23 @@
                         />
 
                     </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center"
+                        style="@style/ProfileLayout">
 
+                        <Button
+                            android:id="@+id/event_register_btn"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:layout_weight="1"
+                            android:text="@string/register"
+                            android:textAllCaps="false"
+                            app:icon="@drawable/baseline_add"/>
+                    </LinearLayout>
 
 
 
@@ -195,15 +260,13 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Comments"
+                android:text="@string/comments"
                 style="@style/txtcolo"
-                android:drawableStart="@drawable/baseline_comment_24"
                 android:padding="2dp"
                 android:textStyle="italic"
-                android:drawableLeft="@drawable/baseline_comment_24"
                 android:drawablePadding="5dp"
-
-                />
+                app:drawableStartCompat="@drawable/baseline_comment_24"
+                app:drawableLeftCompat="@drawable/baseline_comment_24" />
 
             <ProgressBar
                 android:id="@+id/det_ProgressBar_comments"

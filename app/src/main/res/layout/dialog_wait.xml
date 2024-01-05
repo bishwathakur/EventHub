@@ -13,7 +13,7 @@
     android:textColor="@color/black"
     android:textSize="18dp"/>
 
-    <com.jpardogo.android.googleprogressbar.library.GoogleProgressBar
+    <com.google.android.material.progressindicator.CircularProgressIndicator
         android:id="@+id/google_progress"
         android:layout_width="50dp"
         android:layout_height="50dp"
