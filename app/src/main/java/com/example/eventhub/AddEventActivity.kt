@@ -1,6 +1,5 @@
 package com.example.eventhub
 
-import android.app.Activity
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.net.Uri
@@ -8,12 +7,17 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.DatePicker
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.example.eventhub.databinding.ActivityAddeventBinding
+import com.example.eventhub.models.EventDetails
+
+import com.example.eventhub.adapter.AdapterEventPost
 import com.example.eventhub.models.Event
+import com.example.eventhub.repository.Repository
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
@@ -21,7 +25,7 @@ import com.google.firebase.storage.FirebaseStorage
 import java.text.SimpleDateFormat
 import java.util.Calendar
 
-class AddEventActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
+class AddEventActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener{
 
     private lateinit var binding: ActivityAddeventBinding
     private lateinit var databaseReference: DatabaseReference
@@ -30,21 +34,26 @@ class AddEventActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener
     private lateinit var Eventpic: ImageView
     private lateinit var AddEvent: Button
     private lateinit var auth: FirebaseAuth
+    private lateinit var EventAdapter: AdapterEventPost
+    private lateinit var repository: Repository
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
 
         binding = ActivityAddeventBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         Eventpic = binding.insEventPhoto
         AddEvent = binding.addeventbtn
+        EventAdapter = AdapterEventPost(this, repository, Glide.with(this), FirebaseAuth.getInstance(), ArrayList<EventDetails>())
+        // Make sure to pass an empty list of EventDetails
 
         storageRef = FirebaseStorage.getInstance()
-
         auth = FirebaseAuth.getInstance()
 
-        binding.insEventDate.setOnClickListener {
+        binding.insEventdate.setOnClickListener {
             showDatePickerDialog()
         }
 
@@ -60,7 +69,7 @@ class AddEventActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener
         }
 
         binding.addeventbtn.setOnClickListener {
-            uploadEventDetails()
+            uploadEvent()
         }
     }
 
@@ -81,10 +90,10 @@ class AddEventActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener
         val dateFormat = SimpleDateFormat("yyyy-MM-dd")
         val formattedDate = dateFormat.format(selectedDate.time)
 
-        binding.insEventDate.setText(formattedDate)
+        binding.insEventdate.setText(formattedDate)
     }
 
-    private fun uploadEventDetails() {
+    private fun uploadEvent() {
         val userId = auth.currentUser?.uid
 
         storageRef.getReference("eventphoto").child(System.currentTimeMillis().toString())
@@ -92,26 +101,39 @@ class AddEventActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener
             .addOnSuccessListener { task ->
                 task.metadata!!.reference!!.downloadUrl
                     .addOnSuccessListener { imageUrl ->
-                        val mapImage = mapOf("eventphoto" to imageUrl.toString())
-                        val databaseReference = FirebaseDatabase.getInstance().getReference("Users")
-                        userId?.let { uid ->
-                            databaseReference.child(uid).setValue(mapImage)
-                        }
+                        val event = Event(
+                            eventname = binding.insEventname.text.toString(),
+                            eventdate = binding.insEventdate.text.toString(),
+                            eventvenue = binding.insEventvenue.text.toString(),
+                            eventbyuser = binding.insEventByuser.text.toString()
+                            // ... Other properties
+                        )
 
-                        // Load the image using Glide
-                        Glide.with(this)
-                            .load(imageUrl)
-                            .into(Eventpic)
+                        EventAdapter.addData(event)
+                        userId?.let { uid ->
+                            FirebaseDatabase.getInstance().getReference("Events").child(uid)
+                                .push().setValue(event)
+                                .addOnSuccessListener {
+                                    EventAdapter.addData(event) // Update the adapter with the new event
+                                    Toast.makeText(this, "Event Published", Toast.LENGTH_SHORT).show()
+                                }
+                                .addOnFailureListener { e ->
+                                    Toast.makeText(this, "Failed to publish event", Toast.LENGTH_SHORT).show()
+                                }
+                        }
                     }
             }
 
-        val eventimage = uri.toString()
-        val eventname = binding.insEventName.text.toString()
-        val eventdate = binding.insEventDate.text.toString()
-        val eventvenue = binding.insEventVenue.text.toString()
-        val eventbyuser = binding.insEventByuser.text.toString()
-
-        // Continue with processing the event details as needed...
     }
-}
 
+    fun openEventDetailsActivity(event: EventDetails) {
+        // Implement code to open EventDetailsActivity
+        // You can use Intent to start the activity
+        val intent = Intent(this, EventDetailsActivity::class.java)
+        // Pass event data to the EventDetailsActivity
+        intent.putExtra("eventDetails", event)
+        startActivity(intent)
+    }
+
+
+}

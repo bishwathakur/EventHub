@@ -84,7 +84,7 @@
                 app:startIconDrawable="@drawable/ic_event">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/ins_event_name"
+                    android:id="@+id/ins_eventname"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/name_of_the_event"
@@ -100,7 +100,7 @@
                 app:startIconDrawable="@drawable/ic_date">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/ins_event_date"
+                    android:id="@+id/ins_eventdate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/date_of_the_event"
@@ -118,7 +118,7 @@
                 app:startIconDrawable="@drawable/baseline_place_24">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/ins_event_venue"
+                    android:id="@+id/ins_eventvenue"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Venue Of The Event"

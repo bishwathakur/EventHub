@@ -1,35 +1,32 @@
-package com.example.socialmediaapp.adapter
+package com.example.eventhub.adapter
 
-import android.content.Context
-import android.net.Uri
 import android.text.format.DateFormat
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.RequestManager
-import com.example.eventhub.databinding.ItemEventsBinding
+import com.example.eventhub.AddEventActivity
 import com.example.eventhub.R
+import com.example.eventhub.databinding.ItemEventsBinding
 import com.example.eventhub.models.Event
 import com.example.eventhub.models.EventDetails
 import com.example.eventhub.repository.Repository
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import java.util.*
 
-class AdapterPost(
-    private val context: Context,
+class AdapterEventPost(
+    private val context: AddEventActivity,
     private val repository: Repository,
     private val glide: RequestManager,
     private val auth: FirebaseAuth,
-    private val  binding: ItemEventsBinding
-) : RecyclerView.Adapter<AdapterPost.EventViewHolder>() {
+    private var events: MutableList<EventDetails>
+) : RecyclerView.Adapter<AdapterEventPost.ViewHolder>() {
 
-    inner class EventViewHolder(val binding: ItemEventsBinding) : RecyclerView.ViewHolder(binding.root)
+    inner class ViewHolder(val binding: ItemEventsBinding) : RecyclerView.ViewHolder(binding.root)
 
-    var posts: List<EventDetails> = ArrayList()
     var myUid: String? = null
 
     init {
@@ -37,65 +34,82 @@ class AdapterPost(
     }
 
     fun setList(posts: List<EventDetails>) {
-        this.posts = posts
+        this.events = posts.toMutableList()
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventViewHolder =
-        EventViewHolder(ItemEventsBinding.inflate(LayoutInflater.from(parent.context), parent, false))
-
-    override fun getItemCount(): Int {
-        return posts.size
+    fun addData(newEvent: Event) {
+        events.add(newEvent)
+        notifyItemInserted(events.size - 1)
     }
 
-    override fun onBindViewHolder(holder: EventViewHolder, position: Int) {
-        val post = posts[position]
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
+        ViewHolder(ItemEventsBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+
+    override fun getItemCount(): Int {
+        return events.size
+    }
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val event = events[position]
         holder.binding.apply {
             //user data
-            eventName.text = post.userName
-            glide.load(post.userImage).into(postUserPicture)
-            //post data
+            glide.load(event.userImage).into(postUserPicture)
+
+//            postEventName.setOnClickListener {
+//                onItemClickListenerForGoingtoOwner?.let { it(event) }
+//            }
+
+            //event data
+//            postEventName.text = event.eventname
+//            postEventDate.text = event.eventdate
+//            postEventVenue.text = event.eventvenue
+//            postEventByuser.text = event.eventbyuser
+
             //get time from timestamp
             val cal = Calendar.getInstance(Locale.getDefault())
-            cal.timeInMillis = if (post.postTime.isNotEmpty()) post.postTime.toLong() else 0
+            cal.timeInMillis = if (event.postTime.isNotEmpty()) event.postTime.toLong() else 0
 
             val time = DateFormat.format("dd/MM/yyyy hh:mm aa", cal).toString()
-            eventTime.text = time
-            postLikesTV.text = post.postLikes.toString()
-            postCommentTV.text = post.postComments.toString()
+            postLikesTV.text = event.postLikes.toString()
+            postCommentTV.text = event.postComments.toString()
 
             // ... (continue adapting the code based on AdapterEventPost)
             // ...
 
             val onItemClickListenerForLike: ((EventDetails) -> Unit)? = null
             eventLikeBtn.setOnClickListener {
-                onItemClickListenerForLike?.let { it(post) }
+                onItemClickListenerForLike?.let { it(event) }
                 notifyDataSetChanged()
             }
 
-            setLikes(holder, post.postId)
+            setLikes(holder, event.postId)
 
-            val onItemClickListenerForGoingtoOwner: ((EventDetails) -> Unit)? = null
+
+            var onItemClickListenerForGoingtoOwner: ((EventDetails) -> Unit)? = null
+
+            fun setOnItemClickListenerForGoingtoOwner(listener: (EventDetails) -> Unit) {
+                onItemClickListenerForGoingtoOwner = listener
+            }
             postUserPicture.setOnClickListener {
-                onItemClickListenerForGoingtoOwner?.let { it(post) }
+                onItemClickListenerForGoingtoOwner?.let { it(event) }
             }
 
-
-            eventName.setOnClickListener {
-                onItemClickListenerForGoingtoOwner?.let { it(post) }
+            postEventName.setOnClickListener {
+                onItemClickListenerForGoingtoOwner?.let { it(event) }
             }
             val onItemClickListener: ((EventDetails) -> Unit)? = null
             eventCommentBtn.setOnClickListener {
-                onItemClickListener?.let { it(post) }
+                onItemClickListener?.let { it(event) }
             }
 
             holder.itemView.setOnClickListener {
-                onItemClickListener?.let { it(post) }
+                onItemClickListener?.let { it(event) }
             }
         }
     }
 
-    private fun setLikes(holder1: EventViewHolder, postKey: String) {
+    private fun setLikes(holder1: ViewHolder, postKey: String) {
         repository.refDatabase.child("Likes").addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 holder1.binding.apply {
@@ -111,11 +125,11 @@ class AdapterPost(
                         eventLikeBtn.text = "Like"
                     }
                 }
-
             }
 
             override fun onCancelled(databaseError: DatabaseError) {}
         })
     }
+
 
 }

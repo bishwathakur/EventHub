@@ -48,7 +48,7 @@
                 >
 
                 <TextView
-                    android:id="@+id/event_name"
+                    android:id="@+id/post_event_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="NameOfEvent"
@@ -56,28 +56,54 @@
                     android:textSize="24sp"
                     android:textStyle="bold" />
 
+
+
+                    <FrameLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingHorizontal="20dp"
+                        android:paddingVertical="2dp"
+                        android:background="@drawable/rounded_button_bgg">
+
+
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            >
+                            <TextView
+                                android:id="@+id/post_event_venue"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="EventVenue"
+                                android:textColor="@color/white"
+                                android:textSize="14sp" />
+
+                        </LinearLayout>
+
+
+                    </FrameLayout>
                 <FrameLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingHorizontal="20dp"
-                    android:paddingVertical="2dp"
+                    android:padding="@dimen/_3sdp"
                     android:background="@drawable/rounded_button_bgg">
+
+
+
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
                         >
                         <TextView
-                            android:id="@+id/event_venue"
+                            android:id="@+id/post_event_date"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="EventVenue"
+                            android:text="EventDate"
                             android:textColor="@color/white"
                             android:textSize="14sp" />
-
-
-
-
 
                     </LinearLayout>
 
@@ -85,8 +111,16 @@
                 </FrameLayout>
                 <TextView
                     android:layout_marginLeft="@dimen/_10sdp"
-                    android:id="@+id/event_time"
+                    android:id="@+id/post_event_time"
                     android:text="33min "
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    />
+
+                <TextView
+                    android:layout_marginLeft="@dimen/_2sdp"
+                    android:id="@+id/post_event_byuser"
+                    android:text="@string/eventbyuser"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     />

@@ -73,7 +73,7 @@ class Profile : Fragment() {
             tvuserphone.text = userphone
 
             // Load profile picture using Glide
-            Glide.with(this)
+            Glide.with(requireContext())
                 .load(userpfp)
                 .into(image)
 
