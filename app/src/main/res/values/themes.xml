@@ -5,11 +5,14 @@
 
     <style name="Theme.EventHub" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Primary brand color. -->
-
+        <item name="colorPrimary">@color/blue</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" >@color/lavendar</item>
         <!-- Bg style dark mode -->
         <item name="android:windowBackground">@color/white</item>
+
+
+        <item name="cardBackgroundColor">#F3E4DBDB</item>
 
     </style>
 
@@ -67,12 +70,4 @@
         <item name="android:textSize">14sp</item>
         <item name="android:singleLine">true</item>
     </style>
-
-
-
-
-
-
-
-
 </resources>

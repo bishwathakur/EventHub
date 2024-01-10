@@ -1,11 +1,10 @@
 package com.example.eventhub
 
 import android.app.Dialog
-import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.provider.ContactsContract.Data
 import android.view.Window
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
@@ -19,9 +18,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
-import android.view.*
-import android.widget.Button
-
 
 class AddProfileActivity : AppCompatActivity() {
 
@@ -30,15 +26,13 @@ class AddProfileActivity : AppCompatActivity() {
     private lateinit var dialog: Dialog
     private lateinit var image: ImageView
 
-    private lateinit var uri : Uri
-    private lateinit var addBtn : Button
+    private var uri: Uri? = null
+    private lateinit var addBtn: Button
 
-    private lateinit var dataBaseReference : DatabaseReference
-    private lateinit var storageRef : FirebaseStorage
-
+    private lateinit var dataBaseReference: DatabaseReference
+    private lateinit var storageRef: FirebaseStorage
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
         super.onCreate(savedInstanceState)
 
         binding = AddprofileBinding.inflate(layoutInflater)
@@ -57,138 +51,91 @@ class AddProfileActivity : AppCompatActivity() {
                 uri = it!!
             })
 
-        image.setOnClickListener{
+        image.setOnClickListener {
             galleryImage.launch("image/*")
         }
-
-
-
 
         auth = FirebaseAuth.getInstance()
         val uid = auth.currentUser?.uid
         binding.addButton.setOnClickListener {
 
-            showProgressBar()
+            if (!isFinishing && !isDestroyed) {
+                dialog = Dialog(this@AddProfileActivity)
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+                dialog.setContentView(R.layout.dialog_wait)
+                dialog.setCanceledOnTouchOutside(false)
 
-
-            storageRef.getReference("pfp").child(System.currentTimeMillis().toString())
-                .putFile(uri)
-                .addOnSuccessListener { task ->
-                    task.metadata!!.reference!!.downloadUrl
-                        .addOnSuccessListener {
-                            val userId = auth.currentUser!!.uid
-
-                            val mapImage = mapOf(
-                                "userpfp" to it.toString()
-                            )
-                            val databaseReference = FirebaseDatabase.getInstance().getReference("Userpfps")
-                            databaseReference.child(userId).setValue(mapImage)
-
-                        }
-
+                if (!isFinishing && !isDestroyed) {
+                    dialog.show()
                 }
+            }
+
             val name = binding.etusername.text.toString()
             val email = binding.etusermail.text.toString()
             val userid = binding.etuserid.text.toString()
             val userplace = binding.etuserplace.text.toString()
             val userphone = binding.etuserphone.text.toString()
-            val userpfp = uri.toString()
+
+            val selectedUri = uri
 
 
-//            if (userphone.matches(Regex("\\d{10}"))) {
-//
-//
-//                Toast.makeText(this@AddProfileActivity, "Phone number is valid", Toast.LENGTH_SHORT).show()
-//
-//            } else {
-//
-//
-//                Toast.makeText(this@AddProfileActivity, "Invalid phone number", Toast.LENGTH_SHORT).show()
-//
-//            }
+            if (uri == null) {
+                dialog.dismiss()
+                Toast.makeText(this, "Please select an image", Toast.LENGTH_SHORT).show()
+            } else {
+                storageRef.getReference("pfp").child(System.currentTimeMillis().toString())
+                    .putFile(selectedUri!!)
+                    .addOnSuccessListener { task ->
+                        task.metadata!!.reference!!.downloadUrl
+                            .addOnSuccessListener { imageurl ->
+                                val userId = auth.currentUser!!.uid
 
+                                val user = User(name, email, userid, userplace, userphone, pfp = imageurl.toString())
 
-            val user = User(name, email, userid, userplace, userphone)
-            if (uid != null) {
+                                if (name.isEmpty() || email.isEmpty() || userid.isEmpty() || userplace.isEmpty() || userphone.isEmpty() || imageurl.toString().isEmpty()) {
+                                    dialog.dismiss()
+                                    Toast.makeText(this, "Fill in all the fields", Toast.LENGTH_SHORT).show()
+                                } else if (userphone.length !=10) {
+                                    dialog.dismiss()
+                                    Toast.makeText(this, "Phone number invalid", Toast.LENGTH_SHORT).show()
+                                } else {
+                                    val userId = auth.currentUser!!.uid
 
-                dataBaseReference.child(uid).setValue(user)
-                    .addOnCompleteListener {task ->
-                    if (task.isSuccessful) {
+                                    userId.let { uid ->
+                                        val userdata = dataBaseReference.child(uid).push().key
+                                        val Huha = dataBaseReference.child(uid)
+                                        userdata?.let { key ->
+                                            Huha.child(key).setValue(user)
+                                                .addOnSuccessListener {
+                                                    Toast.makeText(
+                                                        this, "User data saved successfully", Toast.LENGTH_SHORT
+                                                    ).show()
+                                                    dialog.dismiss()
+                                                    val intent = Intent
 
-                        val intent = Intent(this, MainActivity::class.java)
-                        startActivity(intent)
-                        finish()
-
-                    } else {
-
-                        hideProgessBar()
-                        Toast.makeText(this@AddProfileActivity, "Failed: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
+                                                }
+                                                .addOnFailureListener {
+                                                    dialog.dismiss()
+                                                    Toast.makeText(this, "Failed to save user data", Toast.LENGTH_SHORT).show()
+                                                }
+                                        }
+                                    }
+                                }
+                            }
                     }
-                }
             }
 
-        }
             binding.backButton.setOnClickListener {
-                // Handle back button press
                 onBackPressedDispatcher.onBackPressed()
             }
 
-            // Create an onBackPressedCallback
             val callback = object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
                     finish()
                 }
             }
 
-            // Add the callback to the onBackPressedDispatcher
             onBackPressedDispatcher.addCallback(this, callback)
         }
-
-    private fun showProgressBar() {
-        if (!isFinishing && !isDestroyed) {
-            dialog = Dialog(this@AddProfileActivity)
-            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-            dialog.setContentView(R.layout.dialog_wait)
-            dialog.setCanceledOnTouchOutside(false)
-
-            // Set up any other dialog configurations here
-
-            if (!isFinishing && !isDestroyed) {
-                dialog.show()
-            }
-        }
     }
-
-
-
-    private fun hideProgessBar() {
-        dialog.dismiss()
-    }
-
-
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

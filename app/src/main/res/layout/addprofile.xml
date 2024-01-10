@@ -182,12 +182,14 @@
                         android:layout_height="wrap_content"
                         android:paddingTop="3dp"
                         app:endIconMode="clear_text"
+
                         app:startIconDrawable="@drawable/baseline_phone">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/etuserphone"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:inputType="number"
                             android:hint="Contact no."
                             style="@style/txtcolo"
                             android:textColorHint="#4a6572" />

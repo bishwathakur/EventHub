@@ -5,10 +5,9 @@
 
     <style name="Theme.EventHub" parent="Theme.MaterialComponents.NoActionBar">
         <!-- Primary brand color. -->
-
-
+        <item name="colorPrimary">@color/blue</item>
         <!-- Secondary brand color. -->
-
+        <item name="buttonIconTint">@color/b</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" >@color/lavendar</item>
 
@@ -16,7 +15,8 @@
         <item name="android:windowBackground">@color/dark</item>
 
 
-        <!-- Customize your theme here. -->
+        <!-- Card bg. -->
+        <item name="cardBackgroundColor">#40414A</item>
     </style>
 
 
@@ -51,14 +51,11 @@
     </style>
 
 
-    <style name="CardColor">
-        <item name="android:background">@color/white</item>
-    </style>
-
-
     <style name="ProfileLayout">
         <item name="backgroundColor">@color/trans</item>
     </style>
+
+
 
 
 

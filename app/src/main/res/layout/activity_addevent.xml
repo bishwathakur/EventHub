@@ -101,11 +101,10 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/ins_eventdate"
+                    style="@style/txtcolo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/date_of_the_event"
-                    android:inputType="date"
-                    style="@style/txtcolo"
                     android:textColorHint="#4a6572" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -116,6 +115,7 @@
                 style="@style/LoginTextInputOuterFieldStyle"
                 app:endIconMode="clear_text"
                 app:startIconDrawable="@drawable/baseline_place_24">
+
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/ins_eventvenue"
@@ -129,17 +129,17 @@
 
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/event_byuserbox"
+                android:id="@+id/ins_eventbybox"
                 style="@style/LoginTextInputOuterFieldStyle"
                 app:endIconMode="clear_text"
-                app:startIconDrawable="@drawable/ic_userid">
+                app:startIconDrawable="@drawable/baseline_festival_24">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/ins_event_byuser"
+                    android:id="@+id/ins_eventby"
+                    style="@style/txtcolo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/event_by_user"
-                    style="@style/txtcolo"
+                    android:hint="@string/event_by"
                     android:textColorHint="#4a6572" />
 
             </com.google.android.material.textfield.TextInputLayout>

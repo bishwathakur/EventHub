@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    tools:context=".PostDetails"
     >
 
     <androidx.core.widget.NestedScrollView
@@ -24,9 +25,9 @@
                 app:cardCornerRadius="10dp"
                 app:cardElevation="10dp"
                 app:cardUseCompatPadding="true"
-                app:cardBackgroundColor="#FCF9F9"
                 android:layout_margin="2dp"
                 app:contentPadding="2dp"
+                app:cardBackgroundColor="?attr/cardBackgroundColor"
                 >
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -60,15 +61,14 @@
                             android:orientation="vertical"
                             android:layout_margin="2dp"
                             android:padding="3dp"
-                            android:layout_weight="1"
-                            >
+                            android:layout_weight="1">
 
                             <TextView
                                 android:id="@+id/NameOfEvent"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="NameOfEvent"
-                                android:textColor="#000"
+                                style="@style/TEXT"
                                 android:textSize="24sp"
                                 android:textStyle="bold" />
 
@@ -98,9 +98,11 @@
 
 
                             <FrameLayout
+                                android:layout_marginTop="@dimen/_2sdp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:padding="@dimen/_3sdp"
+                                android:paddingHorizontal="20dp"
+                                android:paddingVertical="2dp"
                                 android:background="@drawable/rounded_button_bgg">
 
 
@@ -111,9 +113,10 @@
                                     android:orientation="vertical"
                                     >
                                     <TextView
-                                        android:id="@+id/event_date"
+                                        android:id="@+id/post_event_date"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
+
                                         android:text="EventDate"
                                         android:textColor="@color/white"
                                         android:textSize="14sp" />
@@ -244,7 +247,7 @@
 
             </androidx.cardview.widget.CardView>
 
-            <!-- List of coments here :next part-->
+            <!-- List of comMents here  :next part-->
 
             <TextView
                 android:layout_width="match_parent"

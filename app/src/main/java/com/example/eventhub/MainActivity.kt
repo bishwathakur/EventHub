@@ -30,6 +30,9 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
+        // Open Home fragment by default
+        replaceFragment(Home())
+
 
     }
 

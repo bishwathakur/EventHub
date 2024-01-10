@@ -4,19 +4,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
+    android:orientation="horizontal"
     app:cardCornerRadius="10dp"
     app:cardElevation="10dp"
     app:cardUseCompatPadding="true"
-    app:cardBackgroundColor="#FCF9F9"
-    android:layout_margin="2dp"
-    app:contentPadding="2dp"
-    >
+    app:cardBackgroundColor="?attr/cardBackgroundColor"
+    app:contentPadding="2dp">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        >
+        android:orientation="vertical">
 
         <LinearLayout
             android:id="@+id/post_profileLayout"
@@ -25,16 +22,14 @@
             android:orientation="horizontal"
             android:gravity="center_vertical"
             android:elevation="2dp"
-            android:layout_margin="2dp"
-            style="ProfileLayout"
-            >
+            android:layout_margin="2dp">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/post_userPicture"
                 android:scaleType="centerCrop"
                 android:src="@drawable/ic_adddp"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
                 app:civ_border_color="@color/lavendar"
                 app:civ_border_width="2dp"
                 android:layout_margin="2dp" />
@@ -44,7 +39,6 @@
                 android:orientation="vertical"
                 android:layout_margin="2dp"
                 android:padding="3dp"
-                android:layout_weight="1"
                 >
 
                 <TextView
@@ -52,7 +46,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="NameOfEvent"
-                    android:textColor="#000"
+                    style="@style/txtcolo"
                     android:textSize="24sp"
                     android:textStyle="bold" />
 
@@ -85,9 +79,11 @@
 
                     </FrameLayout>
                 <FrameLayout
+                    android:layout_marginTop="@dimen/_2sdp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/_3sdp"
+                    android:paddingHorizontal="20dp"
+                    android:paddingVertical="2dp"
                     android:background="@drawable/rounded_button_bgg">
 
 
@@ -101,6 +97,7 @@
                             android:id="@+id/post_event_date"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+
                             android:text="EventDate"
                             android:textColor="@color/white"
                             android:textSize="14sp" />
@@ -147,7 +144,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            style="@style/ProfileLayout"
             >
             <TextView
                 android:id="@+id/post_LikesTV"
@@ -155,7 +151,7 @@
                 android:layout_height="wrap_content"
                 android:text="14 like"
                 android:layout_weight="1"
-                android:textColor="@color/colorPrimaryDark"
+                style="@style/TEXT"
                 android:layout_margin="3dp"
                 />
             <TextView
@@ -165,7 +161,7 @@
                 android:text=" 1.2k Comments"
                 android:textAlignment="textEnd"
                 android:layout_weight="1"
-                android:textColor="@color/colorPrimaryDark"
+                style="@style/TEXT"
                 android:gravity="end"
                 android:layout_margin="3dp"
                 />
@@ -177,19 +173,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:gravity="center"
-            style="@style/ProfileLayout"
-            >
+            android:gravity="center">
 
             <Button
                 android:id="@+id/event_like_btn"
+                style="@style/Widget.MaterialComponents.Button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
                 android:text="@string/like"
                 android:textAllCaps="false"
-                app:icon="@drawable/ic_like_not"/>
+                app:icon="@drawable/ic_like_not" />
 
 
             <Button
@@ -200,9 +195,8 @@
                 android:layout_weight="1"
                 android:text="@string/comment"
                 android:textAllCaps="false"
-                app:icon="@drawable/baseline_comment_24"
 
-                />
+                app:icon="@drawable/baseline_comment_24" />
 
 
             <Button
@@ -221,25 +215,23 @@
         </LinearLayout>
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        style="@style/ProfileLayout">
-
-        <Button
-            android:id="@+id/event_register_btn"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:text="@string/register"
-            android:textAllCaps="false"
-            app:icon="@drawable/baseline_add"/>
-    </LinearLayout>
+            android:orientation="horizontal"
+            android:gravity="center"
+            style="@style/ProfileLayout">
 
-
+            <Button
+                android:id="@+id/event_register_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:text="@string/register"
+                android:textAllCaps="false"
+                app:icon="@drawable/baseline_add" />
+        </LinearLayout>
 
     </LinearLayout>
 
