@@ -21,9 +21,9 @@ import com.google.firebase.database.ValueEventListener
 class Home : Fragment() {
 
     private lateinit var eveRecyclerView: RecyclerView
-    private lateinit var loadingcircle : ProgressBar
+    private lateinit var loadingcircle: ProgressBar
     private lateinit var eveList: ArrayList<Post>
-    private lateinit var dbRef : DatabaseReference
+    private lateinit var dbRef: DatabaseReference
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,7 +41,6 @@ class Home : Fragment() {
 
         getEvents()
 
-
         // Add click listener to a button in the fragment
         view.findViewById<Button>(R.id.home_addButton).setOnClickListener {
             val intent = Intent(activity, AddEventActivity::class.java)
@@ -51,40 +50,34 @@ class Home : Fragment() {
         return view
     }
 
-    private fun getEvents(){
+    private fun getEvents() {
 
         eveRecyclerView.visibility = View.GONE
         loadingcircle.visibility = View.VISIBLE
 
         dbRef = FirebaseDatabase.getInstance().getReference("Events")
 
-        dbRef.addValueEventListener(object : ValueEventListener{
+        dbRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 eveList.clear()
-                if (snapshot.exists()){
-                    for (eveSnap in snapshot.children){
+                if (snapshot.exists()) {
+                    for (eveSnap in snapshot.children) {
                         val eveData = eveSnap.getValue(Post::class.java)
                         eveList.add(eveData!!)
                     }
                     val mAdapter = PostAdapter(eveList)
                     eveRecyclerView.adapter = mAdapter
-
-                    eveRecyclerView.visibility = View.VISIBLE
-                    loadingcircle.visibility = View.GONE
-
                 }
+
+                // Move these lines outside of the if statement to ensure visibility state is updated
+                eveRecyclerView.visibility = View.VISIBLE
+                loadingcircle.visibility = View.GONE
             }
 
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
+                // Handle the error if needed
+                loadingcircle.visibility = View.GONE
             }
-
-
         })
-
-
-
-
-
     }
 }

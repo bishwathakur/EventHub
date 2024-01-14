@@ -41,7 +41,6 @@
             android:backgroundTint="@color/lavendar"
             android:foregroundGravity="center"
             android:src="@drawable/baseline_add"
-            android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
