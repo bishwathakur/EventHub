@@ -74,7 +74,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/username"
                 app:layout_constraintTop_toTopOf="@+id/username" />
             <TextView
-                android:id="@+id/username"
+                android:id="@+id/username_nonself"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Cristiano Ronaldo"
@@ -132,7 +132,7 @@
                 app:layout_constraintTop_toTopOf="@+id/username" />
 
             <TextView
-                android:id="@+id/userplace"
+                android:id="@+id/userplace_nonself"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/baloo_paaji"
@@ -162,7 +162,7 @@
                 app:layout_constraintTop_toTopOf="@+id/userplace" />
 
             <TextView
-                android:id="@+id/userphone"
+                android:id="@+id/userphone_nonself"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/baloo_paaji"
@@ -192,7 +192,7 @@
                 app:layout_constraintTop_toTopOf="@+id/username" />
 
             <TextView
-                android:id="@+id/useremail"
+                android:id="@+id/useremail_nonself"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto_medium"

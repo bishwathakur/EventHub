@@ -106,16 +106,11 @@
 
 
                 </FrameLayout>
-                <TextView
-                    android:layout_marginLeft="@dimen/_10sdp"
-                    android:id="@+id/post_event_time"
-                    android:text="33min "
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    />
+
 
                 <TextView
                     android:layout_marginLeft="@dimen/_2sdp"
+                    android:layout_marginTop="@dimen/_2sdp"
                     android:id="@+id/post_event_byuser"
                     android:text="@string/eventbyuser"
                     android:layout_width="wrap_content"

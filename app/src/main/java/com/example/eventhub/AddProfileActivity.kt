@@ -1,6 +1,7 @@
 package com.example.eventhub
 
 import android.app.Dialog
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.Window
@@ -31,6 +32,7 @@ class AddProfileActivity : AppCompatActivity() {
 
     private lateinit var dataBaseReference: DatabaseReference
     private lateinit var storageRef: FirebaseStorage
+    private var doubleBackToExitPressedOnce = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,6 +59,33 @@ class AddProfileActivity : AppCompatActivity() {
 
         auth = FirebaseAuth.getInstance()
         val uid = auth.currentUser?.uid
+
+        var hasUnsavedChanges = false // Variable to track unsaved changes
+
+
+        // Function to check unsaved changes and show Toast
+        fun checkUnsavedChangesAndFinish() {
+            if (hasUnsavedChanges) {
+                // Show Toast for unsaved changes
+                Toast.makeText(this, "You can't leave without saving your profile", Toast.LENGTH_SHORT).show()
+            } else {
+                // No unsaved changes, finish the activity
+                finish()
+            }
+        }
+
+        binding.backButton.setOnClickListener {
+            checkUnsavedChangesAndFinish()
+        }
+
+        val callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                checkUnsavedChangesAndFinish()
+            }
+        }
+
+        onBackPressedDispatcher.addCallback(this, callback)
+
         binding.addButton.setOnClickListener {
 
             if (!isFinishing && !isDestroyed) {
@@ -70,8 +99,10 @@ class AddProfileActivity : AppCompatActivity() {
                 }
             }
 
+            val currentUser = auth.currentUser
+
             val name = binding.etusername.text.toString()
-            val email = binding.etusermail.text.toString()
+            val email: String? = currentUser?.email
             val userid = binding.etuserid.text.toString()
             val userplace = binding.etuserplace.text.toString()
             val userphone = binding.etuserphone.text.toString()
@@ -79,63 +110,63 @@ class AddProfileActivity : AppCompatActivity() {
             val selectedUri = uri
 
 
-            if (uri == null) {
+            if (selectedUri == null) {
                 dialog.dismiss()
                 Toast.makeText(this, "Please select an image", Toast.LENGTH_SHORT).show()
             } else {
-                storageRef.getReference("pfp").child(System.currentTimeMillis().toString())
-                    .putFile(selectedUri!!)
-                    .addOnSuccessListener { task ->
-                        task.metadata!!.reference!!.downloadUrl
-                            .addOnSuccessListener { imageurl ->
-                                val userId = auth.currentUser!!.uid
+                if (name.isNotEmpty() && email != null && userid.isNotEmpty() && userplace.isNotEmpty() && userphone.isNotEmpty()) {
+                    val imageFileName = "pfp/${userid}.jpg"
+                    val imageRef = storageRef.reference.child(imageFileName)
 
-                                val user = User(name, email, userid, userplace, userphone, pfp = imageurl.toString())
+                    imageRef.putFile(selectedUri)
+                        .addOnSuccessListener { task ->
+                            task.metadata!!.reference!!.downloadUrl
+                                .addOnSuccessListener { imageUrl ->
+                                    val userData = dataBaseReference.push().key!!
+                                    val user = User(
+                                        name,
+                                        email,
+                                        userid,
+                                        userplace,
+                                        userphone,
+                                        pfp = imageUrl.toString()
+                                    )
 
-                                if (name.isEmpty() || email.isEmpty() || userid.isEmpty() || userplace.isEmpty() || userphone.isEmpty() || imageurl.toString().isEmpty()) {
-                                    dialog.dismiss()
-                                    Toast.makeText(this, "Fill in all the fields", Toast.LENGTH_SHORT).show()
-                                } else if (userphone.length !=10) {
-                                    dialog.dismiss()
-                                    Toast.makeText(this, "Phone number invalid", Toast.LENGTH_SHORT).show()
-                                } else {
-                                    val userId = auth.currentUser!!.uid
+                                    dataBaseReference.child(userData).setValue(user)
+                                        .addOnSuccessListener {
+                                            Toast.makeText(
+                                                this,
+                                                "User data saved successfully",
+                                                Toast.LENGTH_LONG
+                                            ).show()
+                                            dialog.dismiss()
 
-                                    userId.let { uid ->
-                                        val userdata = dataBaseReference.child(uid).push().key
-                                        val Huha = dataBaseReference.child(uid)
-                                        userdata?.let { key ->
-                                            Huha.child(key).setValue(user)
-                                                .addOnSuccessListener {
-                                                    Toast.makeText(
-                                                        this, "User data saved successfully", Toast.LENGTH_SHORT
-                                                    ).show()
-                                                    dialog.dismiss()
-                                                    val intent = Intent
-
-                                                }
-                                                .addOnFailureListener {
-                                                    dialog.dismiss()
-                                                    Toast.makeText(this, "Failed to save user data", Toast.LENGTH_SHORT).show()
-                                                }
+                                            val intent = Intent(this, MainActivity::class.java)
+                                            startActivity(intent)
+                                            finish()
                                         }
-                                    }
+                                        .addOnFailureListener { err ->
+                                            dialog.dismiss()
+                                            Toast.makeText(
+                                                this,
+                                                "Error ${err.message}",
+                                                Toast.LENGTH_LONG
+                                            ).show()
+                                        }
                                 }
-                            }
-                    }
-            }
-
-            binding.backButton.setOnClickListener {
-                onBackPressedDispatcher.onBackPressed()
-            }
-
-            val callback = object : OnBackPressedCallback(true) {
-                override fun handleOnBackPressed() {
-                    finish()
+                        }
+                        .addOnFailureListener {
+                            dialog.dismiss()
+                            Toast.makeText(this, "Failed to upload image", Toast.LENGTH_SHORT)
+                                .show()
+                        }
+                } else {
+                    dialog.dismiss()
+                    Toast.makeText(this, "Fill in all the fields", Toast.LENGTH_LONG).show()
                 }
             }
-
-            onBackPressedDispatcher.addCallback(this, callback)
         }
     }
+
 }
+

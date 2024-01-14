@@ -96,16 +96,18 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/event_datebox"
                 style="@style/LoginTextInputOuterFieldStyle"
+                app:endIconDrawable="@drawable/baseline_arrow_drop_down_24"
                 app:endIconMode="clear_text"
                 app:startIconDrawable="@drawable/ic_date">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/ins_eventdate"
-                    style="@style/txtcolo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/date_of_the_event"
-                    android:textColorHint="#4a6572" />
+                    style="@style/txtcolo"
+                    android:textColorHint="@color/black" />
+
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -128,28 +130,13 @@
             </com.google.android.material.textfield.TextInputLayout>
 
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/ins_eventbybox"
-                style="@style/LoginTextInputOuterFieldStyle"
-                app:endIconMode="clear_text"
-                app:startIconDrawable="@drawable/baseline_festival_24">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/ins_eventby"
-                    style="@style/txtcolo"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/event_by"
-                    android:textColorHint="#4a6572" />
-
-            </com.google.android.material.textfield.TextInputLayout>
 
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/addeventbtn"
                 android:layout_width="match_parent"
                 style="@style/BUTTON"
-                android:layout_height="45dp"
+                android:layout_height="49dp"
                 android:text="@string/add"
                 android:textColor="@color/black"
                 android:layout_marginTop="@dimen/_18sdp" />

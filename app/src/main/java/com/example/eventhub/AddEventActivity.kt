@@ -2,43 +2,33 @@ package com.example.eventhub
 
 import android.app.DatePickerDialog
 import android.app.Dialog
-import android.content.Context
-import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.view.View
-import android.view.Window
-import android.widget.Button
 import android.widget.DatePicker
-import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
-import com.bumptech.glide.RequestManager
 import com.example.eventhub.databinding.ActivityAddeventBinding
-
-import com.example.eventhub.models.EventViewModel
 import com.example.eventhub.models.Post
 import com.example.eventhub.models.User
-import com.example.eventhub.utils.Status
-import com.example.eventhub.utils.Resource
-
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.FirebaseStorage
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Calendar
-import java.util.Date
 import java.util.Locale
-import javax.inject.Inject
 
-class AddEventActivity : AppCompatActivity(){
+class AddEventActivity : AppCompatActivity() {
 
     private val CAMERA_REQUEST_CODE = 100
     private val STORAGE_REQUEST_CODE = 101
@@ -51,7 +41,6 @@ class AddEventActivity : AppCompatActivity(){
     private val VIDEO_PICK_CAMERA_CODE = 104
     private val VIDEO_PICK_GALLERY_CODE = 105
 
-
     var imageUri: Uri? = null
 
 
@@ -59,66 +48,43 @@ class AddEventActivity : AppCompatActivity(){
     private val permissionReadMediaVideo = "android.permission.READ_MEDIA_VIDEO"
 
 
-    private val viewModel by viewModels<EventViewModel>()
-
-    lateinit var thisUser : User
-
-
-    private lateinit var databaseReference: DatabaseReference
-    private lateinit var storageRef: FirebaseStorage
     private lateinit var uri: Uri
-    private lateinit var Eventpic: ImageView
-    private lateinit var AddEvent: Button
-    private lateinit var auth: FirebaseAuth
     private lateinit var dialog: Dialog
 
-    @Inject
-    lateinit var glide: RequestManager
-
-
-    private lateinit var myContext: Context
 
     private lateinit var binding: ActivityAddeventBinding
 
     private lateinit var cameraImageLauncher: ActivityResultLauncher<Uri>
     private lateinit var imagePickerLauncher: ActivityResultLauncher<String>
 
+    //Data entry
+    private lateinit var etEventName: TextView
+    private lateinit var etEventDate: TextView
+    private lateinit var etEventVenue: TextView
+    private lateinit var etEventPic: TextView
 
+    private lateinit var storageRef: FirebaseStorage
+    private lateinit var dbRef: DatabaseReference
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        binding = ActivityAddeventBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+
+        storageRef = FirebaseStorage.getInstance()
+
 
         setupActivityResultLaunchers()
 
-
-
-
-        viewModel.getDataForCurrentUser()
-
-
-        //For use in main home activity fragment
-
-
-
-//        viewModel.currentUserLiveData.observe(this) {
-//            when (it.status) {
-//                Status.SUCCESS -> {
-//                    thisUser = it.data!!
-//                    glide.load(thisUser.pfp).into(binding.publishMyImage)
-//                    binding.publishMyName.text = thisUser.name
-//                }
-//                Status.ERROR -> {
-//                    Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
-//                }
-//
-//                else -> {}
-//            }
-//        }
-        binding.insEventPhoto.setOnClickListener{
-
+        binding.insEventPhoto.setOnClickListener {
             imagePickDialog()
+        }
+
+        binding.eventDatebox.setOnClickListener {
+            showDatePickerDialog()
         }
 
         binding.insEventdate.setOnClickListener {
@@ -126,55 +92,16 @@ class AddEventActivity : AppCompatActivity(){
         }
 
 
+
+
+
+        dbRef = FirebaseDatabase.getInstance().getReference("Events")
+
         binding.addeventbtn.setOnClickListener {
-            val eventname =binding.insEventname.text.toString()
-            val eventdate = binding.insEventdate.text.toString()
-            val eventvenue= binding.insEventvenue.text.toString()
-            val eventby= binding.insEventby.text.toString()
-            if (eventname.isEmpty() && eventdate.isEmpty() && eventvenue.isEmpty() && eventby.isEmpty()){
-                Toast.makeText(this, "Fill all the Fields!!", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener;
-            }
-
-            var postAttachment: String = ""
-            if (imageUri == null) {
-                //just article
-                Toast.makeText(this@AddEventActivity, "Insert Event Image!!", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener;
-            } else if (imageUri != null) {
-                //image
-                postAttachment = imageUri.toString()
-            }
-
-
-            val post = Post(
-                thisUser.userid, thisUser.name, thisUser.email, thisUser.pfp, eventname,
-                eventdate, eventvenue, eventby, postAttachment
-            )
-
-
-            viewModel.uploadPost(post)
-            viewModel.postLiveData.observe(this) {
-                when (it.status) {
-                    Status.SUCCESS -> {
-                        Toast.makeText(myContext, "Post Published", Toast.LENGTH_SHORT).show()
-                        startActivity(Intent(this, MainActivity::class.java))
-                        finish()
-                    }
-                    Status.ERROR -> {
-                        Toast.makeText(myContext, "${it.message}", Toast.LENGTH_SHORT).show()
-                    }
-                    else -> {}
-                }
-            }
-
-
-
-
+            saveEventData()
         }
-
-
     }
+
 
     private fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
         val selectedDate = Calendar.getInstance().apply {
@@ -186,7 +113,6 @@ class AddEventActivity : AppCompatActivity(){
 
         binding.insEventdate.setText(formattedDate)
     }
-
 
 
     private fun showDatePickerDialog() {
@@ -203,60 +129,40 @@ class AddEventActivity : AppCompatActivity(){
     }
 
     private fun setupActivityResultLaunchers() {
-        // For picking image from gallery
-        imagePickerLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
-            uri?.let {
-                imageUri = it
-                binding.insEventPhoto.setImageURI(imageUri)
+        imagePickerLauncher =
+            registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
+                uri?.let {
+                    imageUri = it
+                    binding.insEventPhoto.setImageURI(imageUri)
+                }
             }
-        }
 
-        // For capturing image from camera
-        cameraImageLauncher = registerForActivityResult(ActivityResultContracts.TakePicture()) { success: Boolean ->
-            if (success) {
-                binding.insEventPhoto.setImageURI(imageUri)
+        cameraImageLauncher =
+            registerForActivityResult(ActivityResultContracts.TakePicture()) { success: Boolean ->
+                if (success) {
+                    binding.insEventPhoto.setImageURI(imageUri)
+                }
             }
-        }
     }
 
     private fun imagePickDialog() {
-        val options = arrayOf("Camera", "Gallery")
-        //dialog
+        val options = arrayOf("Gallery")
+
         val builder = AlertDialog.Builder(this)
-
-        //title
-        builder.setTitle("Pick image From ?!")
-        builder.setCancelable(false)
-
-        builder.setItems(options) { dialog, which ->
-            if (which == 0) {
-                //camera clicked
-
-                imagePickCamera()
-
-            } else if (which == 1) {
-                // gallery clicked
-
-                imagePickGallery()
-
+        builder.setTitle("Pick image From")
+            .setCancelable(false)
+            .setItems(options) { _, which ->
+                when (which) {
+                    0 -> imagePickGallery()
+                }
             }
-
-        }
-
-        //create show dialog
-        builder.create().show()
+            .create().show()
     }
-
-    private fun imagePickCamera() {
-        val photoUri: Uri = createImageUri()
-        imageUri = photoUri
-        cameraImageLauncher.launch(photoUri)
-    }
-
 
     private fun imagePickGallery() {
         imagePickerLauncher.launch("image/*")
     }
+
     private fun createImageUri(): Uri {
         // Ensure the directory for storing the image exists
         val imagesFolder = File(getExternalFilesDir(null), "images")
@@ -267,5 +173,120 @@ class AddEventActivity : AppCompatActivity(){
         return FileProvider.getUriForFile(this, "${applicationContext.packageName}.provider", file)
     }
 
+    private fun saveEventData() {
 
+
+        // Getting values
+        val eventname = binding.insEventname.text.toString()
+        val eventdate = binding.insEventdate.text.toString()
+        val eventvenue = binding.insEventvenue.text.toString()
+
+        // Checking if an image is selected
+        if (imageUri != null) {
+            // Uploading image to Firebase Storage
+            uploadImageToStorage(eventname, eventdate, eventvenue)
+        } else {
+            // If no image is selected, you can handle this case accordingly
+            Toast.makeText(this, "Please select an image", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun uploadImageToStorage(eventname: String, eventdate: String, eventvenue: String) {
+        // Ensure that imageUri is not null before proceeding
+        if (imageUri != null) {
+            // Creating a reference to the storage location
+            val storageReference =
+                storageRef.reference.child("Eventpic/${System.currentTimeMillis()}_image.jpg")
+
+            // Uploading the image to Firebase Storage
+            val uploadTask = storageReference.putFile(imageUri!!)
+
+            // Adding a listener to track the upload task
+            uploadTask.addOnSuccessListener { taskSnapshot ->
+                // Image upload successful, get the download URL
+                storageReference.downloadUrl.addOnSuccessListener { uri ->
+                    // Save event data along with the image URL to the Realtime Database
+                    saveEventDataToDatabase(eventname, eventdate, eventvenue, uri.toString())
+                }.addOnFailureListener { e ->
+                    // Handle failure to get download URL
+                    Toast.makeText(this, "Failed to get download URL", Toast.LENGTH_SHORT).show()
+                }
+            }.addOnFailureListener { e ->
+                // Handle failure to upload image
+                Toast.makeText(this, "Failed to upload image", Toast.LENGTH_SHORT).show()
+            }
+        } else {
+            // Handle the case when imageUri is null
+            Toast.makeText(this, "Please select an image", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun saveEventDataToDatabase(
+        eventname: String,
+        eventdate: String,
+        eventvenue: String,
+        eventpicUrl: String
+    ) {
+        // Creating a reference to the Events node in the Realtime Database
+        val eventsReference = FirebaseDatabase.getInstance().getReference("Events")
+
+        // Creating a unique key for the event
+        val eventKey = eventsReference.push().key
+
+        // Assuming you have Firebase Authentication set up
+        val currentUser = FirebaseAuth.getInstance().currentUser
+
+        // Check if the user is logged in
+        currentUser?.let { user ->
+            // Assuming you have the necessary user details stored in Firebase Realtime Database
+            // Fetch the user details from the database using user.uid
+            val userReference = FirebaseDatabase.getInstance().getReference("Users").child(user.uid)
+
+            userReference.addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    val userData = snapshot.getValue(User::class.java)
+
+                    // Check if user data is not null
+                    userData?.let { user ->
+                        // Now you can use the fetched user details to create a new post
+                        val newPost = Post(
+                            eventKey ?: "",
+                            eventname,
+                            eventdate,
+                            eventvenue,
+                            eventpicUrl,
+                            user.userid.toString(),
+                            user.name.toString(),
+                            user.email.toString(),
+                            user.pfp.toString()
+                        )
+
+                        // Save newPost to the database or perform any other operation
+                        eventsReference.child(eventKey ?: "").setValue(newPost)
+                            .addOnSuccessListener {
+                                // Event data saved successfully
+                                Toast.makeText(
+                                    this@AddEventActivity,
+                                    "Event added successfully",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                                finish()
+                            }.addOnFailureListener {
+                                // Handle failure to save event data
+                                Toast.makeText(
+                                    this@AddEventActivity,
+                                    "Failed to save event data",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    // Handle the error
+                }
+            })
+        }
+    }
 }
+

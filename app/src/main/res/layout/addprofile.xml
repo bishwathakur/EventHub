@@ -58,7 +58,7 @@
                         android:layout_width="222dp"
                         android:layout_height="217dp"
                         android:paddingTop="10dp"
-                        android:src="@drawable/add_profilepic"
+                        android:src="@drawable/baseline_add_a_photo_24"
                         app:civ_border_width="2dp"
                         app:civ_border_color="@color/lavendar"/>
 
@@ -117,24 +117,6 @@
                             android:layout_height="wrap_content"
                             android:hint="@string/name"
                             android:inputType="textPersonName"
-                            style="@style/txtcolo"
-                            android:textColorHint="#4a6572" />
-                    </com.google.android.material.textfield.TextInputLayout>
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/usermailbox"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:paddingTop="3dp"
-                        app:endIconMode="clear_text"
-                        app:startIconDrawable="@drawable/ic_baseline_email_24">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/etusermail"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="@string/hint_email"
-                            android:inputType="textEmailAddress"
                             style="@style/txtcolo"
                             android:textColorHint="#4a6572" />
                     </com.google.android.material.textfield.TextInputLayout>
