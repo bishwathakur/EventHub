@@ -96,16 +96,15 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/event_datebox"
                 style="@style/LoginTextInputOuterFieldStyle"
-                app:endIconDrawable="@drawable/baseline_arrow_drop_down_24"
                 app:endIconMode="clear_text"
                 app:startIconDrawable="@drawable/ic_date">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/ins_eventdate"
+                    style="@style/txtcolo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/date_of_the_event"
-                    style="@style/txtcolo"
+                    android:hint="@string/double_click_for_date_dialog_box"
                     android:textColorHint="@color/black" />
 
 

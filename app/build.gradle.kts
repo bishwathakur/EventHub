@@ -112,6 +112,9 @@ dependencies {
     //Navigation
     implementation ("androidx.navigation:navigation-ui-ktx:2.3.5")
 
+    implementation ("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
+
+
 
 
 

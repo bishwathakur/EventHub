@@ -32,7 +32,6 @@ class AddProfileActivity : AppCompatActivity() {
 
     private lateinit var dataBaseReference: DatabaseReference
     private lateinit var storageRef: FirebaseStorage
-    private var doubleBackToExitPressedOnce = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,8 +56,7 @@ class AddProfileActivity : AppCompatActivity() {
             galleryImage.launch("image/*")
         }
 
-        auth = FirebaseAuth.getInstance()
-        val uid = auth.currentUser?.uid
+
 
         var hasUnsavedChanges = false // Variable to track unsaved changes
 
@@ -98,6 +96,7 @@ class AddProfileActivity : AppCompatActivity() {
                     dialog.show()
                 }
             }
+            auth = FirebaseAuth.getInstance()
 
             val currentUser = auth.currentUser
 
@@ -110,49 +109,45 @@ class AddProfileActivity : AppCompatActivity() {
             val selectedUri = uri
 
 
+            auth = FirebaseAuth.getInstance()
+
+
+
             if (selectedUri == null) {
                 dialog.dismiss()
                 Toast.makeText(this, "Please select an image", Toast.LENGTH_SHORT).show()
             } else {
                 if (name.isNotEmpty() && email != null && userid.isNotEmpty() && userplace.isNotEmpty() && userphone.isNotEmpty()) {
+
+
+
+
                     val imageFileName = "pfp/${userid}.jpg"
                     val imageRef = storageRef.reference.child(imageFileName)
+
 
                     imageRef.putFile(selectedUri)
                         .addOnSuccessListener { task ->
                             task.metadata!!.reference!!.downloadUrl
                                 .addOnSuccessListener { imageUrl ->
-                                    val userData = dataBaseReference.push().key!!
-                                    val user = User(
-                                        name,
-                                        email,
-                                        userid,
-                                        userplace,
-                                        userphone,
-                                        pfp = imageUrl.toString()
-                                    )
+                                    val user = User(name, email, userid, userplace, userphone, pfp = imageUrl.toString())
 
-                                    dataBaseReference.child(userData).setValue(user)
-                                        .addOnSuccessListener {
-                                            Toast.makeText(
-                                                this,
-                                                "User data saved successfully",
-                                                Toast.LENGTH_LONG
-                                            ).show()
-                                            dialog.dismiss()
+                                    val uid = auth.currentUser?.uid
+                                    if (uid != null) {
+                                        dataBaseReference.child(uid).setValue(user)
+                                            .addOnSuccessListener {
+                                                Toast.makeText(this, "User data saved successfully", Toast.LENGTH_LONG).show()
+                                                dialog.dismiss()
 
-                                            val intent = Intent(this, MainActivity::class.java)
-                                            startActivity(intent)
-                                            finish()
-                                        }
-                                        .addOnFailureListener { err ->
-                                            dialog.dismiss()
-                                            Toast.makeText(
-                                                this,
-                                                "Error ${err.message}",
-                                                Toast.LENGTH_LONG
-                                            ).show()
-                                        }
+                                                val intent = Intent(this, MainActivity::class.java)
+                                                startActivity(intent)
+                                                finish()
+                                            }
+                                            .addOnFailureListener { err ->
+                                                dialog.dismiss()
+                                                Toast.makeText(this, "Error ${err.message}", Toast.LENGTH_LONG).show()
+                                            }
+                                    }
                                 }
                         }
                         .addOnFailureListener {

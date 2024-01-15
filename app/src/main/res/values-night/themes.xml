@@ -61,6 +61,8 @@
 
 
 
+
+
     //Login signup input outer box style
     <style name="LoginTextInputOuterFieldStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="android:layout_width">match_parent</item>
