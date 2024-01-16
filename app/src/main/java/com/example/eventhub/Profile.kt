@@ -1,151 +1,110 @@
 package com.example.eventhub
 
-import android.app.Dialog
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.*
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.PopupMenu
-import android.widget.TextView
+import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
-import com.example.eventhub.databinding.FragmentProfileBinding
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
-import com.google.android.material.snackbar.Snackbar
-import com.google.firebase.storage.FirebaseStorage
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.Toast
-import androidx.compose.material3.TopAppBar
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
-import com.bumptech.glide.request.RequestOptions
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.ValueEventListener
-import de.hdodenhof.circleimageview.CircleImageView
+import com.example.eventhub.adapter.ProfilePostAdapter
+import com.example.eventhub.databinding.FragmentProfileBinding
+import com.example.eventhub.models.Post
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.*
 
 class Profile : Fragment() {
 
-
-    private lateinit var binding : FragmentProfileBinding
-
+    private lateinit var binding: FragmentProfileBinding
     private lateinit var auth: FirebaseAuth
     private lateinit var dataBaseReference: DatabaseReference
-
-    //Texts
-    private lateinit var insusername: TextView
-    private lateinit var insuserid: TextView
-    private lateinit var insuserplace: TextView
-    private lateinit var insuseremail: TextView
-    private lateinit var insuserphone: TextView
-
+    private lateinit var mAdapter: ProfilePostAdapter
+    private lateinit var eveRecyclerView: RecyclerView
+    private lateinit var loadingcircle: ProgressBar
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
-
-    private lateinit var dialog: Dialog
+    private lateinit var eveList: ArrayList<Post>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentProfileBinding.inflate(inflater, container, false)
-        return binding.root
-    }
 
+        eveRecyclerView = binding.profileRec
+        eveRecyclerView.layoutManager = LinearLayoutManager(context)
+        eveRecyclerView.setHasFixedSize(true)
 
+        loadingcircle = binding.profileProgressBar
+        eveList = arrayListOf<Post>()
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-
-        insusername = view.findViewById(R.id.username)
-        insuserid = view.findViewById(R.id.userid)
-        insuserplace = view.findViewById(R.id.userplace)
-        insuseremail = view.findViewById(R.id.useremail)
-        insuserphone = view.findViewById(R.id.userphone)
-
-        // Insnapshotialize the DatabaseReference
-        dataBaseReference = FirebaseDatabase.getInstance().getReference("Users")
-
-        // Insnapshotialize FirebaseAuth
+        // Initialize FirebaseAuth and DatabaseReference
         auth = FirebaseAuth.getInstance()
+        dataBaseReference = FirebaseDatabase.getInstance().getReference("Events")
 
-        swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayoutProfile)
+        mAdapter = ProfilePostAdapter(eveList)
+        eveRecyclerView.adapter = mAdapter
+
+        swipeRefreshLayout = binding.swipeRefreshLayoutProfile
 
         swipeRefreshLayout.setOnRefreshListener {
             // Perform data refresh operations here
+            getEvents()
+
             // Once done, call isRefreshing = false to stop the loading animation
             swipeRefreshLayout.isRefreshing = false
         }
 
-        // Retrieve data from the Realtime Database
         fetchDataFromDatabase()
 
+        return binding.root
     }
 
-
     private fun fetchDataFromDatabase() {
-        // Check if the user is authenticated
         val uid = auth.currentUser!!.uid
 
-        dataBaseReference.child(uid).get().addOnSuccessListener {snapshot ->
-
-            if (snapshot!=null) {
-
-
+        dataBaseReference.child(uid).get().addOnSuccessListener { snapshot ->
+            if (snapshot != null) {
                 val name = snapshot.child("name").value.toString()
                 val userid = snapshot.child("userid").value.toString()
                 val userplace = snapshot.child("userplace").value.toString()
                 val email = snapshot.child("email").value.toString()
                 val userphone = snapshot.child("userphone").value.toString()
-                val userpfp = snapshot.child("userpfp").value.toString()
 
-                insusername.text = name
-                insuserid.text = userid
-                insuserplace.text = userplace
-                insuseremail.text = email
-                insuserphone.text = userphone
+                binding.username.text = name
+                binding.userid.text = userid
+                binding.userplace.text = userplace
+                binding.useremail.text = email
+                binding.userphone.text = userphone
 
-                val requestOptions = RequestOptions()
-                    .placeholder(R.drawable.add_profilepic) // Your placeholder image resource
-                    .error(R.drawable.ic_adddp) // Your error image resource
-
-                if (userpfp != null) {
-                    Glide.with(requireContext())
-                        .load(userpfp)
-                        .apply(requestOptions)
-                        .transition(DrawableTransitionOptions.withCrossFade()) // Optional crossfade animation
-                        .into(binding.userpfpdisplay)
-                } else {
-                    // Handle the case when userpfp is null (set a default image, show an error message, etc.)
-                    Glide.with(requireContext())
-                        .load(R.drawable.default_user) // Your default image resource
-                        .apply(requestOptions)
-                        .transition(DrawableTransitionOptions.withCrossFade()) // Optional crossfade animation
-                        .into(binding.userpfpdisplay)
-                }
+                getEvents()
             }
-
-        binding.more.setOnClickListener {
-            val popupMenu = PopupMenu(requireContext(), binding.more)
-            popupMenu.menuInflater.inflate(R.menu.menu_profilelogout, popupMenu.menu)
-
-            popupMenu.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener { item ->
-                when (item.itemId) {
-                    R.id.logout -> {
-                        auth.signOut()
-                        startActivity(Intent(requireActivity(), SignInActivity::class.java))
-                        requireActivity().finish()
-                    }
-                }
-                true
-            })
-            popupMenu.show()
         }
     }
-}}
+
+    private fun getEvents() {
+        eveRecyclerView.visibility = View.GONE
+        loadingcircle.visibility = View.VISIBLE
+
+        val uid = auth.currentUser!!.uid
+
+        dataBaseReference.child(uid).addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                eveList.clear()
+                if (snapshot.exists()) {
+                    for (eveSnap in snapshot.children) {
+                        val eveData = eveSnap.getValue(Post::class.java)
+                        eveList.add(eveData!!)
+                    }
+                    mAdapter.notifyDataSetChanged()
+                }
+
+                eveRecyclerView.visibility = View.VISIBLE
+                loadingcircle.visibility = View.GONE
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                loadingcircle.visibility = View.GONE
+            }
+        })
+    }
+}

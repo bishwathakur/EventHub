@@ -25,7 +25,6 @@ class Home : Fragment() {
     private lateinit var dbRef: DatabaseReference
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
     private lateinit var mAdapter: PostAdapter
-    private lateinit var databaseReference: DatabaseReference
     private lateinit var firebaseAuth: FirebaseAuth
 
     override fun onCreateView(
@@ -44,10 +43,10 @@ class Home : Fragment() {
         eveList = arrayListOf<Post>()
 
         // Initialize databaseReference and firebaseAuth
-        databaseReference = FirebaseDatabase.getInstance().getReference("Events")
+        dbRef = FirebaseDatabase.getInstance().getReference("Events")
         firebaseAuth = FirebaseAuth.getInstance()
 
-        mAdapter = PostAdapter(eveList, databaseReference, firebaseAuth)
+        mAdapter = PostAdapter(eveList, dbRef, firebaseAuth)
         eveRecyclerView.adapter = mAdapter
 
         // Initialize addBtn and set its click listener
