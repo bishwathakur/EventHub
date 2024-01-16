@@ -48,7 +48,6 @@ class AddEventActivity : AppCompatActivity() {
     private val permissionReadMediaVideo = "android.permission.READ_MEDIA_VIDEO"
 
 
-    private lateinit var uri: Uri
     private lateinit var dialog: Dialog
 
 
@@ -57,11 +56,6 @@ class AddEventActivity : AppCompatActivity() {
     private lateinit var cameraImageLauncher: ActivityResultLauncher<Uri>
     private lateinit var imagePickerLauncher: ActivityResultLauncher<String>
 
-    //Data entry
-    private lateinit var etEventName: TextView
-    private lateinit var etEventDate: TextView
-    private lateinit var etEventVenue: TextView
-    private lateinit var etEventPic: TextView
 
     private lateinit var storageRef: FirebaseStorage
     private lateinit var dbRef: DatabaseReference
@@ -181,6 +175,11 @@ class AddEventActivity : AppCompatActivity() {
         val eventdate = binding.insEventdate.text.toString()
         val eventvenue = binding.insEventvenue.text.toString()
 
+
+        if (eventname.isEmpty()) binding.insEventname.error= "Required Field!!"
+        if (eventdate.isEmpty()) binding.insEventdate.error= "Required Field!!"
+        if (eventvenue.isEmpty()) binding.insEventvenue.error= "Required Field!!"
+
         // Checking if an image is selected
         if (imageUri != null) {
             // Uploading image to Firebase Storage
@@ -196,7 +195,7 @@ class AddEventActivity : AppCompatActivity() {
         if (imageUri != null) {
             // Creating a reference to the storage location
             val storageReference =
-                storageRef.reference.child("Eventpic/${System.currentTimeMillis()}_image.jpg")
+                storageRef.reference.child("Eventpic/${eventname}_image.jpg")
 
             // Uploading the image to Firebase Storage
             val uploadTask = storageReference.putFile(imageUri!!)

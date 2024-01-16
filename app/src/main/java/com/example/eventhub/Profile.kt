@@ -23,6 +23,8 @@ import android.widget.Toast
 import androidx.compose.material3.TopAppBar
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.bumptech.glide.request.RequestOptions
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
@@ -73,7 +75,7 @@ class Profile : Fragment() {
         // Insnapshotialize FirebaseAuth
         auth = FirebaseAuth.getInstance()
 
-        swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout)
+        swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayoutProfile)
 
         swipeRefreshLayout.setOnRefreshListener {
             // Perform data refresh operations here
@@ -109,7 +111,24 @@ class Profile : Fragment() {
                 insuseremail.text = email
                 insuserphone.text = userphone
 
-                Glide.with(this).load(userpfp).into(binding.userpfpdisplay)
+                val requestOptions = RequestOptions()
+                    .placeholder(R.drawable.add_profilepic) // Your placeholder image resource
+                    .error(R.drawable.ic_adddp) // Your error image resource
+
+                if (userpfp != null) {
+                    Glide.with(requireContext())
+                        .load(userpfp)
+                        .apply(requestOptions)
+                        .transition(DrawableTransitionOptions.withCrossFade()) // Optional crossfade animation
+                        .into(binding.userpfpdisplay)
+                } else {
+                    // Handle the case when userpfp is null (set a default image, show an error message, etc.)
+                    Glide.with(requireContext())
+                        .load(R.drawable.default_user) // Your default image resource
+                        .apply(requestOptions)
+                        .transition(DrawableTransitionOptions.withCrossFade()) // Optional crossfade animation
+                        .into(binding.userpfpdisplay)
+                }
             }
 
         binding.more.setOnClickListener {

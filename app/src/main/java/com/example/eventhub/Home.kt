@@ -1,24 +1,20 @@
-package com.example.eventhub
-
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ProgressBar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.example.eventhub.AddEventActivity
+import com.example.eventhub.R
 import com.example.eventhub.adapter.PostAdapter
 import com.example.eventhub.models.Post
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.*
 
 class Home : Fragment() {
 
@@ -28,7 +24,9 @@ class Home : Fragment() {
     private lateinit var eveList: ArrayList<Post>
     private lateinit var dbRef: DatabaseReference
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
-
+    private lateinit var mAdapter: PostAdapter
+    private lateinit var databaseReference: DatabaseReference
+    private lateinit var firebaseAuth: FirebaseAuth
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,18 +37,18 @@ class Home : Fragment() {
         eveRecyclerView = view.findViewById(R.id.home_rec)
         swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout)
 
-        swipeRefreshLayout.setOnRefreshListener {
-            // Perform data refresh operations here
-            // Once done, call isRefreshing = false to stop the loading animation
-            swipeRefreshLayout.isRefreshing = false
-        }
-
-
         eveRecyclerView.layoutManager = LinearLayoutManager(context)
         eveRecyclerView.setHasFixedSize(true)
         loadingcircle = view.findViewById(R.id.home_progress_bar)
 
         eveList = arrayListOf<Post>()
+
+        // Initialize databaseReference and firebaseAuth
+        databaseReference = FirebaseDatabase.getInstance().getReference("Events")
+        firebaseAuth = FirebaseAuth.getInstance()
+
+        mAdapter = PostAdapter(eveList, databaseReference, firebaseAuth)
+        eveRecyclerView.adapter = mAdapter
 
         // Initialize addBtn and set its click listener
         addBtn = view.findViewById(R.id.home_addButton)
@@ -61,6 +59,16 @@ class Home : Fragment() {
         }
 
         getEvents()
+
+        swipeRefreshLayout.setOnRefreshListener {
+            // Perform data refresh operations here
+
+            // For example, you might want to update your RecyclerView data
+            reloadAdapter()
+
+            // Once done, call isRefreshing = false to stop the loading animation
+            swipeRefreshLayout.isRefreshing = false
+        }
 
         return view
     }
@@ -79,8 +87,8 @@ class Home : Fragment() {
                         val eveData = eveSnap.getValue(Post::class.java)
                         eveList.add(eveData!!)
                     }
-                    val mAdapter = PostAdapter(eveList)
-                    eveRecyclerView.adapter = mAdapter
+                    // Notify the adapter that the dataset has changed
+                    mAdapter.notifyDataSetChanged()
                 }
 
                 eveRecyclerView.visibility = View.VISIBLE
@@ -91,5 +99,11 @@ class Home : Fragment() {
                 loadingcircle.visibility = View.GONE
             }
         })
+    }
+
+    private fun reloadAdapter() {
+        getEvents()
+        // Notify the adapter that the dataset has changed
+        mAdapter.notifyDataSetChanged()
     }
 }

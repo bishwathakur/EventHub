@@ -12,7 +12,6 @@ data class Post(
     var userName: String? = "",
     var userEmail: String? = "",
     var userImage: String? = "",
-    var postTime: String = "",
     var postLikes: Int = 0,
     var postComments: Int = 0
 ) : Serializable
