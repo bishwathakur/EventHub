@@ -10,6 +10,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.eventhub.adapter.ProfilePostAdapter
 import com.example.eventhub.databinding.FragmentProfileBinding
 import com.example.eventhub.models.Post
+import com.example.eventhub.models.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 
@@ -41,7 +42,7 @@ class Profile : Fragment() {
         auth = FirebaseAuth.getInstance()
         dataBaseReference = FirebaseDatabase.getInstance().getReference("Events")
 
-        mAdapter = ProfilePostAdapter(eveList)
+        mAdapter = ProfilePostAdapter(eveList, auth = FirebaseAuth.getInstance(), user = User() )
         eveRecyclerView.adapter = mAdapter
 
         swipeRefreshLayout = binding.swipeRefreshLayoutProfile
