@@ -17,4 +17,7 @@ object Constants {
     const val BASE_URL="https://fcm.googleapis.com"
     const val CONTENT_TYPE="application/json"
     const val SERVER_KEY="AAAACkcpAAM:APA91bHop51dww_rQfclaFYjPBDPxd4YmKmy1Aqj1L3dLzMu5cxa_qa1Gg50dqu8cIdjoSse_FlxnrbIrpV-VrlcAcSdrmOatLUHY3XWUmFkXvv4eMT_TXWbx-qIDb1gB3Cn2a08YlXR"
+
+    // Likes template
+    const val LIKES_TEMPLATE = "%d likes"
 }

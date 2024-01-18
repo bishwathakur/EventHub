@@ -16,7 +16,6 @@ import com.google.firebase.database.*
 
 class Profile : Fragment() {
 
-    private lateinit var binding: FragmentProfileBinding
     private lateinit var auth: FirebaseAuth
     private lateinit var dataBaseReference: DatabaseReference
     private lateinit var mAdapter: ProfilePostAdapter
@@ -24,28 +23,32 @@ class Profile : Fragment() {
     private lateinit var loadingcircle: ProgressBar
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
     private lateinit var eveList: ArrayList<Post>
+    private lateinit var binding: FragmentProfileBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentProfileBinding.inflate(inflater, container, false)
+        val view = binding.root
 
-        eveRecyclerView = binding.profileRec
+        eveRecyclerView = view.findViewById(R.id.profile_rec)
+        swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayoutProfile)
+
+
         eveRecyclerView.layoutManager = LinearLayoutManager(context)
         eveRecyclerView.setHasFixedSize(true)
+        loadingcircle = view.findViewById(R.id.profile_progress_bar)
 
-        loadingcircle = binding.profileProgressBar
         eveList = arrayListOf<Post>()
 
         // Initialize FirebaseAuth and DatabaseReference
         auth = FirebaseAuth.getInstance()
         dataBaseReference = FirebaseDatabase.getInstance().getReference("Events")
 
-        mAdapter = ProfilePostAdapter(eveList, auth = FirebaseAuth.getInstance(), user = User() )
+        mAdapter = ProfilePostAdapter(eveList, auth, user = User())
         eveRecyclerView.adapter = mAdapter
 
-        swipeRefreshLayout = binding.swipeRefreshLayoutProfile
 
         swipeRefreshLayout.setOnRefreshListener {
             // Perform data refresh operations here
@@ -57,10 +60,11 @@ class Profile : Fragment() {
 
         fetchDataFromDatabase()
 
-        return binding.root
+        return view
     }
 
     private fun fetchDataFromDatabase() {
+
         val uid = auth.currentUser!!.uid
 
         dataBaseReference.child(uid).get().addOnSuccessListener { snapshot ->

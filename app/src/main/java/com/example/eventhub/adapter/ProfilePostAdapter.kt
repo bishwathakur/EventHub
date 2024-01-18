@@ -39,7 +39,8 @@ class ProfilePostAdapter(
         val auth = FirebaseAuth.getInstance()
 
         holder.binding.apply {
-            if (currentEvent.userId.toString() == auth.uid){
+            if (currentEvent.userEmail.toString() == currentEvent.userEmail){
+
                 postEventName.text = currentEvent.eventname
                 postEventVenue.text = currentEvent.eventvenue
                 postEventDate.text = currentEvent.eventdate
@@ -54,8 +55,8 @@ class ProfilePostAdapter(
                     .load(currentEvent.eventpicUrl)
                     .into(postImage)
 
-                postLikesTV.text = currentEvent.postLikes.toString()
-                postCommentTV.text = currentEvent.postComments.toString()
+                postLikesTV.text = "${currentEvent.postLikes} likes"
+                postCommentTV.text = "${currentEvent.postComments} comments"
             }
         }
     }

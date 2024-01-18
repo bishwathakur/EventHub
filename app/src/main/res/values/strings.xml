@@ -30,4 +30,7 @@
     <string name="eventdate">EventDate</string>
     <string name="bg">bg</string>
     <string name="double_click_for_date_dialog_box">Double click for date dialog box</string>
+
+    <!-- Other resources -->
+    <string name="likes_template">%d likes</string>
 </resources>
