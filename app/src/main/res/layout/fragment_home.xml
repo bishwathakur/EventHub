@@ -92,7 +92,9 @@
                     app:layout_constraintBottom_toTopOf="@+id/home_rec"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView2" />
+                    app:layout_constraintTop_toBottomOf="@+id/textView2"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"/>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/home_rec"

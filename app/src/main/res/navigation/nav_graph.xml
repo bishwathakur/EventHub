@@ -9,9 +9,6 @@
         android:name="com.example.eventhub.Home"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
-    <action
-        android:id="@+id/action_homeFragment_to_postDetailsFragment"
-        app:destination="@id/postDetails"/>
 
         <action
             android:id="@+id/action_homeFragment_to_postOwnerFragment"
@@ -33,11 +30,6 @@
         android:name="com.example.eventhub.Profile"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
-    <fragment
-        android:id="@+id/postDetails"
-        android:name="com.example.eventhub.PostDetails"
-        android:label="fragment_post_details"
-        tools:layout="@layout/fragment_post_details" />
     <fragment
         android:id="@+id/postOwner"
         android:name="com.example.eventhub.PostOwner"

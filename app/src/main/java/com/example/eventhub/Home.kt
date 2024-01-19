@@ -22,7 +22,8 @@ class Home : Fragment() {
     private lateinit var loadingcircle: ProgressBar
     private lateinit var addBtn: FloatingActionButton
     private lateinit var eveList: ArrayList<Post>
-    private lateinit var dbRef: DatabaseReference
+    private lateinit var evedetRef: DatabaseReference
+    private lateinit var eveRef: DatabaseReference
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
     private lateinit var mAdapter: PostAdapter
     private lateinit var firebaseAuth: FirebaseAuth
@@ -43,10 +44,13 @@ class Home : Fragment() {
         eveList = arrayListOf<Post>()
 
         // Initialize databaseReference and firebaseAuth
-        dbRef = FirebaseDatabase.getInstance().getReference("Events")
         firebaseAuth = FirebaseAuth.getInstance()
+        evedetRef = FirebaseDatabase.getInstance().getReference("EventDetails")
+        eveRef = FirebaseDatabase.getInstance().getReference("Events")
 
-        mAdapter = PostAdapter(eveList, dbRef, firebaseAuth)
+
+
+        mAdapter = PostAdapter(eveList, firebaseAuth, evedetRef, eveRef)
         eveRecyclerView.adapter = mAdapter
 
         // Initialize addBtn and set its click listener
@@ -76,9 +80,9 @@ class Home : Fragment() {
         eveRecyclerView.visibility = View.GONE
         loadingcircle.visibility = View.VISIBLE
 
-        dbRef = FirebaseDatabase.getInstance().getReference("Events")
+        eveRef = FirebaseDatabase.getInstance().getReference("Events")
 
-        dbRef.addValueEventListener(object : ValueEventListener {
+        eveRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 eveList.clear()
                 if (snapshot.exists()) {

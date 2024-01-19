@@ -11,9 +11,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 
 class ProfilePostAdapter(
-    private val eveList: ArrayList<Post>,
-    private val auth: FirebaseAuth,
-    private val user: User
+    private val eveList: ArrayList<Post>
 
 
 ) : RecyclerView.Adapter<ProfilePostAdapter.PostViewHolder>(){

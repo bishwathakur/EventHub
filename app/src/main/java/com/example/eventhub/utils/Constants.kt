@@ -7,6 +7,7 @@ object Constants {
     const val POSTS="Posts"
     const val COMMENTS="Comments"
     const val LIKES="Likes"
+    const val REGISTER="Registrations"
 //    const val CHATS="Chats"
     const val POSTLIKES="postLikes"
 //    val MESSAGES="Messages"

@@ -170,39 +170,68 @@
             android:orientation="horizontal"
             android:gravity="center">
 
+<!--            <Button-->
+<!--                android:id="@+id/event_like_btn"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_margin="5dp"-->
+<!--                android:layout_weight="1"-->
+<!--                android:text="@string/like"-->
+<!--                android:textAllCaps="false"-->
+<!--                app:icon="@drawable/ic_like_not" />-->
+
             <Button
-                android:id="@+id/event_like_btn"
-                style="@style/Widget.MaterialComponents.Button"
+                android:id="@+id/post_like_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
-                android:text="@string/like"
                 android:textAllCaps="false"
-                app:icon="@drawable/ic_like_not" />
+                android:drawableLeft="@drawable/ic_like_not"
+                android:text="Like"/>
 
+
+<!--            <Button-->
+<!--                android:id="@+id/event_comment_btn"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_margin="5dp"-->
+<!--                android:layout_weight="1"-->
+<!--                android:text="@string/comment"-->
+<!--                android:textAllCaps="false"-->
+
+<!--                app:icon="@drawable/baseline_comment_24" />-->
 
             <Button
-                android:id="@+id/event_comment_btn"
+                android:id="@+id/post_comment_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
-                android:text="@string/comment"
                 android:textAllCaps="false"
+                android:drawableLeft="@drawable/baseline_comment_24"
+                android:text="Comment"/>
 
-                app:icon="@drawable/baseline_comment_24" />
 
+<!--            <Button-->
+<!--                android:id="@+id/event_share_btn"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_margin="5dp"-->
+<!--                android:layout_weight="1"-->
+<!--                android:text="@string/share"-->
+<!--                android:textAllCaps="false"-->
+<!--                app:icon="@drawable/baseline_share_24"/>-->
 
             <Button
-                android:id="@+id/event_share_btn"
+                android:id="@+id/post_share_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
-                android:text="@string/share"
                 android:textAllCaps="false"
-                app:icon="@drawable/baseline_share_24"/>
+                android:drawableLeft="@drawable/baseline_share_24"
+                android:text="Share"/>
 
             />
 
@@ -218,14 +247,13 @@
             style="@style/ProfileLayout">
 
             <Button
-                android:id="@+id/event_register_btn"
+                android:id="@+id/post_register_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
-                android:text="@string/register"
-                android:textAllCaps="false"
-                app:icon="@drawable/baseline_add" />
+                android:drawableLeft="@drawable/baseline_add"
+                android:text="Register"/>
         </LinearLayout>
 
     </LinearLayout>
