@@ -3,6 +3,7 @@ package com.example.eventhub.adapter
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.AdapterView.OnItemClickListener
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -24,10 +25,17 @@ class PostAdapter(
     private val evedetRef : DatabaseReference,
     private val eveRef : DatabaseReference
 ) : RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
+    private lateinit var mListener: OnItemClickListener
 
-    inner class PostViewHolder(
-        val binding: ItemEventsBinding
-    ) :RecyclerView.ViewHolder(binding.root)
+    interface OnItemClickListener {
+        fun onItemClick(position: Int)
+    }
+
+    fun setOnItemClickListener(clickListener: OnItemClickListener) {
+        mListener = clickListener
+    }
+
+    inner class PostViewHolder(val binding: ItemEventsBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder =
         PostViewHolder(
@@ -55,37 +63,38 @@ class PostAdapter(
                 .load(currentEvent.eventpicUrl)
                 .into(postImage)
 
-
             postLikesTV.text = "${currentEvent.postLikes} likes"
             postCommentTV.text = "${currentEvent.postComments} comments"
 
+            // Like button binders
             updateLikeButton(currentEvent, postLikeBtn)
 
             postLikeBtn.setOnClickListener {
                 handleLikeButtonClick(currentEvent)
             }
 
-            postCommentBtn.setOnClickListener{
-
-            }
-
+            // Register button binders
             updateRegisterButton(currentEvent, postRegisterBtn)
 
-            postRegisterBtn.setOnClickListener{
+            postRegisterBtn.setOnClickListener {
                 handleRegisterButtonClick(currentEvent)
             }
 
-            //Comment infalter
+            // Comment inflater
             postCommentBtn.setOnClickListener {
                 val context = root.context
                 val intent = Intent(context, PostDetailsActivity::class.java)
                 intent.putExtra("postLikes", currentEvent.postLikes)
                 intent.putExtra("postRegistrations", currentEvent.postRegistrations)
+                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
                 context.startActivity(intent)
             }
 
-
-
+            // Set click listener on the root view
+            holder.itemView.setOnClickListener {
+                // Check if mListener is not null before calling its method
+                mListener?.onItemClick(position)
+            }
         }
     }
 

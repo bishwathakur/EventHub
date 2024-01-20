@@ -16,6 +16,13 @@
 
     </style>
 
+    <style name="Chats" parent="Theme.MaterialComponents.Light.DarkActionBar">
+        <item name="colorPrimary">@color/lavendar</item>
+        <item name="android:statusBarColor" >@color/lavendar</item>
+
+    </style>
+
+
 
     <!-- Button style light mode -->
     <style name="BUTTON">

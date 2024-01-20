@@ -26,26 +26,19 @@
 
         <TextView
             android:id="@+id/chat_username"
-            android:layout_width="wrap_content"
+            style="@style/TEXT"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:text="@string/name"
-            android:textSize="16sp"
-            style="@style/TEXT"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:fontFamily="@font/roboto_bold"
+            app:layout_constraintBottom_toBottomOf="@+id/chat_user_image"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/chat_user_image"
-            app:layout_constraintBottom_toTopOf="@+id/chat_last_message"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/chat_last_message"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:lines="1"
-            android:text="hello"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/chat_username"
-            app:layout_constraintTop_toBottomOf="@+id/chat_username" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
