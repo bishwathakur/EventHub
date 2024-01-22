@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.eventhub.adapter.CommentAdapter
 import com.example.eventhub.models.Comment
 import com.example.eventhub.models.Post
@@ -35,7 +36,8 @@ class PostDetailsActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
 
     private lateinit var comment: TextView
-    private lateinit var Post: Post
+    private var event: Post? = null
+    private var thisUser : User? = null
 
 
     private lateinit var insnameevent : TextView
@@ -43,16 +45,53 @@ class PostDetailsActivity : AppCompatActivity() {
     private lateinit var insdateevent : TextView
     private lateinit var insuserevent : TextView
 
-    private lateinit var thisPost : Post
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_postdetails)
 
+
+        val post = intent.getParcelableExtra<Post?>("post")
+        if (post != null){
+            val nameevent : TextView = findViewById(R.id.postdetails_event_name)
+            val dateevent : TextView = findViewById(R.id.postdetails_event_date)
+            val venueevent : TextView = findViewById(R.id.postdetails_event_venue)
+            val byuserevent : TextView = findViewById(R.id.postdetails_event_byuser)
+            val imageevent : ImageView = findViewById(R.id.postdetails_Image)
+            val eventuserimage : ImageView = findViewById(R.id.postdetails_userPicture)
+            val eventlikesTV : TextView = findViewById(R.id.postdetails_LikesTV)
+            val eventcommentsTV : TextView = findViewById(R.id.postdetails_CommentTV)
+
+
+
+
+            nameevent.text = post.eventname
+            dateevent.text = post.eventdate
+            venueevent.text = post.eventvenue
+            byuserevent.text = post.userId
+            eventlikesTV.text = "${post.postLikes} likes"
+            eventcommentsTV.text = "${post.postComments} comments"
+
+            Glide.with(this)
+                .load(post.eventpicUrl)
+                .into(imageevent)
+            Glide.with(this)
+                .load(post.userImage)
+                .into(eventuserimage)
+
+        }
+
+
+
         commRecyclerView = findViewById(R.id.det_rec_comments)
         addComment = findViewById(R.id.det_btn_comment)
         comment = findViewById(R.id.det_commentEt)
+        val commentingpfp : ImageView = findViewById(R.id.comments_Userpfp)
+
+        var pfpurl = thisUser?.pfp
+
+        Glide.with(this)
+            .load(pfpurl)
+            .into(commentingpfp)
 
         commRecyclerView.layoutManager = LinearLayoutManager(this)
         commRecyclerView.setHasFixedSize(true)
@@ -67,16 +106,10 @@ class PostDetailsActivity : AppCompatActivity() {
         commentAdapter = CommentAdapter(commList)
         commRecyclerView.adapter = commentAdapter
 
+
+
+
         getComments()
-//
-//        thisPost =
-//
-//        //Event data
-//
-//        insnameevent =
-//        insdateevent =
-//        insvenueevent =
-//        insuserevent =
 
 
         addComment.setOnClickListener {
@@ -90,7 +123,9 @@ class PostDetailsActivity : AppCompatActivity() {
         commRecyclerView.visibility = View.GONE
         loadingcircle.visibility = View.VISIBLE
 
-        commRef = FirebaseDatabase.getInstance().getReference("Events").child("Comments")
+        val Post = event ?: return
+
+        commRef = FirebaseDatabase.getInstance().getReference("Events/${Post?.eventKey}")
 
         commRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -123,11 +158,9 @@ class PostDetailsActivity : AppCompatActivity() {
 
     private fun uploadCommenttoDatabase(commentline: String) {
 
-        val Post = Post
+        val Post = event ?: return
 
-        val eventkey = Post.eventKey
-
-        val commRef = FirebaseDatabase.getInstance().getReference("Events").child(eventkey)
+        val commRef = FirebaseDatabase.getInstance().getReference("Events/${Post?.eventKey}/Comments")
 
         val commentId = commRef.push().key
 
@@ -174,15 +207,5 @@ class PostDetailsActivity : AppCompatActivity() {
                 }
             })
         }
-    }
-
-    private fun getEventData(){
-
-        val uid = auth.currentUser!!.uid
-
-
-
-
-
     }
 }

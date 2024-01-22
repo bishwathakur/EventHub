@@ -1,14 +1,18 @@
+import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
 import android.widget.ProgressBar
+import androidx.compose.ui.res.integerArrayResource
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.eventhub.AddEventActivity
+import com.example.eventhub.PostDetailsActivity
 import com.example.eventhub.R
 import com.example.eventhub.adapter.PostAdapter
 import com.example.eventhub.models.Post
@@ -27,6 +31,7 @@ class Home : Fragment() {
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
     private lateinit var mAdapter: PostAdapter
     private lateinit var firebaseAuth: FirebaseAuth
+    private lateinit var dialog: Dialog
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -53,10 +58,18 @@ class Home : Fragment() {
         mAdapter = PostAdapter(eveList, firebaseAuth, evedetRef, eveRef)
         eveRecyclerView.adapter = mAdapter
 
+        mAdapter.onItemClick = {
+            val intent = Intent(activity, PostDetailsActivity::class.java)
+            intent.putExtra("post", it)
+            startActivity(intent)
+        }
+
 
         // Initialize addBtn and set its click listener
         addBtn = view.findViewById(R.id.home_addButton)
         addBtn.setOnClickListener {
+
+
             // Open AddEventActivity when the button is clicked
             val intent = Intent(activity, AddEventActivity::class.java)
             startActivity(intent)
@@ -95,9 +108,7 @@ class Home : Fragment() {
                     mAdapter.notifyDataSetChanged()
                 }
 
-                mAdapter.setOnItemClickListener(object : PostAdapter.onItemClickListener{
 
-                })
 
                 eveRecyclerView.visibility = View.VISIBLE
                 loadingcircle.visibility = View.GONE

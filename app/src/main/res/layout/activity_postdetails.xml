@@ -44,7 +44,7 @@
                         android:layout_margin="2dp">
 
                         <de.hdodenhof.circleimageview.CircleImageView
-                            android:id="@+id/post_userPicture"
+                            android:id="@+id/postdetails_userPicture"
                             android:scaleType="centerCrop"
                             android:src="@drawable/ic_adddp"
                             android:layout_width="80dp"
@@ -61,7 +61,7 @@
                             >
 
                             <TextView
-                                android:id="@+id/post_event_name"
+                                android:id="@+id/postdetails_event_name"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="NameOfEvent"
@@ -86,7 +86,7 @@
                                     android:orientation="vertical"
                                     >
                                     <TextView
-                                        android:id="@+id/post_event_venue"
+                                        android:id="@+id/postdetails_event_venue"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:text="EventVenue"
@@ -113,7 +113,7 @@
                                     android:orientation="vertical"
                                     >
                                     <TextView
-                                        android:id="@+id/post_event_date"
+                                        android:id="@+id/postdetails_event_date"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
 
@@ -130,7 +130,7 @@
                             <TextView
                                 android:layout_marginLeft="@dimen/_2sdp"
                                 android:layout_marginTop="@dimen/_2sdp"
-                                android:id="@+id/post_event_byuser"
+                                android:id="@+id/postdetails_event_byuser"
                                 android:text="@string/eventbyuser"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -145,7 +145,7 @@
 
 
                     <ImageView
-                        android:id="@+id/post_Image"
+                        android:id="@+id/postdetails_Image"
                         style="@style/CardView"
                         android:layout_width="match_parent"
                         android:layout_height="200dp"
@@ -160,7 +160,7 @@
                         android:orientation="horizontal"
                         >
                         <TextView
-                            android:id="@+id/post_LikesTV"
+                            android:id="@+id/postdetails_LikesTV"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="14 like"
@@ -169,7 +169,7 @@
                             android:layout_margin="3dp"
                             />
                         <TextView
-                            android:id="@+id/post_CommentTV"
+                            android:id="@+id/postdetails_CommentTV"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text=" 1.2k Comments"
@@ -190,7 +190,7 @@
                         android:gravity="center">
 
                         <Button
-                            android:id="@+id/post_like_btn"
+                            android:id="@+id/postdetails_like_btn"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
@@ -200,7 +200,7 @@
                             android:text="Like"/>
 
                         <Button
-                            android:id="@+id/post_share_btn"
+                            android:id="@+id/postdetails_share_btn"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
@@ -223,7 +223,7 @@
                         style="@style/ProfileLayout">
 
                         <Button
-                            android:id="@+id/post_register_btn"
+                            android:id="@+id/postdetails_register_btn"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
@@ -254,6 +254,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/det_rec_comments"
                 android:layout_width="match_parent"
@@ -281,7 +282,7 @@
         >
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/det_cAvatarTv"
+            android:id="@+id/comments_Userpfp"
             android:layout_width="43dp"
             android:layout_height="43dp"
             android:layout_marginStart="@dimen/_5sdp"
@@ -300,7 +301,7 @@
             android:layout_marginEnd="@dimen/_5sdp"
             android:layout_marginBottom="@dimen/_5sdp"
             android:layout_toStartOf="@id/det_btn_comment"
-            android:layout_toEndOf="@id/det_cAvatarTv"
+            android:layout_toEndOf="@id/comments_Userpfp"
             android:background="@drawable/lavendar_border"
             android:hint="Write Comment..."
             android:inputType="textMultiLine|textCapSentences"

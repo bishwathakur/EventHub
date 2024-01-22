@@ -4,6 +4,7 @@ import android.app.DatePickerDialog
 import android.app.Dialog
 import android.net.Uri
 import android.os.Bundle
+import android.view.Window
 import android.widget.DatePicker
 import android.widget.TextView
 import android.widget.Toast
@@ -92,6 +93,18 @@ class AddEventActivity : AppCompatActivity() {
         dbRef = FirebaseDatabase.getInstance().getReference("Events")
 
         binding.addeventbtn.setOnClickListener {
+
+
+            if (!isFinishing && !isDestroyed) {
+                dialog = Dialog(this)
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+                dialog.setContentView(R.layout.dialog_wait)
+                dialog.setCanceledOnTouchOutside(false)
+
+                if (!isFinishing && !isDestroyed) {
+                    dialog.show()
+                }
+            }
             saveEventData()
         }
     }
@@ -269,6 +282,7 @@ class AddEventActivity : AppCompatActivity() {
                                     "Event added successfully",
                                     Toast.LENGTH_SHORT
                                 ).show()
+                                dialog.dismiss()
                                 finish()
                             }.addOnFailureListener {
                                 // Handle failure to save event data
