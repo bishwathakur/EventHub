@@ -1,5 +1,6 @@
 package com.example.eventhub
 
+import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Intent
 import android.net.Uri
@@ -63,18 +64,32 @@ class AddProfileActivity : AppCompatActivity() {
 
         // Function to check unsaved changes and show Toast
         fun checkUnsavedChangesAndFinish() {
-            if (hasUnsavedChanges) {
-                // Show Toast for unsaved changes
-                Toast.makeText(this, "You can't leave without saving your profile", Toast.LENGTH_SHORT).show()
-            } else {
-                // No unsaved changes, finish the activity
+            val alertDialogBuilder = AlertDialog.Builder(this)
+
+            // Set the dialog title and message
+            alertDialogBuilder.setTitle("Exit Confirmation")
+            alertDialogBuilder.setMessage("Are you sure you want to exit?")
+
+            // Set positive button
+            alertDialogBuilder.setPositiveButton("Yes") { _, _ ->
+                // If the user clicks "Yes", close the activity or take appropriate action
                 finish()
             }
+
+            // Set negative button
+            alertDialogBuilder.setNegativeButton("No") { dialog, _ ->
+                // If the user clicks "No", close the dialog
+                dialog.dismiss()
+            }
+
+            // Show the alert dialog
+            alertDialogBuilder.create().show()
         }
 
         binding.backButton.setOnClickListener {
             checkUnsavedChangesAndFinish()
         }
+
 
         val callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {

@@ -306,7 +306,7 @@
             android:inputType="textMultiLine|textCapSentences"
             android:padding="@dimen/_6sdp" />
 
-        <ImageButton
+        <ImageView
             android:id="@+id/det_btn_comment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

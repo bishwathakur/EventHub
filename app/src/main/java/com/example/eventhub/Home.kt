@@ -53,6 +53,7 @@ class Home : Fragment() {
         mAdapter = PostAdapter(eveList, firebaseAuth, evedetRef, eveRef)
         eveRecyclerView.adapter = mAdapter
 
+
         // Initialize addBtn and set its click listener
         addBtn = view.findViewById(R.id.home_addButton)
         addBtn.setOnClickListener {
@@ -94,8 +95,14 @@ class Home : Fragment() {
                     mAdapter.notifyDataSetChanged()
                 }
 
+                mAdapter.setOnItemClickListener(object : PostAdapter.onItemClickListener{
+
+                })
+
                 eveRecyclerView.visibility = View.VISIBLE
                 loadingcircle.visibility = View.GONE
+
+
             }
 
             override fun onCancelled(error: DatabaseError) {

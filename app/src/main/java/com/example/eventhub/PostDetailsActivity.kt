@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.eventhub.adapter.CommentAdapter
 import com.example.eventhub.models.Comment
+import com.example.eventhub.models.Post
 import com.example.eventhub.models.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -29,9 +31,19 @@ class PostDetailsActivity : AppCompatActivity() {
     private lateinit var commRef: DatabaseReference
     private lateinit var commentAdapter: CommentAdapter
     private lateinit var firebaseAuth: FirebaseAuth
-    private lateinit var addComment: Button
+    private lateinit var addComment: ImageView
+    private lateinit var auth: FirebaseAuth
 
     private lateinit var comment: TextView
+    private lateinit var Post: Post
+
+
+    private lateinit var insnameevent : TextView
+    private lateinit var insvenueevent : TextView
+    private lateinit var insdateevent : TextView
+    private lateinit var insuserevent : TextView
+
+    private lateinit var thisPost : Post
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,25 +68,36 @@ class PostDetailsActivity : AppCompatActivity() {
         commRecyclerView.adapter = commentAdapter
 
         getComments()
+//
+//        thisPost =
+//
+//        //Event data
+//
+//        insnameevent =
+//        insdateevent =
+//        insvenueevent =
+//        insuserevent =
 
 
         addComment.setOnClickListener {
             saveCommentData()
         }
+
+        //Implement a back feature to go a stackk behind not exit the app...
     }
 
     private fun getComments() {
         commRecyclerView.visibility = View.GONE
         loadingcircle.visibility = View.VISIBLE
 
-        commRef = FirebaseDatabase.getInstance().getReference("Events")
+        commRef = FirebaseDatabase.getInstance().getReference("Events").child("Comments")
 
         commRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 commList.clear()
                 if (snapshot.exists()) {
-                    for (eveSnap in snapshot.children) {
-                        val commData = eveSnap.getValue(Comment::class.java)
+                    for (commSnap in snapshot.children) {
+                        val commData = commSnap.getValue(Comment::class.java)
                         commList.add(commData!!)
                     }
                     // Notify the adapter that the dataset has changed
@@ -95,14 +118,16 @@ class PostDetailsActivity : AppCompatActivity() {
 
         val commentline = comment.text.toString()
 
-        if (commentline.isEmpty()) comment.error = "Enter your Comment!!"
-
         uploadCommenttoDatabase(commentline)
     }
 
     private fun uploadCommenttoDatabase(commentline: String) {
 
-        val commRef = FirebaseDatabase.getInstance().getReference("Events")
+        val Post = Post
+
+        val eventkey = Post.eventKey
+
+        val commRef = FirebaseDatabase.getInstance().getReference("Events").child(eventkey)
 
         val commentId = commRef.push().key
 
@@ -125,14 +150,15 @@ class PostDetailsActivity : AppCompatActivity() {
                             user.name.toString()
                         )
 
-                        commRef.child("Commnents").child(commentId ?: "").setValue(newComment)
+                        commRef.child("Comments").child(commentId ?: "").setValue(newComment)
                             .addOnSuccessListener {
                                 Toast.makeText(
                                     this@PostDetailsActivity,
                                     "Comment Added Successfully",
                                     Toast.LENGTH_SHORT
                                 ).show()
-                                finish()
+
+
                             }.addOnFailureListener {
                                 Toast.makeText(
                                     this@PostDetailsActivity,
@@ -148,5 +174,15 @@ class PostDetailsActivity : AppCompatActivity() {
                 }
             })
         }
+    }
+
+    private fun getEventData(){
+
+        val uid = auth.currentUser!!.uid
+
+
+
+
+
     }
 }

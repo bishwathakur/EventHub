@@ -46,7 +46,7 @@ class SignUpActivity : AppCompatActivity() {
                             finish()
                         } else {
                             Toast.makeText(this, it.exception.toString(), Toast.LENGTH_SHORT).show()
-
+x
                         }
                     }
                 } else {

@@ -3,7 +3,6 @@ package com.example.eventhub.adapter
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.AdapterView.OnItemClickListener
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -13,19 +12,19 @@ import com.example.eventhub.databinding.ItemEventsBinding
 import com.example.eventhub.models.Post
 import com.example.eventhub.utils.Constants
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.ValueEventListener
-
 
 class PostAdapter(
     private val eveList: ArrayList<Post>,
     private val auth: FirebaseAuth,
-    private val evedetRef : DatabaseReference,
-    private val eveRef : DatabaseReference
+    private val evedetRef: DatabaseReference,
+    private val eveRef: DatabaseReference
 ) : RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
-    private lateinit var mListener: OnItemClickListener
+
+    private var mListener: OnItemClickListener? = null
 
     interface OnItemClickListener {
         fun onItemClick(position: Int)
@@ -110,13 +109,13 @@ class PostAdapter(
                     likeButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_like, 0, 0, 0)
                     likeButton.text = "Liked"
                 } else {
-
                     likeButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_like_not, 0, 0, 0)
                     likeButton.text = "Like"
                 }
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
+                // Handle onCancelled if needed
             }
         })
     }
@@ -128,25 +127,21 @@ class PostAdapter(
         registerButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.baseline_add, 0, 0, 0)
 
         evedetRef.child(Constants.REGISTER).child(postKey).addListenerForSingleValueEvent(object : ValueEventListener {
-                override fun onDataChange(dataSnapshot: DataSnapshot) {
-                    if (dataSnapshot.hasChild(myUid!!)) {
-
-                        registerButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.baseline_check_circle_24, 0, 0, 0)
-                        registerButton.text = "REGISTERED"
-                    } else {
-
-                        registerButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.baseline_add, 0, 0, 0)
-                        registerButton.text = "REGISTER"
-                    }
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                if (dataSnapshot.hasChild(myUid!!)) {
+                    registerButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.baseline_check_circle_24, 0, 0, 0)
+                    registerButton.text = "REGISTERED"
+                } else {
+                    registerButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.baseline_add, 0, 0, 0)
+                    registerButton.text = "REGISTER"
                 }
+            }
 
-                override fun onCancelled(databaseError: DatabaseError) {
-                }
-            })
+            override fun onCancelled(databaseError: DatabaseError) {
+                // Handle onCancelled if needed
+            }
+        })
     }
-
-
-
 
     private fun handleLikeButtonClick(post: Post) {
         var postLikes = post.postLikes
@@ -158,28 +153,19 @@ class PostAdapter(
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     if (dataSnapshot.hasChild(myId!!)) {
                         // Already liked, so remove like
-
                         val databaseReference = eveRef.child(postKey)
                         val LikesCounter = "postLikes"
                         var updatedLikes = --postLikes
-
                         updatedLikes = updatedLikes.coerceAtLeast(0)
-
                         databaseReference.child(LikesCounter).setValue(updatedLikes)
-
                         evedetRef.child(Constants.LIKES).child(postKey).child(myId).removeValue()
                     } else {
                         // Not liked, like it
-
-
                         val databaseReference = eveRef.child(postKey)
                         val LikesCounter = "postLikes"
                         val updatedLikes = ++postLikes
-
                         databaseReference.child(LikesCounter).setValue(updatedLikes)
-
                         evedetRef.child(Constants.LIKES).child(postKey).child(myId).setValue(true)
-
                     }
                 }
 
@@ -199,24 +185,19 @@ class PostAdapter(
             evedetRef.child(Constants.REGISTER).child(postKey).addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     if (dataSnapshot.hasChild(myId!!)) {
-                        // Already liked, so remove registration
+                        // Already registered, so remove registration
                         val databaseReference = eveRef.child(postKey)
-                        val LikesCounter = "postRegistrations"
-                        var updatedRegisters = --postRegistrations
-
-                        updatedRegisters = updatedRegisters.coerceAtLeast(0)
-
-                        databaseReference.child(LikesCounter).setValue(updatedRegisters)
-
-                        evedetRef.child(Constants.LIKES).child(postKey).child(myId).removeValue()
+                        val RegistrationsCounter = "postRegistrations"
+                        var updatedRegistrations = --postRegistrations
+                        updatedRegistrations = updatedRegistrations.coerceAtLeast(0)
+                        databaseReference.child(RegistrationsCounter).setValue(updatedRegistrations)
+                        evedetRef.child(Constants.REGISTER).child(postKey).child(myId).removeValue()
                     } else {
-                        // Not liked, register in it
+                        // Not registered, register in it
                         val databaseReference = eveRef.child(postKey)
-                        val LikesCounter = "postRegistrations"
-                        val updatedLikes = ++postRegistrations
-
-                        databaseReference.child(LikesCounter).setValue(updatedLikes)
-
+                        val RegistrationsCounter = "postRegistrations"
+                        val updatedRegistrations = ++postRegistrations
+                        databaseReference.child(RegistrationsCounter).setValue(updatedRegistrations)
                         evedetRef.child(Constants.REGISTER).child(postKey).child(myId).setValue(true)
                     }
                 }
@@ -227,8 +208,6 @@ class PostAdapter(
             })
         }
     }
-
-
 
     override fun getItemCount(): Int {
         return eveList.size

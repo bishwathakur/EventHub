@@ -62,6 +62,8 @@ class Profile : Fragment() {
 
     private lateinit var dialog: Dialog
 
+    private lateinit var more : ImageView
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -76,6 +78,8 @@ class Profile : Fragment() {
         loadingcircle = view.findViewById(R.id.profile_progress_bar)
 
         eveList = arrayListOf<Post>()
+
+        more = view.findViewById(R.id.more)
 
         // Initialize databaseReference and firebaseAuth
         dataBaseReference = FirebaseDatabase.getInstance().getReference("EventDetails")
@@ -187,21 +191,21 @@ class Profile : Fragment() {
                     .into(insuserpfp)
             }
 
-//            more.setOnClickListener {
-//                val popupMenu = PopupMenu(requireContext(), more)
-//                popupMenu.menuInflater.inflate(R.menu.menu_profilelogout, popupMenu.menu)
-//
-//                popupMenu.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener { item ->
-//                    when (item.itemId) {
-//                        R.id.logout -> {
-//                            auth.signOut()
-//                            startActivity(Intent(requireActivity(), SignInActivity::class.java))
-//                            requireActivity().finish()
-//                        }
-//                    }
-//                    true
-//                })
-//                popupMenu.show()
-//            }
+            more.setOnClickListener {
+                val popupMenu = PopupMenu(requireContext(), more)
+                popupMenu.menuInflater.inflate(R.menu.menu_profilelogout, popupMenu.menu)
+
+                popupMenu.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener { item ->
+                    when (item.itemId) {
+                        R.id.logout -> {
+                            auth.signOut()
+                            startActivity(Intent(requireActivity(), SignInActivity::class.java))
+                            requireActivity().finish()
+                        }
+                    }
+                    true
+                })
+                popupMenu.show()
+            }
         }
     }}
