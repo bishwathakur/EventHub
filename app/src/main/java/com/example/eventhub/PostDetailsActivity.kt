@@ -39,19 +39,13 @@ class PostDetailsActivity : AppCompatActivity() {
     private var event: Post? = null
     private var thisUser : User? = null
 
-
-    private lateinit var insnameevent : TextView
-    private lateinit var insvenueevent : TextView
-    private lateinit var insdateevent : TextView
-    private lateinit var insuserevent : TextView
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_postdetails)
 
 
-        val post = intent.getParcelableExtra<Post?>("post")
-        if (post != null){
+        val event = intent.getParcelableExtra<Post?>("post")
+        if (event != null){
             val nameevent : TextView = findViewById(R.id.postdetails_event_name)
             val dateevent : TextView = findViewById(R.id.postdetails_event_date)
             val venueevent : TextView = findViewById(R.id.postdetails_event_venue)
@@ -64,18 +58,19 @@ class PostDetailsActivity : AppCompatActivity() {
 
 
 
-            nameevent.text = post.eventname
-            dateevent.text = post.eventdate
-            venueevent.text = post.eventvenue
-            byuserevent.text = post.userId
-            eventlikesTV.text = "${post.postLikes} likes"
-            eventcommentsTV.text = "${post.postComments} comments"
+            nameevent.text = event.eventname
+            dateevent.text = event.eventdate
+            venueevent.text = event.eventvenue
+            byuserevent.text = event.userId
+            eventlikesTV.text = "${event.postLikes} likes"
+            eventcommentsTV.text = "${event.postComments} comments"
+
 
             Glide.with(this)
-                .load(post.eventpicUrl)
+                .load(event.eventpicUrl)
                 .into(imageevent)
             Glide.with(this)
-                .load(post.userImage)
+                .load(event.userImage)
                 .into(eventuserimage)
 
         }
@@ -86,6 +81,7 @@ class PostDetailsActivity : AppCompatActivity() {
         addComment = findViewById(R.id.det_btn_comment)
         comment = findViewById(R.id.det_commentEt)
         val commentingpfp : ImageView = findViewById(R.id.comments_Userpfp)
+
 
         var pfpurl = thisUser?.pfp
 
@@ -113,6 +109,7 @@ class PostDetailsActivity : AppCompatActivity() {
 
 
         addComment.setOnClickListener {
+
             saveCommentData()
         }
 
@@ -125,7 +122,7 @@ class PostDetailsActivity : AppCompatActivity() {
 
         val Post = event ?: return
 
-        commRef = FirebaseDatabase.getInstance().getReference("Events/${Post?.eventKey}")
+        commRef = FirebaseDatabase.getInstance().getReference("Events/${Post?.eventKey}/Comments")
 
         commRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -150,6 +147,7 @@ class PostDetailsActivity : AppCompatActivity() {
     }
 
     private fun saveCommentData() {
+
 
         val commentline = comment.text.toString()
 
@@ -183,13 +181,14 @@ class PostDetailsActivity : AppCompatActivity() {
                             user.name.toString()
                         )
 
-                        commRef.child("Comments").child(commentId ?: "").setValue(newComment)
+                        commRef.child(commentId ?: "").setValue(newComment)
                             .addOnSuccessListener {
                                 Toast.makeText(
                                     this@PostDetailsActivity,
                                     "Comment Added Successfully",
                                     Toast.LENGTH_SHORT
                                 ).show()
+                                finish()
 
 
                             }.addOnFailureListener {
@@ -198,12 +197,13 @@ class PostDetailsActivity : AppCompatActivity() {
                                     "Failed to add comment",
                                     Toast.LENGTH_SHORT
                                 ).show()
+                                finish()
                             }
                     }
                 }
 
                 override fun onCancelled(error: DatabaseError) {
-                    //mehhhhhhhhhh
+
                 }
             })
         }

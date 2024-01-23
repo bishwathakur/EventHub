@@ -21,7 +21,7 @@ class Chats : Fragment() {
         binding = FragmentChatsBinding.inflate(inflater, container, false)
 
         // Add the click listener code here
-        binding.menuIcon.setOnClickListener {
+        binding.allusersicon.setOnClickListener {
             val intent = Intent(context, NewMessageActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(intent)

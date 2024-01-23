@@ -116,7 +116,7 @@ class Profile : Fragment() {
         insuserphone = view.findViewById(R.id.userphone)
         insuserpfp = view.findViewById(R.id.userpfpdisplay)
 
-        // Insnapshotialize the DatabaseReference
+        // Inittialize the DatabaseReference
         dataBaseReference = FirebaseDatabase.getInstance().getReference("Users")
 
         // Insnapshotialize FirebaseAuth

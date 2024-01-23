@@ -44,7 +44,7 @@
 
         <!-- Menu Bar -->
         <ImageView
-            android:id="@+id/menuIcon"
+            android:id="@+id/allusersicon"
             android:layout_width="@dimen/_26sdp"
             android:layout_height="@dimen/_26sdp"
             android:layout_marginTop="16dp"

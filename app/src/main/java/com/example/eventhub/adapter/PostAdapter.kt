@@ -2,8 +2,13 @@ package com.example.eventhub.adapter
 
 import android.content.Intent
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.view.ViewParent
+import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.eventhub.PostDetailsActivity
@@ -24,41 +29,51 @@ class PostAdapter(
     private val eveRef: DatabaseReference
 ) : RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
 
-    private var mListener: OnItemClickListener? = null
+    var onItemClick: ((Post) -> Unit)? = null
 
-    interface OnItemClickListener {
-        fun onItemClick(position: Int)
+    class PostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val postUserPicture: ImageView = itemView.findViewById(R.id.post_userPicture)
+        val postImage: ImageView = itemView.findViewById(R.id.post_Image)
+        val postEventName: TextView = itemView.findViewById(R.id.post_event_name)
+        val postEventVenue: TextView = itemView.findViewById(R.id.post_event_venue)
+        val postEventDate: TextView = itemView.findViewById(R.id.post_event_date)
+        val postEventByUser: TextView = itemView.findViewById(R.id.post_event_byuser)
+
+        val postLikesTV: TextView = itemView.findViewById(R.id.post_LikesTV)
+        val postCommentTV: TextView = itemView.findViewById(R.id.post_CommentTV)
+
+        val postLikeBtn: Button = itemView.findViewById(R.id.post_like_btn)
+        val postCommentBtn: Button = itemView.findViewById(R.id.post_comment_btn)
+        val postShareBtn: Button = itemView.findViewById(R.id.post_share_btn)
+        val postRegisterBtn: Button = itemView.findViewById(R.id.post_register_btn)
+
+        val card : CardView = itemView.findViewById(R.id.cardevent)
     }
 
-    fun setOnItemClickListener(clickListener: OnItemClickListener) {
-        mListener = clickListener
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_events, parent, false)
+
+        return PostViewHolder(view)
     }
 
-    inner class PostViewHolder(val binding: ItemEventsBinding) : RecyclerView.ViewHolder(binding.root)
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder =
-        PostViewHolder(
-            ItemEventsBinding.inflate(
-                LayoutInflater.from(parent.context),
-                parent,
-                false
-            )
-        )
+    override fun getItemCount(): Int {
+        return eveList.size
+    }
 
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
         val currentEvent = eveList[position]
 
-        holder.binding.apply {
+        holder.apply {
             postEventName.text = currentEvent.eventname
-            postEventVenue.text = currentEvent.eventvenue
             postEventDate.text = currentEvent.eventdate
-            postEventByuser.text = currentEvent.userId
+            postEventVenue.text = currentEvent.eventvenue
+            postEventByUser.text = currentEvent.userId
 
-            Glide.with(root.context)
+            Glide.with(itemView)
                 .load(currentEvent.userImage)
                 .into(postUserPicture)
 
-            Glide.with(root.context)
+            Glide.with(itemView)
                 .load(currentEvent.eventpicUrl)
                 .into(postImage)
 
@@ -71,7 +86,6 @@ class PostAdapter(
             postLikeBtn.setOnClickListener {
                 handleLikeButtonClick(currentEvent)
             }
-
             // Register button binders
             updateRegisterButton(currentEvent, postRegisterBtn)
 
@@ -79,20 +93,18 @@ class PostAdapter(
                 handleRegisterButtonClick(currentEvent)
             }
 
-            // Comment inflater
+            // Comment inflate
             postCommentBtn.setOnClickListener {
-                val context = root.context
-                val intent = Intent(context, PostDetailsActivity::class.java)
-                intent.putExtra("postLikes", currentEvent.postLikes)
-                intent.putExtra("postRegistrations", currentEvent.postRegistrations)
-                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
-                context.startActivity(intent)
+                onItemClick?.invoke(currentEvent)
+
             }
 
-            // Set click listener on the root view
-            holder.itemView.setOnClickListener {
-                // Check if mListener is not null before calling its method
-                mListener?.onItemClick(position)
+            postImage.setOnClickListener {
+                onItemClick?.invoke(currentEvent)
+            }
+
+            card.setOnClickListener{
+                onItemClick?.invoke(currentEvent)
             }
         }
     }
@@ -103,21 +115,32 @@ class PostAdapter(
 
         likeButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_like_not, 0, 0, 0)
 
-        evedetRef.child(Constants.LIKES).child(postKey).addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                if (dataSnapshot.hasChild(myUid!!)) {
-                    likeButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_like, 0, 0, 0)
-                    likeButton.text = "Liked"
-                } else {
-                    likeButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_like_not, 0, 0, 0)
-                    likeButton.text = "Like"
+        evedetRef.child(Constants.LIKES).child(postKey)
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    if (dataSnapshot.hasChild(myUid!!)) {
+                        likeButton.setCompoundDrawablesWithIntrinsicBounds(
+                            R.drawable.ic_like,
+                            0,
+                            0,
+                            0
+                        )
+                        likeButton.text = "Liked"
+                    } else {
+                        likeButton.setCompoundDrawablesWithIntrinsicBounds(
+                            R.drawable.ic_like_not,
+                            0,
+                            0,
+                            0
+                        )
+                        likeButton.text = "Like"
+                    }
                 }
-            }
 
-            override fun onCancelled(databaseError: DatabaseError) {
-                // Handle onCancelled if needed
-            }
-        })
+                override fun onCancelled(databaseError: DatabaseError) {
+                    // Handle onCancelled if needed
+                }
+            })
     }
 
     private fun updateRegisterButton(post: Post, registerButton: TextView) {
@@ -126,21 +149,32 @@ class PostAdapter(
 
         registerButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.baseline_add, 0, 0, 0)
 
-        evedetRef.child(Constants.REGISTER).child(postKey).addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                if (dataSnapshot.hasChild(myUid!!)) {
-                    registerButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.baseline_check_circle_24, 0, 0, 0)
-                    registerButton.text = "REGISTERED"
-                } else {
-                    registerButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.baseline_add, 0, 0, 0)
-                    registerButton.text = "REGISTER"
+        evedetRef.child(Constants.REGISTER).child(postKey)
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    if (dataSnapshot.hasChild(myUid!!)) {
+                        registerButton.setCompoundDrawablesWithIntrinsicBounds(
+                            R.drawable.baseline_check_circle_24,
+                            0,
+                            0,
+                            0
+                        )
+                        registerButton.text = "REGISTERED"
+                    } else {
+                        registerButton.setCompoundDrawablesWithIntrinsicBounds(
+                            R.drawable.baseline_add,
+                            0,
+                            0,
+                            0
+                        )
+                        registerButton.text = "REGISTER"
+                    }
                 }
-            }
 
-            override fun onCancelled(databaseError: DatabaseError) {
-                // Handle onCancelled if needed
-            }
-        })
+                override fun onCancelled(databaseError: DatabaseError) {
+                    // Handle onCancelled if needed
+                }
+            })
     }
 
     private fun handleLikeButtonClick(post: Post) {
@@ -149,30 +183,33 @@ class PostAdapter(
         val myId = auth.currentUser?.uid
 
         if (postKey.isNotEmpty()) {
-            evedetRef.child(Constants.LIKES).child(postKey).addListenerForSingleValueEvent(object : ValueEventListener {
-                override fun onDataChange(dataSnapshot: DataSnapshot) {
-                    if (dataSnapshot.hasChild(myId!!)) {
-                        // Already liked, so remove like
-                        val databaseReference = eveRef.child(postKey)
-                        val LikesCounter = "postLikes"
-                        var updatedLikes = --postLikes
-                        updatedLikes = updatedLikes.coerceAtLeast(0)
-                        databaseReference.child(LikesCounter).setValue(updatedLikes)
-                        evedetRef.child(Constants.LIKES).child(postKey).child(myId).removeValue()
-                    } else {
-                        // Not liked, like it
-                        val databaseReference = eveRef.child(postKey)
-                        val LikesCounter = "postLikes"
-                        val updatedLikes = ++postLikes
-                        databaseReference.child(LikesCounter).setValue(updatedLikes)
-                        evedetRef.child(Constants.LIKES).child(postKey).child(myId).setValue(true)
+            evedetRef.child(Constants.LIKES).child(postKey)
+                .addListenerForSingleValueEvent(object : ValueEventListener {
+                    override fun onDataChange(dataSnapshot: DataSnapshot) {
+                        if (dataSnapshot.hasChild(myId!!)) {
+                            // Already liked, so remove like
+                            val databaseReference = eveRef.child(postKey)
+                            val LikesCounter = "postLikes"
+                            var updatedLikes = --postLikes
+                            updatedLikes = updatedLikes.coerceAtLeast(0)
+                            databaseReference.child(LikesCounter).setValue(updatedLikes)
+                            evedetRef.child(Constants.LIKES).child(postKey).child(myId)
+                                .removeValue()
+                        } else {
+                            // Not liked, like it
+                            val databaseReference = eveRef.child(postKey)
+                            val LikesCounter = "postLikes"
+                            val updatedLikes = ++postLikes
+                            databaseReference.child(LikesCounter).setValue(updatedLikes)
+                            evedetRef.child(Constants.LIKES).child(postKey).child(myId)
+                                .setValue(true)
+                        }
                     }
-                }
 
-                override fun onCancelled(databaseError: DatabaseError) {
-                    // Handle onCancelled if needed
-                }
-            })
+                    override fun onCancelled(databaseError: DatabaseError) {
+                        // Handle onCancelled if needed
+                    }
+                })
         }
     }
 
@@ -182,34 +219,35 @@ class PostAdapter(
         val myId = auth.currentUser?.uid
 
         if (postKey.isNotEmpty()) {
-            evedetRef.child(Constants.REGISTER).child(postKey).addListenerForSingleValueEvent(object : ValueEventListener {
-                override fun onDataChange(dataSnapshot: DataSnapshot) {
-                    if (dataSnapshot.hasChild(myId!!)) {
-                        // Already registered, so remove registration
-                        val databaseReference = eveRef.child(postKey)
-                        val RegistrationsCounter = "postRegistrations"
-                        var updatedRegistrations = --postRegistrations
-                        updatedRegistrations = updatedRegistrations.coerceAtLeast(0)
-                        databaseReference.child(RegistrationsCounter).setValue(updatedRegistrations)
-                        evedetRef.child(Constants.REGISTER).child(postKey).child(myId).removeValue()
-                    } else {
-                        // Not registered, register in it
-                        val databaseReference = eveRef.child(postKey)
-                        val RegistrationsCounter = "postRegistrations"
-                        val updatedRegistrations = ++postRegistrations
-                        databaseReference.child(RegistrationsCounter).setValue(updatedRegistrations)
-                        evedetRef.child(Constants.REGISTER).child(postKey).child(myId).setValue(true)
+            evedetRef.child(Constants.REGISTER).child(postKey)
+                .addListenerForSingleValueEvent(object : ValueEventListener {
+                    override fun onDataChange(dataSnapshot: DataSnapshot) {
+                        if (dataSnapshot.hasChild(myId!!)) {
+                            // Already registered, so remove registration
+                            val databaseReference = eveRef.child(postKey)
+                            val RegistrationsCounter = "postRegistrations"
+                            var updatedRegistrations = --postRegistrations
+                            updatedRegistrations = updatedRegistrations.coerceAtLeast(0)
+                            databaseReference.child(RegistrationsCounter)
+                                .setValue(updatedRegistrations)
+                            evedetRef.child(Constants.REGISTER).child(postKey).child(myId)
+                                .removeValue()
+                        } else {
+                            // Not registered, register in it
+                            val databaseReference = eveRef.child(postKey)
+                            val RegistrationsCounter = "postRegistrations"
+                            val updatedRegistrations = ++postRegistrations
+                            databaseReference.child(RegistrationsCounter)
+                                .setValue(updatedRegistrations)
+                            evedetRef.child(Constants.REGISTER).child(postKey).child(myId)
+                                .setValue(true)
+                        }
                     }
-                }
 
-                override fun onCancelled(databaseError: DatabaseError) {
-                    // Handle onCancelled if needed
-                }
-            })
+                    override fun onCancelled(databaseError: DatabaseError) {
+                        // Handle onCancelled if needed
+                    }
+                })
         }
-    }
-
-    override fun getItemCount(): Int {
-        return eveList.size
     }
 }

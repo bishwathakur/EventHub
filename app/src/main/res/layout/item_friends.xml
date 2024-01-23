@@ -7,7 +7,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/_12sdp"
-    app:cardCornerRadius="@dimen/_12sdp">
+    app:cardCornerRadius="@dimen/_12sdp"
+    android:id="@+id/friends_card">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -16,7 +17,7 @@
 
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/chat_user_image"
+            android:id="@+id/friends_user_image"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:src="@drawable/default_user"
@@ -25,7 +26,7 @@
             app:layout_constraintTop_toTopOf="parent"/>
 
         <TextView
-            android:id="@+id/chat_username"
+            android:id="@+id/friends_username"
             style="@style/TEXT"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -34,9 +35,9 @@
             android:textSize="20sp"
             android:textStyle="bold"
             android:fontFamily="@font/roboto_bold"
-            app:layout_constraintBottom_toBottomOf="@+id/chat_user_image"
+            app:layout_constraintBottom_toBottomOf="@+id/friends_user_image"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/chat_user_image"
+            app:layout_constraintStart_toEndOf="@+id/friends_user_image"
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
