@@ -30,7 +30,7 @@ class PostAdapter(
 ) : RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
 
     var onItemClick: ((Post) -> Unit)? = null
-    var onItemLongClick: ((position: Int) -> Unit)? = null
+    var onItemLongClick: ((Post) -> Unit)? = null
 
     class PostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val postUserPicture: ImageView = itemView.findViewById(R.id.post_userPicture)
@@ -109,10 +109,6 @@ class PostAdapter(
 
             card.setOnClickListener{
                 onItemClick?.invoke(currentEvent)
-            }
-
-            card.setOnLongClickListener{
-                onItemLongClick?.invoke(currentEvent)
             }
         }
     }

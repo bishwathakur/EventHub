@@ -99,9 +99,9 @@ class Profile : Fragment() {
 
         mAdapter = PostAdapter(eveList, auth, evedetRef, eveRef)
 
-        mAdapter.onItemLongClick = { position ->
-            val event = eveList[position]
-            showDeleteEventDialog(event)
+        mAdapter.onItemLongClick = { currentEvent ->
+            // Handle the long click on the event
+            showDeleteEventDialog(currentEvent)
         }
         eveRecyclerView.adapter = mAdapter
 
@@ -159,11 +159,6 @@ class Profile : Fragment() {
                     }
                     // Notify the adapter that the dataset has changed
                     mAdapter.notifyDataSetChanged()
-
-                    mAdapter.onItemLongClick = { position ->
-                        val event = eveList[position]
-                        showDeleteEventDialog(event)
-                    }
                     mAdapter.onItemClick = {
                         val intent = Intent(activity, PostDetailsActivity::class.java)
                         intent.putExtra("post", it)
