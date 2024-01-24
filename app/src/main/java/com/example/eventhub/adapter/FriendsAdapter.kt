@@ -9,11 +9,14 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.eventhub.R
+import com.example.eventhub.models.Post
 import com.example.eventhub.models.User
 
 class FriendsAdapter (
     private val frieList: ArrayList<User>
     ) : RecyclerView.Adapter<FriendsAdapter.FriendsViewHolder>(){
+
+    var onItemClick: ((User) -> Unit)? = null
 
 
         class FriendsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
@@ -36,17 +39,17 @@ class FriendsAdapter (
     }
 
     override fun onBindViewHolder(holder: FriendsViewHolder, position: Int) {
-        val friend = frieList[position]
+        val currfriend = frieList[position]
 
         holder.apply {
-            friendname.text = friend.name
+            friendname.text = currfriend.name
 
             Glide.with(itemView)
-                .load(friend.pfp)
+                .load(currfriend.pfp)
                 .into(friendimage)
 
             card.setOnClickListener{
-
+                onItemClick?.invoke(currfriend)
             }
 
 

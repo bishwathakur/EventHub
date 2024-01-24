@@ -240,32 +240,22 @@
     <RelativeLayout
         android:id="@+id/commentLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/_40sdp"
         android:layout_alignParentBottom="true"
         android:elevation="@dimen/_4sdp"
         >
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/comments_Userpfp"
-            android:layout_width="43dp"
-            android:layout_height="43dp"
-            android:layout_marginStart="@dimen/_5sdp"
-            android:layout_marginTop="@dimen/_5sdp"
-            android:layout_marginEnd="@dimen/_5sdp"
-            android:layout_marginBottom="@dimen/_5sdp"
-            android:src="@drawable/baseline_profile_24" />
 
         <EditText
             android:id="@+id/det_commentEt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
-            android:layout_marginStart="@dimen/_5sdp"
+            android:layout_marginStart="6dp"
             android:layout_marginTop="@dimen/_5sdp"
             android:layout_marginEnd="@dimen/_5sdp"
             android:layout_marginBottom="@dimen/_5sdp"
             android:layout_toStartOf="@id/det_btn_comment"
-            android:layout_toEndOf="@id/comments_Userpfp"
             android:background="@drawable/lavendar_border"
             android:hint="Write Comment..."
             android:inputType="textMultiLine|textCapSentences"
@@ -279,7 +269,6 @@
             android:layout_centerVertical="true"
             android:layout_marginVertical="@dimen/_5sdp"
             android:layout_marginEnd="@dimen/_7sdp"
-            android:background="@null"
             android:src="@drawable/baseline_send_24" />
 
 

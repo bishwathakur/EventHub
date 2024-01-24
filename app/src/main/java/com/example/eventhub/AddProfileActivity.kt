@@ -17,8 +17,11 @@ import com.bumptech.glide.Glide
 import com.example.eventhub.databinding.AddprofileBinding
 import com.example.eventhub.models.User
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.FirebaseStorage
 
 class AddProfileActivity : AppCompatActivity() {
@@ -56,7 +59,6 @@ class AddProfileActivity : AppCompatActivity() {
         image.setOnClickListener {
             galleryImage.launch("image/*")
         }
-
 
 
         var hasUnsavedChanges = false // Variable to track unsaved changes
@@ -100,7 +102,6 @@ class AddProfileActivity : AppCompatActivity() {
         onBackPressedDispatcher.addCallback(this, callback)
 
         binding.addButton.setOnClickListener {
-
             if (!isFinishing && !isDestroyed) {
                 dialog = Dialog(this@AddProfileActivity)
                 dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -123,60 +124,103 @@ class AddProfileActivity : AppCompatActivity() {
 
             val selectedUri = uri
 
-
             auth = FirebaseAuth.getInstance()
-
-
 
             if (selectedUri == null) {
                 dialog.dismiss()
                 Toast.makeText(this, "Please select an image", Toast.LENGTH_SHORT).show()
             } else {
-                if (name.isNotEmpty() && email != null && userid.isNotEmpty() && userplace.isNotEmpty() && userphone.isNotEmpty()) {
+                if (name.isNotEmpty() && email != null && userid.isNotEmpty() && userplace.isNotEmpty() && userphone.isNotEmpty() && userphone.length == 10) {
 
+                    // Check if the user ID is already taken
+                    dataBaseReference.orderByChild("userid").equalTo(userid)
+                        .addListenerForSingleValueEvent(object : ValueEventListener {
+                            override fun onDataChange(snapshot: DataSnapshot) {
+                                if (snapshot.exists()) {
+                                    // User ID is already taken
+                                    dialog.dismiss()
+                                    Toast.makeText(
+                                        this@AddProfileActivity,
+                                        "User ID is already taken. Please choose a different one.",
+                                        Toast.LENGTH_LONG
+                                    ).show()
+                                } else {
+                                    // User ID is unique
+                                    val imageFileName = "pfp/${userid}.jpg"
+                                    val imageRef = storageRef.reference.child(imageFileName)
 
+                                    imageRef.putFile(selectedUri)
+                                        .addOnSuccessListener { task ->
+                                            task.metadata!!.reference!!.downloadUrl
+                                                .addOnSuccessListener { imageUrl ->
+                                                    val user = User(
+                                                        name,
+                                                        email,
+                                                        userid,
+                                                        userplace,
+                                                        userphone,
+                                                        pfp = imageUrl.toString()
+                                                    )
 
+                                                    val uid = auth.currentUser?.uid
+                                                    if (uid != null) {
+                                                        dataBaseReference.child(uid).setValue(user)
+                                                            .addOnSuccessListener {
+                                                                Toast.makeText(
+                                                                    this@AddProfileActivity,
+                                                                    "User data saved successfully",
+                                                                    Toast.LENGTH_LONG
+                                                                ).show()
+                                                                dialog.dismiss()
 
-                    val imageFileName = "pfp/${userid}.jpg"
-                    val imageRef = storageRef.reference.child(imageFileName)
-
-
-                    imageRef.putFile(selectedUri)
-                        .addOnSuccessListener { task ->
-                            task.metadata!!.reference!!.downloadUrl
-                                .addOnSuccessListener { imageUrl ->
-                                    val user = User(name, email, userid, userplace, userphone, pfp = imageUrl.toString())
-
-                                    val uid = auth.currentUser?.uid
-                                    if (uid != null) {
-                                        dataBaseReference.child(uid).setValue(user)
-                                            .addOnSuccessListener {
-                                                Toast.makeText(this, "User data saved successfully", Toast.LENGTH_LONG).show()
-                                                dialog.dismiss()
-
-                                                val intent = Intent(this, MainActivity::class.java)
-                                                startActivity(intent)
-                                                finish()
-                                            }
-                                            .addOnFailureListener { err ->
-                                                dialog.dismiss()
-                                                Toast.makeText(this, "Error ${err.message}", Toast.LENGTH_LONG).show()
-                                            }
-                                    }
+                                                                val intent = Intent(
+                                                                    this@AddProfileActivity,
+                                                                    MainActivity::class.java
+                                                                )
+                                                                startActivity(intent)
+                                                                finish()
+                                                            }
+                                                            .addOnFailureListener { err ->
+                                                                dialog.dismiss()
+                                                                Toast.makeText(
+                                                                    this@AddProfileActivity,
+                                                                    "Error ${err.message}",
+                                                                    Toast.LENGTH_LONG
+                                                                ).show()
+                                                            }
+                                                    }
+                                                }
+                                        }
+                                        .addOnFailureListener {
+                                            dialog.dismiss()
+                                            Toast.makeText(
+                                                this@AddProfileActivity,
+                                                "Failed to upload image",
+                                                Toast.LENGTH_SHORT
+                                            ).show()
+                                        }
                                 }
-                        }
-                        .addOnFailureListener {
-                            dialog.dismiss()
-                            Toast.makeText(this, "Failed to upload image", Toast.LENGTH_SHORT)
-                                .show()
-                        }
+                            }
+
+                            override fun onCancelled(error: DatabaseError) {
+                                dialog.dismiss()
+                                Toast.makeText(
+                                    this@AddProfileActivity,
+                                    "Error checking user ID uniqueness",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                        })
                 } else {
                     dialog.dismiss()
-                    Toast.makeText(this, "Fill in all the fields", Toast.LENGTH_LONG).show()
+                    Toast.makeText(
+                        this,
+                        "Fill in all the fields or check the user phone length",
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
             }
         }
     }
-
 }
 

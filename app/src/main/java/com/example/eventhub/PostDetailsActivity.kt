@@ -1,5 +1,7 @@
 package com.example.eventhub
 
+import android.app.Activity
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -23,6 +25,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import de.hdodenhof.circleimageview.CircleImageView
 
 class PostDetailsActivity : AppCompatActivity() {
 
@@ -37,15 +40,16 @@ class PostDetailsActivity : AppCompatActivity() {
 
     private lateinit var comment: TextView
     private var event: Post? = null
-    private var thisUser : User? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_postdetails)
 
 
-        val event = intent.getParcelableExtra<Post?>("post")
-        if (event != null){
+        val post = intent.getParcelableExtra<Post?>("post")
+        event = post
+        if (post != null){
             val nameevent : TextView = findViewById(R.id.postdetails_event_name)
             val dateevent : TextView = findViewById(R.id.postdetails_event_date)
             val venueevent : TextView = findViewById(R.id.postdetails_event_venue)
@@ -57,37 +61,28 @@ class PostDetailsActivity : AppCompatActivity() {
 
 
 
-
-            nameevent.text = event.eventname
-            dateevent.text = event.eventdate
-            venueevent.text = event.eventvenue
-            byuserevent.text = event.userId
-            eventlikesTV.text = "${event.postLikes} likes"
-            eventcommentsTV.text = "${event.postComments} comments"
+            nameevent.text = post.eventname
+            dateevent.text = post.eventdate
+            venueevent.text = post.eventvenue
+            byuserevent.text = post.userId
+            eventlikesTV.text = "${post.postLikes} likes"
+            eventcommentsTV.text = "${post.postComments} comments"
 
 
             Glide.with(this)
-                .load(event.eventpicUrl)
+                .load(post.eventpicUrl)
                 .into(imageevent)
             Glide.with(this)
-                .load(event.userImage)
+                .load(post.userImage)
                 .into(eventuserimage)
 
         }
 
 
-
         commRecyclerView = findViewById(R.id.det_rec_comments)
         addComment = findViewById(R.id.det_btn_comment)
         comment = findViewById(R.id.det_commentEt)
-        val commentingpfp : ImageView = findViewById(R.id.comments_Userpfp)
 
-
-        var pfpurl = thisUser?.pfp
-
-        Glide.with(this)
-            .load(pfpurl)
-            .into(commentingpfp)
 
         commRecyclerView.layoutManager = LinearLayoutManager(this)
         commRecyclerView.setHasFixedSize(true)
@@ -99,7 +94,7 @@ class PostDetailsActivity : AppCompatActivity() {
         firebaseAuth = FirebaseAuth.getInstance()
         commRef = FirebaseDatabase.getInstance().getReference("Events")
 
-        commentAdapter = CommentAdapter(commList)
+        commentAdapter = CommentAdapter(commList, database = FirebaseDatabase.getInstance(), Activity(), event)
         commRecyclerView.adapter = commentAdapter
 
 
@@ -147,14 +142,20 @@ class PostDetailsActivity : AppCompatActivity() {
     }
 
     private fun saveCommentData() {
+        val commentLine = comment.text.toString()
 
+        if (commentLine.isEmpty()) {
+            Toast.makeText(this, "Enter your comment", Toast.LENGTH_SHORT).show()
+            return
+        }
 
-        val commentline = comment.text.toString()
+        uploadCommentToDatabase(commentLine)
 
-        uploadCommenttoDatabase(commentline)
+        // Clear the EditText after uploading the comment
+        comment.setText("")
     }
 
-    private fun uploadCommenttoDatabase(commentline: String) {
+    private fun uploadCommentToDatabase(commentline: String) {
 
         val Post = event ?: return
 
@@ -188,7 +189,6 @@ class PostDetailsActivity : AppCompatActivity() {
                                     "Comment Added Successfully",
                                     Toast.LENGTH_SHORT
                                 ).show()
-                                finish()
 
 
                             }.addOnFailureListener {

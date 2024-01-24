@@ -34,6 +34,13 @@
         <item name="android:color">@color/white</item>
     </style>
 
+    <style name="box">
+        <item name="android:backgroundTint">@color/offwhite</item>
+    </style>
+
+    <style name="TEXT">
+        <item name="android:textColor">@color/black</item>
+    </style>
 
 
     <style name="bg">
@@ -43,6 +50,10 @@
     <!-- Text color-->
     <style name="txtcolo">
         <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="bgg">
+        <item name="android:backgroundTint">@color/white</item>
     </style>
 
 

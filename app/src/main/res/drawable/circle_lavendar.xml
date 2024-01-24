@@ -1,0 +1,36 @@
+<!-- res/drawable/lavendar_circle.xml -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Lavender Circle Background -->
+    <item>
+        <shape
+            android:shape="oval">
+            <solid android:color="@color/lavendar" />
+        </shape>
+    </item>
+
+    <!-- White Circle Border -->
+    <item
+        android:bottom="@dimen/_2sdp"
+        android:left="@dimen/_2sdp"
+        android:right="@dimen/_2sdp"
+        android:top="@dimen/_2sdp">
+        <shape
+            android:shape="oval">
+            <solid android:color="@color/lavendar" />
+        </shape>
+    </item>
+
+    <!-- Lavender Circle Content -->
+    <item
+        android:bottom="@dimen/_4sdp"
+        android:left="@dimen/_4sdp"
+        android:right="@dimen/_4sdp"
+        android:top="@dimen/_4sdp">
+        <shape
+            android:shape="oval">
+            <solid android:color="@color/white" />
+        </shape>
+    </item>
+
+</layer-list>

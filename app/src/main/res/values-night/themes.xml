@@ -19,6 +19,14 @@
         <item name="cardBackgroundColor">#40414A</item>
     </style>
 
+    <style name="box">
+        <item name="android:backgroundTint">#2C2A2A</item>
+    </style>
+
+    <style name="bgg">
+        <item name="android:backgroundTint">@color/dark</item>
+    </style>
+
 
 
     <!-- Button style dark mode -->

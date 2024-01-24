@@ -10,6 +10,7 @@
     app:cardElevation="@dimen/_5sdp"
     android:padding="@dimen/_5sdp"
     style="@style/CardColor"
+    android:id="@+id/comment_box"
     >
 
     <RelativeLayout
@@ -20,6 +21,7 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/item_comment_avatarTv"
+            android:scaleType="centerCrop"
             android:layout_width="@dimen/_40sdp"
             android:layout_height="@dimen/_40sdp"
             android:layout_marginHorizontal="@dimen/_2sdp"

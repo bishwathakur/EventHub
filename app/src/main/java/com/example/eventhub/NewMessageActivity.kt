@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
 import android.widget.ProgressBar
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -53,12 +54,22 @@ class NewMessageActivity : AppCompatActivity() {
         mAdapter = FriendsAdapter(frieList)
         frieRecyclerView.adapter = mAdapter
 
+
+        mAdapter.onItemClick = {
+            val intent = Intent(this, ChattingActivity::class.java)
+            intent.putExtra("user", it)
+            startActivity(intent)
+            finish()
+        }
+
         getFriendsList()
 
         exittohome.setOnClickListener{
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
+
+
     }
 
     private fun getFriendsList(){

@@ -62,6 +62,11 @@
 <!--            android:theme="@style/AllUserTheme">-->
 
         </activity>
+
+        <activity android:name=".ChattingActivity"
+            android:exported="false">
+
+        </activity>
     </application>
 
 </manifest>

@@ -30,6 +30,7 @@ class PostAdapter(
 ) : RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
 
     var onItemClick: ((Post) -> Unit)? = null
+    var onItemLongClick: ((position: Int) -> Unit)? = null
 
     class PostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val postUserPicture: ImageView = itemView.findViewById(R.id.post_userPicture)
@@ -89,6 +90,9 @@ class PostAdapter(
             // Register button binders
             updateRegisterButton(currentEvent, postRegisterBtn)
 
+            //Comment count updater
+            updateCommentCount(currentEvent)
+
             postRegisterBtn.setOnClickListener {
                 handleRegisterButtonClick(currentEvent)
             }
@@ -105,6 +109,10 @@ class PostAdapter(
 
             card.setOnClickListener{
                 onItemClick?.invoke(currentEvent)
+            }
+
+            card.setOnLongClickListener{
+                onItemLongClick?.invoke(currentEvent)
             }
         }
     }
@@ -176,6 +184,30 @@ class PostAdapter(
                 }
             })
     }
+
+    private fun updateCommentCount(post: Post) {
+        val postKey = post.eventKey
+        var postComments = post.postComments
+
+        eveRef.child(postKey).child("Comments")
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    // Correctly fetch the comment count from the database
+                    val nodeCount = snapshot.childrenCount
+
+                    // Update the postComments variable with the correct count
+                    postComments = nodeCount.toInt().coerceAtLeast(0)
+
+                    // Update the database with the new comment count
+                    eveRef.child(postKey).child("postComments").setValue(postComments)
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    // Handle onCancelled if needed
+                }
+            })
+    }
+
 
     private fun handleLikeButtonClick(post: Post) {
         var postLikes = post.postLikes
