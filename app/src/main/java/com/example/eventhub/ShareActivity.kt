@@ -19,7 +19,7 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
-class NewMessageActivity : AppCompatActivity() {
+class ShareActivity : AppCompatActivity() {
 
 
     private lateinit var auth: FirebaseAuth
@@ -36,7 +36,7 @@ class NewMessageActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_newmessage)
+        setContentView(R.layout.activity_share)
 
         frieRecyclerView = findViewById(R.id.friends_rec) // Initialize frieRecyclerView here
 

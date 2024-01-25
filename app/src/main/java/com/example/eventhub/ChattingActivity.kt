@@ -1,7 +1,9 @@
 package com.example.eventhub
 
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.ImageView
@@ -97,6 +99,13 @@ class ChattingActivity : AppCompatActivity() {
    }
   }
  }
+ override fun onBackPressed() {
+  super.onBackPressed()
+
+  // Start the NewMessage activity when the back button is pressed
+  startActivity(Intent(this, NewMessageActivity::class.java))
+  finish() // Optional: Finish the current activity to remove it from the stack
+ }
 
  private fun sendMessage(senderID: String, receiverID: String, message: String){
 
@@ -116,18 +125,22 @@ class ChattingActivity : AppCompatActivity() {
 
   ref.addValueEventListener(object : ValueEventListener {
    override fun onDataChange(snapshot: DataSnapshot) {
-
     for (dataSnapShot: DataSnapshot in snapshot.children) {
+     chatList
      val chat = dataSnapShot.getValue(Chat::class.java)
 
-     if (chat!!.senderId.equals(senderID) && chat!!.receiverId.equals(receiverID) ||
-      (chat!!.senderId.equals(receiverID) && chat!!.receiverId.equals(senderID))
-     )
-      chatList.add(chat)
+     if (chat!!.senderID.equals(senderID) && chat!!.receiverID.equals(receiverID) ||
+      (chat!!.senderID.equals(receiverID) && chat!!.receiverID.equals(senderID))
+     ){
+      println(chatList)
+      chatList.add(chat!!)
+     }
+     mAdapter.notifyDataSetChanged()
 
     }
 
-    val chatAdapter = ChatAdapter(this@ChattingActivity, chatList)
+   val chatAdapter = ChatAdapter(this@ChattingActivity, chatList)
+    chatRecyclerView.adapter = chatAdapter
    }
 
    override fun onCancelled(error: DatabaseError) {

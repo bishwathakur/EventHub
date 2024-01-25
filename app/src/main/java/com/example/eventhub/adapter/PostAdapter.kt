@@ -34,6 +34,7 @@ class PostAdapter(
 
     var onItemClick: ((Post) -> Unit)? = null
     var onItemLongClick: ((Post) -> Unit)? = null
+    var onShareClick: ((Post) -> Unit)? = null
 
     class PostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val postUserPicture: ImageView = itemView.findViewById(R.id.post_userPicture)
@@ -106,7 +107,7 @@ class PostAdapter(
             }
 
             postShareBtn.setOnClickListener{
-
+                onShareClick?.invoke(currentEvent)
             }
 
             postImage.setOnClickListener {
@@ -122,19 +123,17 @@ class PostAdapter(
             card.setOnLongClickListener {
                 if (isProfileFragment) {
                     onItemLongClick?.invoke(currentEvent)
-                    true // Return true to indicate that the long click event is consumed
+                    true
                 } else {
-                    // Handle long click for HomeFragment (if needed)
-                    false // Return false to propagate long click event further
+                    false
                 }
             }
             postImage.setOnLongClickListener {
                 if (isProfileFragment) {
                     onItemLongClick?.invoke(currentEvent)
-                    true // Return true to indicate that the long click event is consumed
+                    true
                 } else {
-                    // Handle long click for HomeFragment (if needed)
-                    false // Return false to propagate long click event further
+                    false
                 }
             }
 
@@ -170,7 +169,6 @@ class PostAdapter(
                 }
 
                 override fun onCancelled(databaseError: DatabaseError) {
-                    // Handle onCancelled if needed
                 }
             })
     }
@@ -227,7 +225,6 @@ class PostAdapter(
                 }
 
                 override fun onCancelled(error: DatabaseError) {
-                    // Handle onCancelled if needed
                 }
             })
     }
@@ -263,7 +260,6 @@ class PostAdapter(
                     }
 
                     override fun onCancelled(databaseError: DatabaseError) {
-                        // Handle onCancelled if needed
                     }
                 })
         }
@@ -306,11 +302,4 @@ class PostAdapter(
                 })
         }
     }
-
-//    interface EventClickListener {
-//
-//        fun onLongItemClicked(post: Post, cardView: CardView)
-//
-//
-//    }
 }

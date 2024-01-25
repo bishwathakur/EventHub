@@ -60,7 +60,7 @@ class ChatAdapter(private val context: Context, val chatList: ArrayList<Chat>, v
 
         val ID = user?.userid
 
-        return if (chatList[position].senderId == ID) {
+        return if (chatList[position].senderID == ID) {
             MESSAGE_TYPE_RIGHT
         } else {
             MESSAGE_TYPE_LEFT

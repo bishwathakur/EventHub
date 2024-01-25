@@ -59,11 +59,14 @@
         </activity>
         <activity android:name=".NewMessageActivity"
             android:exported="false">
-<!--            android:theme="@style/AllUserTheme">-->
 
         </activity>
 
         <activity android:name=".ChattingActivity"
+            android:exported="false">
+
+        </activity>
+        <activity android:name=".ShareActivity"
             android:exported="false">
 
         </activity>

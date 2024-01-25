@@ -12,8 +12,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.eventhub.AddEventActivity
+import com.example.eventhub.NewMessageActivity
 import com.example.eventhub.PostDetailsActivity
 import com.example.eventhub.R
+import com.example.eventhub.ShareActivity
 import com.example.eventhub.adapter.PostAdapter
 import com.example.eventhub.models.Post
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -63,6 +65,13 @@ class Home : Fragment() {
             intent.putExtra("post", it)
             startActivity(intent)
         }
+        mAdapter.onShareClick = {
+            val intent = Intent(activity, ShareActivity::class.java)
+            intent.putExtra("post", it)
+            startActivity(intent)
+        }
+
+
 
 
         // Initialize addBtn and set its click listener

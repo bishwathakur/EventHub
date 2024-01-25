@@ -16,8 +16,11 @@
         app:layout_constraintTop_toTopOf="parent"
         android:background="@drawable/background_rounded">
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/convo_userpfp"
+            android:scaleType="centerCrop"
+            app:civ_border_color="@color/white"
+            app:civ_border_width="2dp"
             android:layout_marginTop="@dimen/_4sdp"
             android:layout_gravity="center"
             android:layout_marginStart="@dimen/_12sdp"
