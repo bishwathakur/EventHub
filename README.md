@@ -5,25 +5,45 @@ sign up and upload pictures text, and events. Users have the ability to
 invite their friends to attend an event.
 
 
+
+
+
 Features:-
 
-• Login Signnup for authenticati on of the user who will al so provide a n
-individual user id with password and some personal details.
+• Login Signnup for authentication of the user who will also provide an
+  individual user id with password and some personal details.
+
 • A Dashboard which will be showcasing all the upcoming events.
+
 • User will be able to upvote, comment and register for an event too.
+
 • User will also be able to add an Event with the Name of the Event, Venue and the Date of the Event.
+
 • A User profile will also be created for all the users who had created their user on the app.
+
+
+
+
 
 
 Technology stack:-
 
 The Technology stack which will be used in this problem statement
 comprises:
+
+
 • Android Studio – Kotlin, Java and XML 
+
 • Firebase (Authentication, Firebase storage, Firebase Realtime Database)
+
 • RecyclerView (for effective adding of Events)
+
 • Glide (for effective image uploading and loading)
+
 • CircleImage Viewer(de.hdodenhof:circleimageview)
+
+
+
 
 Brief Implementation Details:-
 
