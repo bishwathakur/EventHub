@@ -117,12 +117,9 @@ class Profile : Fragment() {
 
 
         swipeRefreshLayout.setOnRefreshListener {
-            // Perform data refresh operations here
 
-            // For example, you might want to update your RecyclerView data
             reloadAdapter()
 
-            // Once done, call isRefreshing = false to stop the loading animation
             swipeRefreshLayout.isRefreshing = false
         }
 
@@ -140,8 +137,6 @@ class Profile : Fragment() {
 
         // Insnapshotialize FirebaseAuth
         auth = FirebaseAuth.getInstance()
-
-
 
         // Retrieve data from the Realtime Database
         fetchDataFromDatabase()
@@ -232,14 +227,12 @@ class Profile : Fragment() {
 
     private fun reloadAdapter() {
         getEvents()
-        // Notify the adapter that the dataset has changed
         mAdapter.notifyDataSetChanged()
     }
 
 
 
     private fun fetchDataFromDatabase() {
-        // Check if the user is authenticated
         val uid = auth.currentUser!!.uid
 
         dataBaseReference.child(uid).get().addOnSuccessListener {snapshot ->
