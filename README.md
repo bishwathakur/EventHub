@@ -24,7 +24,6 @@ comprises:
 • RecyclerView (for effective adding of Events)
 • Glide (for effective image uploading and loading)
 • CircleImage Viewer(de.hdodenhof:circleimageview)
-• 
 
 Brief Implementation Details:-
 
