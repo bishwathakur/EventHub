@@ -211,6 +211,24 @@ class Profile : Fragment() {
                 Toast.makeText(requireContext(), "Failed to delete event", Toast.LENGTH_SHORT).show()
             }
     }
+    private fun showLogoutDialog() {
+        val alertDialog = AlertDialog.Builder(requireContext())
+        alertDialog.setTitle("Logout")
+        alertDialog.setMessage("Are you sure you want to logout from this account?")
+
+        alertDialog.setPositiveButton("Logout") { dialog, _ ->
+            // Delete the event from the database
+            auth.signOut()
+            startActivity(Intent(requireActivity(), SignInActivity::class.java))
+            requireActivity().finish()
+        }
+
+        alertDialog.setNegativeButton("Cancel") { dialog, _ ->
+            dialog.dismiss()
+        }
+
+        alertDialog.create().show()
+    }
 
     private fun reloadAdapter() {
         getEvents()
@@ -249,20 +267,8 @@ class Profile : Fragment() {
             }
 
             more.setOnClickListener {
-                val popupMenu = PopupMenu(requireContext(), more)
-                popupMenu.menuInflater.inflate(R.menu.menu_profilelogout, popupMenu.menu)
 
-                popupMenu.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener { item ->
-                    when (item.itemId) {
-                        R.id.logout -> {
-                            auth.signOut()
-                            startActivity(Intent(requireActivity(), SignInActivity::class.java))
-                            requireActivity().finish()
-                        }
-                    }
-                    true
-                })
-                popupMenu.show()
+                showLogoutDialog()
             }
         }
     }}

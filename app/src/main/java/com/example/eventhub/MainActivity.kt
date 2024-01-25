@@ -14,9 +14,7 @@ import androidx.fragment.app.FragmentTransaction
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var navController: NavController
     private lateinit var binding: ActivityMainBinding // view binding
-    private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,10 +29,8 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
-        // Open Home fragment by default
+        // Opens Home fragment by default
         replaceFragment(Home())
-
-
     }
 
     private fun replaceFragment(fragment: Fragment) {
@@ -43,12 +39,4 @@ class MainActivity : AppCompatActivity() {
         fragmentTransaction.replace(R.id.main_fragment, fragment)
         fragmentTransaction.commit()
     }
-
-
-
-
-
-
-
-
 }

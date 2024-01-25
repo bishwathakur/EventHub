@@ -78,8 +78,6 @@ class Home : Fragment() {
         addBtn = view.findViewById(R.id.home_addButton)
         addBtn.setOnClickListener {
 
-
-            // Open AddEventActivity when the button is clicked
             val intent = Intent(activity, AddEventActivity::class.java)
             startActivity(intent)
         }
@@ -87,12 +85,9 @@ class Home : Fragment() {
         getEvents()
 
         swipeRefreshLayout.setOnRefreshListener {
-            // Perform data refresh operations here
 
-            // For example, you might want to update your RecyclerView data
             reloadAdapter()
 
-            // Once done, call isRefreshing = false to stop the loading animation
             swipeRefreshLayout.isRefreshing = false
         }
 

@@ -31,22 +31,7 @@ import java.util.Locale
 
 class AddEventActivity : AppCompatActivity() {
 
-    private val CAMERA_REQUEST_CODE = 100
-    private val STORAGE_REQUEST_CODE = 101
-
-    //image pick constants
-    private val IMAGE_PICK_CAMERA_CODE = 102
-    private val IMAGE_PICK_GALLERY_CODE = 103
-
-    //video pick constants
-    private val VIDEO_PICK_CAMERA_CODE = 104
-    private val VIDEO_PICK_GALLERY_CODE = 105
-
     var imageUri: Uri? = null
-
-
-    private val permissionReadMediaImages = "android.permission.READ_MEDIA_IMAGES"
-    private val permissionReadMediaVideo = "android.permission.READ_MEDIA_VIDEO"
 
 
     private lateinit var dialog: Dialog
@@ -54,7 +39,6 @@ class AddEventActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAddeventBinding
 
-    private lateinit var cameraImageLauncher: ActivityResultLauncher<Uri>
     private lateinit var imagePickerLauncher: ActivityResultLauncher<String>
 
 
@@ -143,13 +127,6 @@ class AddEventActivity : AppCompatActivity() {
                     binding.insEventPhoto.setImageURI(imageUri)
                 }
             }
-
-        cameraImageLauncher =
-            registerForActivityResult(ActivityResultContracts.TakePicture()) { success: Boolean ->
-                if (success) {
-                    binding.insEventPhoto.setImageURI(imageUri)
-                }
-            }
     }
 
     private fun imagePickDialog() {
@@ -168,16 +145,6 @@ class AddEventActivity : AppCompatActivity() {
 
     private fun imagePickGallery() {
         imagePickerLauncher.launch("image/*")
-    }
-
-    private fun createImageUri(): Uri {
-        // Ensure the directory for storing the image exists
-        val imagesFolder = File(getExternalFilesDir(null), "images")
-        if (!imagesFolder.exists()) imagesFolder.mkdirs()
-
-        // Create a file for the image
-        val file = File(imagesFolder, "post_image_${System.currentTimeMillis()}.jpg")
-        return FileProvider.getUriForFile(this, "${applicationContext.packageName}.provider", file)
     }
 
     private fun saveEventData() {
@@ -296,7 +263,6 @@ class AddEventActivity : AppCompatActivity() {
                 }
 
                 override fun onCancelled(error: DatabaseError) {
-                    // Handle the error
                 }
             })
         }

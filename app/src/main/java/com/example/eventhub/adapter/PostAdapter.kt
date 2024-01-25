@@ -202,7 +202,6 @@ class PostAdapter(
                 }
 
                 override fun onCancelled(databaseError: DatabaseError) {
-                    // Handle onCancelled if needed
                 }
             })
     }
@@ -214,7 +213,7 @@ class PostAdapter(
         eveRef.child(postKey).child("Comments")
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
-                    // Correctly fetch the comment count from the database
+                    // Correctly fetched the comment count from the database
                     val nodeCount = snapshot.childrenCount
 
                     // Update the postComments variable with the correct count
@@ -297,7 +296,6 @@ class PostAdapter(
                     }
 
                     override fun onCancelled(databaseError: DatabaseError) {
-                        // Handle onCancelled if needed
                     }
                 })
         }

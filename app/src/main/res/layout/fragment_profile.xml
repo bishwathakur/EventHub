@@ -14,268 +14,272 @@
     android:layout_height="match_parent">
 
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <LinearLayout
-            android:id="@+id/profiletop"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="@integer/material_motion_duration_long_1"
-            tools:layout_editor_absoluteX="16dp"
-            android:background="@drawable/background_rounded">
+            android:layout_height="match_parent">
 
-            <ImageView
-                android:id="@+id/more"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/_12sdp"
-                android:layout_marginTop="@dimen/_12sdp"
-                android:layout_marginBottom="@dimen/_12sdp"
-                android:src="@drawable/baseline_more"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageView
-                android:id="@+id/imageView"
+            <LinearLayout
+                android:id="@+id/profiletop"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_30sdp"
-                android:layout_gravity="center"
-                android:layout_marginLeft="@dimen/_50sdp"
-                android:layout_marginTop="@dimen/_3sdp"
-                android:layout_marginRight="@dimen/_70sdp"
-                android:layout_marginBottom="@dimen/_2sdp"
-                android:background="@drawable/rounded_background"
-                android:contentDescription="bg"
-                android:src="@drawable/logoo" />
+                android:layout_height="wrap_content"
+                android:background="@drawable/background_rounded"
+                android:orientation="horizontal"
+                android:weightSum="@integer/material_motion_duration_long_1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/more"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_12sdp"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:layout_marginBottom="@dimen/_12sdp"
+                    android:src="@drawable/baseline_logout_24"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/_50sdp"
+                    android:layout_marginTop="@dimen/_3sdp"
+                    android:layout_marginRight="@dimen/_70sdp"
+                    android:layout_marginBottom="@dimen/_2sdp"
+                    android:background="@drawable/rounded_background"
+                    android:contentDescription="bg"
+                    android:src="@drawable/logoo" />
 
 
-        </LinearLayout>
+            </LinearLayout>
 
-        <FrameLayout
-            android:id="@+id/profilepiclayout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/profiletop">
+            <FrameLayout
+                android:id="@+id/profilepiclayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/profiletop">
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/userpfpdisplay"
-                android:layout_width="@dimen/_98sdp"
-                android:layout_height="@dimen/_98sdp"
-                android:foregroundGravity="center"
-                android:src="@drawable/default_user"
-                app:civ_border_color="@color/lavendar"
-                app:civ_border_width="@dimen/_2sdp" />
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/userpfpdisplay"
+                    android:layout_width="@dimen/_98sdp"
+                    android:layout_height="@dimen/_98sdp"
+                    android:foregroundGravity="center"
+                    android:src="@drawable/default_user"
+                    app:civ_border_color="@color/lavendar"
+                    app:civ_border_width="@dimen/_2sdp" />
 
-        </FrameLayout>
+            </FrameLayout>
 
-        <Button
-            android:id="@+id/upload"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="UPLOAD"
-            android:textColor="#FFFFFF"
-            android:visibility="invisible"
-            app:icon="@android:drawable/ic_menu_upload"
-            app:iconTint="#FFFFFF"
-            app:layout_constraintBottom_toBottomOf="@+id/profilepiclayout"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/profilepiclayout"
-            app:layout_constraintTop_toTopOf="@+id/profilepiclayout"
-            app:layout_constraintVertical_bias="0.52" />
+            <Button
+                android:id="@+id/upload"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="UPLOAD"
+                android:textColor="#FFFFFF"
+                android:visibility="invisible"
+                app:icon="@android:drawable/ic_menu_upload"
+                app:iconTint="#FFFFFF"
+                app:layout_constraintBottom_toBottomOf="@+id/profilepiclayout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/profilepiclayout"
+                app:layout_constraintTop_toTopOf="@+id/profilepiclayout"
+                app:layout_constraintVertical_bias="0.52" />
 
-        <LinearLayout
-            android:id="@id/linearLayout2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/profilepiclayout">
+            <LinearLayout
+                android:id="@id/linearLayout2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/profilepiclayout">
 
-            <ImageView
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_person"
+                    app:layout_constraintBottom_toBottomOf="@+id/username"
+                    app:layout_constraintEnd_toStartOf="@+id/username"
+                    app:layout_constraintTop_toTopOf="@+id/username" />
+
+                <TextView
+                    android:id="@+id/username"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/open_sans_condensed_bold"
+                    android:text="Cristiano Ronaldo"
+                    android:textSize="@dimen/_20sdp" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@id/linearLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="@+id/linearLayout2"
+                app:layout_constraintStart_toStartOf="@+id/linearLayout2"
+                app:layout_constraintTop_toBottomOf="@id/linearLayout2">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_userid"
+                    app:layout_constraintBottom_toBottomOf="@+id/username"
+                    app:layout_constraintEnd_toStartOf="@+id/username"
+                    app:layout_constraintTop_toTopOf="@+id/username" />
+
+                <TextView
+                    android:id="@+id/userid"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/open_sans_condensed_bold"
+                    android:text="cr7stiano"
+                    android:textSize="@dimen/_15sdp" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/userplacelt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_20sdp"
+                app:layout_constraintEnd_toEndOf="@+id/linearLayout"
+                app:layout_constraintStart_toStartOf="@+id/linearLayout"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@drawable/baseline_place_24"
+                    app:layout_constraintBottom_toBottomOf="@+id/username"
+                    app:layout_constraintEnd_toStartOf="@+id/username"
+                    app:layout_constraintTop_toTopOf="@+id/username" />
+
+                <TextView
+                    android:id="@+id/userplace"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/baloo_paaji"
+                    android:gravity="center_horizontal"
+                    android:text="Portugal"
+                    android:textSize="@dimen/_20sdp" />
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/userphonelt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="@+id/userplacelt"
+                app:layout_constraintStart_toStartOf="@+id/userplacelt"
+                app:layout_constraintTop_toBottomOf="@+id/userplacelt">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@drawable/baseline_phone"
+                    app:layout_constraintBottom_toBottomOf="@+id/userplace"
+                    app:layout_constraintEnd_toStartOf="@+id/userplace"
+                    app:layout_constraintTop_toTopOf="@+id/userplace" />
+
+                <TextView
+                    android:id="@+id/userphone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/baloo_paaji"
+                    android:gravity="center_horizontal"
+                    android:text="7777777777"
+                    android:textSize="@dimen/_20sdp" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/useremaillt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_30sdp"
+                app:layout_constraintEnd_toEndOf="@+id/userplacelt"
+                app:layout_constraintStart_toStartOf="@+id/userplacelt"
+                app:layout_constraintTop_toBottomOf="@+id/userplacelt">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_baseline_email_24"
+                    app:layout_constraintBottom_toBottomOf="@+id/username"
+                    app:layout_constraintEnd_toStartOf="@+id/username"
+                    app:layout_constraintTop_toTopOf="@+id/username" />
+
+                <TextView
+                    android:id="@+id/useremail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_medium"
+                    android:gravity="center_horizontal"
+                    android:text="ceresete82@georgina.com"
+                    android:textSize="@dimen/_20sdp" />
+
+
+            </LinearLayout>
+
+            <!--        <ProgressBar-->
+            <!--            android:id="@+id/profile_progress_bar"-->
+            <!--            style="?android:attr/progressBarStyle"-->
+            <!--            android:layout_width="wrap_content"-->
+            <!--            android:layout_height="wrap_content"-->
+            <!--            android:visibility="gone"-->
+            <!--            app:layout_constraintBottom_toTopOf="@+id/profile_rec"-->
+            <!--            app:layout_constraintEnd_toEndOf="parent"-->
+            <!--            app:layout_constraintStart_toStartOf="parent"-->
+            <!--            app:layout_constraintTop_toBottomOf="@+id/useremaillt" />-->
+
+            <!--        <ProgressBar-->
+            <!--            android:id="@+id/home_progress_bar"-->
+            <!--            style="?android:attr/progressBarStyle"-->
+            <!--            android:layout_width="wrap_content"-->
+            <!--            android:layout_height="wrap_content"-->
+            <!--            android:visibility="gone"-->
+            <!--            app:layout_constraintBottom_toTopOf="@+id/home_rec"-->
+            <!--            app:layout_constraintEnd_toEndOf="parent"-->
+            <!--            app:layout_constraintStart_toStartOf="parent"-->
+            <!--            app:layout_constraintTop_toBottomOf="@+id/textView2" />-->
+
+            <ProgressBar
+                android:id="@+id/profile_progress_bar"
+                style="@style/Widget.Material3.CircularProgressIndicator.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:layout_constraintBottom_toTopOf="@id/profile_rec"
+                app:layout_constraintTop_toBottomOf="@id/useremaillt" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/profile_rec"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:src="@drawable/ic_person"
-                app:layout_constraintBottom_toBottomOf="@+id/username"
-                app:layout_constraintEnd_toStartOf="@+id/username"
-                app:layout_constraintTop_toTopOf="@+id/username" />
-            <TextView
-                android:id="@+id/username"
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Cristiano Ronaldo"
-                android:textSize="@dimen/_20sdp"
-                android:fontFamily="@font/open_sans_condensed_bold"/>
+                android:orientation="vertical"
+                app:layout_constraintTop_toBottomOf="@+id/useremaillt"
+                tools:listitem="@layout/item_events" />
 
 
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@id/linearLayout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="@+id/linearLayout2"
-            app:layout_constraintStart_toStartOf="@+id/linearLayout2"
-            app:layout_constraintTop_toBottomOf="@id/linearLayout2">
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:src="@drawable/ic_userid"
-                app:layout_constraintBottom_toBottomOf="@+id/username"
-                app:layout_constraintEnd_toStartOf="@+id/username"
-                app:layout_constraintTop_toTopOf="@+id/username" />
-
-            <TextView
-                android:id="@+id/userid"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/open_sans_condensed_bold"
-                android:text="cr7stiano"
-                android:textSize="@dimen/_15sdp" />
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/userplacelt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_20sdp"
-            app:layout_constraintEnd_toEndOf="@+id/linearLayout"
-            app:layout_constraintStart_toStartOf="@+id/linearLayout"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:src="@drawable/baseline_place_24"
-                app:layout_constraintBottom_toBottomOf="@+id/username"
-                app:layout_constraintEnd_toStartOf="@+id/username"
-                app:layout_constraintTop_toTopOf="@+id/username" />
-
-            <TextView
-                android:id="@+id/userplace"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/baloo_paaji"
-                android:gravity="center_horizontal"
-                android:text="Portugal"
-                android:textSize="@dimen/_20sdp" />
-
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:id="@+id/userphonelt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="@+id/userplacelt"
-            app:layout_constraintStart_toStartOf="@+id/userplacelt"
-            app:layout_constraintTop_toBottomOf="@+id/userplacelt">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:src="@drawable/baseline_phone"
-                app:layout_constraintBottom_toBottomOf="@+id/userplace"
-                app:layout_constraintEnd_toStartOf="@+id/userplace"
-                app:layout_constraintTop_toTopOf="@+id/userplace" />
-
-            <TextView
-                android:id="@+id/userphone"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/baloo_paaji"
-                android:gravity="center_horizontal"
-                android:text="7777777777"
-                android:textSize="@dimen/_20sdp" />
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/useremaillt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_30sdp"
-            app:layout_constraintEnd_toEndOf="@+id/userplacelt"
-            app:layout_constraintStart_toStartOf="@+id/userplacelt"
-            app:layout_constraintTop_toBottomOf="@+id/userplacelt">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:src="@drawable/ic_baseline_email_24"
-                app:layout_constraintBottom_toBottomOf="@+id/username"
-                app:layout_constraintEnd_toStartOf="@+id/username"
-                app:layout_constraintTop_toTopOf="@+id/username" />
-
-            <TextView
-                android:id="@+id/useremail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/roboto_medium"
-                android:gravity="center_horizontal"
-                android:text="ceresete82@georgina.com"
-                android:textSize="@dimen/_20sdp" />
-
-
-        </LinearLayout>
-
-<!--        <ProgressBar-->
-<!--            android:id="@+id/profile_progress_bar"-->
-<!--            style="?android:attr/progressBarStyle"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:visibility="gone"-->
-<!--            app:layout_constraintBottom_toTopOf="@+id/profile_rec"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/useremaillt" />-->
-
-<!--        <ProgressBar-->
-<!--            android:id="@+id/home_progress_bar"-->
-<!--            style="?android:attr/progressBarStyle"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:visibility="gone"-->
-<!--            app:layout_constraintBottom_toTopOf="@+id/home_rec"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/textView2" />-->
-
-        <ProgressBar
-            android:id="@+id/profile_progress_bar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            style="@style/Widget.Material3.CircularProgressIndicator.Medium"
-            app:layout_constraintTop_toBottomOf="@id/useremaillt"
-            app:layout_constraintBottom_toTopOf="@id/profile_rec"
-            />
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/profile_rec"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintTop_toBottomOf="@+id/useremaillt"
-            tools:listitem="@layout/item_events" />
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.core.widget.NestedScrollView>
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
