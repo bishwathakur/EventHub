@@ -19,7 +19,7 @@ class ChatAdapter(private val context: Context, val chatList: ArrayList<Chat>, v
     private val MESSAGE_TYPE_RIGHT = 1
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        if (viewType == MESSAGE_TYPE_RIGHT) {
+        if (viewType == MESSAGE_TYPE_LEFT) {
             val view =
                 LayoutInflater.from(context).inflate(R.layout.sent_msg_layout, parent, false)
             return SentViewHolder(view)
@@ -41,10 +41,10 @@ class ChatAdapter(private val context: Context, val chatList: ArrayList<Chat>, v
 
         if (holder.javaClass == SentViewHolder::class.java){
             val viewHolder = holder as SentViewHolder
-            holder.sentmessage.text = currentMessage.message
+            viewHolder.sentmessage.text = currentMessage.message
         }else{
             val viewHolder =  holder as ReceiveViewHolder
-            holder.recmessage.text = currentMessage.message
+            viewHolder.recmessage.text = currentMessage.message
         }
 
     }

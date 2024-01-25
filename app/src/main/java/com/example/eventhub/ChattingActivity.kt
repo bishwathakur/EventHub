@@ -1,9 +1,12 @@
 package com.example.eventhub
 
 
+import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.ImageView
@@ -91,6 +94,9 @@ class ChattingActivity : AppCompatActivity() {
       val receiverID = user?.userid
       if (receiverID != null) {
        sendMessage(senderID, receiverID, message)
+       messagebox.setText("")
+       hideKeyboard(this)
+
 
       }
       readMessage(senderID , receiverID!!)
@@ -106,6 +112,14 @@ class ChattingActivity : AppCompatActivity() {
   startActivity(Intent(this, NewMessageActivity::class.java))
   finish() // Optional: Finish the current activity to remove it from the stack
  }
+ private fun hideKeyboard(activity: Activity) {
+  val view: View? = activity.currentFocus
+  if (view != null) {
+   val imm: InputMethodManager =
+    activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+   imm.hideSoftInputFromWindow(view.windowToken, 0)
+  }
+ }
 
  private fun sendMessage(senderID: String, receiverID: String, message: String){
 
@@ -119,33 +133,38 @@ class ChattingActivity : AppCompatActivity() {
 
   ref.push().setValue(hashMap)
  }
- fun readMessage(senderID: String, receiverID: String){
-
+ fun readMessage(senderID: String, receiverID: String) {
   val ref = FirebaseDatabase.getInstance().getReference("Messages")
 
   ref.addValueEventListener(object : ValueEventListener {
    override fun onDataChange(snapshot: DataSnapshot) {
+    chatList.clear()
+
     for (dataSnapShot: DataSnapshot in snapshot.children) {
-     chatList
      val chat = dataSnapShot.getValue(Chat::class.java)
 
      if (chat!!.senderID.equals(senderID) && chat!!.receiverID.equals(receiverID) ||
       (chat!!.senderID.equals(receiverID) && chat!!.receiverID.equals(senderID))
-     ){
+     ) {
+      chatList
       println(chatList)
       chatList.add(chat!!)
      }
-     mAdapter.notifyDataSetChanged()
-
     }
 
-   val chatAdapter = ChatAdapter(this@ChattingActivity, chatList)
-    chatRecyclerView.adapter = chatAdapter
+    mAdapter.notifyDataSetChanged()
+
+    // Set up the adapter only once after loading all messages
+    if (chatRecyclerView.adapter == null) {
+     val chatAdapter = ChatAdapter(this@ChattingActivity, chatList)
+     chatRecyclerView.adapter = chatAdapter
+    }
    }
 
    override fun onCancelled(error: DatabaseError) {
-    TODO("Not yet implemented")
+    // Handle cancellation if needed
    }
   })
  }
+
 }

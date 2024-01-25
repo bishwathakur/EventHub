@@ -35,17 +35,18 @@ class SignUpActivity : AppCompatActivity() {
             val pass = binding.passEt.text.toString()
             val confirmPass = binding.confirmPassEt.text.toString()
 
+
             if (email.isNotEmpty() && pass.isNotEmpty() && confirmPass.isNotEmpty()) {
                 if (pass == confirmPass) {
 
-                    firebaseAuth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener {
-                        if (it.isSuccessful) {
+                    firebaseAuth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener {task ->
+                        if (task.isSuccessful) {
                             val intent = Intent(this, AddProfileActivity::class.java)
                             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                             startActivity(intent)
                             finish()
                         } else {
-                            Toast.makeText(this, it.exception.toString(), Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this, "Account Creation failed: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
 
                         }
                     }
@@ -55,6 +56,7 @@ class SignUpActivity : AppCompatActivity() {
             } else {
                 Toast.makeText(this, "Empty Fields Are not Allowed !!", Toast.LENGTH_SHORT).show()
             }
+
 
         }
         binding.backButton.setOnClickListener {
