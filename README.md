@@ -1,4 +1,6 @@
-Description: Designed an event management app that enables users to
+Description: 
+
+Designed an event management app that enables users to
 sign up and upload pictures text, and events. Users have the ability to
 invite their friends to attend an event.
 
