@@ -109,14 +109,12 @@ class ChattingActivity : AppCompatActivity() {
   hashMap.put("message",message)
 
   ref.push().setValue(hashMap)
-
-
  }
  fun readMessage(senderID: String, receiverID: String){
 
-  val reference = FirebaseDatabase.getInstance().getReference("Messages")
+  val ref = FirebaseDatabase.getInstance().getReference("Messages")
 
-  reference.addValueEventListener(object : ValueEventListener {
+  ref.addValueEventListener(object : ValueEventListener {
    override fun onDataChange(snapshot: DataSnapshot) {
 
     for (dataSnapShot: DataSnapshot in snapshot.children) {

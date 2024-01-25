@@ -55,7 +55,7 @@ class Home : Fragment() {
 
 
 
-        mAdapter = PostAdapter(eveList, firebaseAuth, evedetRef, eveRef)
+        mAdapter = PostAdapter(eveList, firebaseAuth, evedetRef, eveRef, isProfileFragment = false)
         eveRecyclerView.adapter = mAdapter
 
         mAdapter.onItemClick = {

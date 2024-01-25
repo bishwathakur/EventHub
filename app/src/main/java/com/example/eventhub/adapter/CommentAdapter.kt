@@ -15,13 +15,11 @@ import com.example.eventhub.models.User
 import com.google.firebase.database.FirebaseDatabase
 
 class CommentAdapter(
-    private val currentList: ArrayList<Comment>,
-    private var database: FirebaseDatabase,
-    private val context: Activity,
-    private var event: Post? = null,
-    private var thisUser: User? = null
+    private val currentList: ArrayList<Comment>
 
 ) : RecyclerView.Adapter<CommentAdapter.CommentViewHolder>() {
+
+    var onItemLongClick: ((Comment) -> Unit)? = null
 
     inner class CommentViewHolder(val binding: ItemCommentBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -48,51 +46,15 @@ class CommentAdapter(
                 .into(itemCommentAvatarTv)
 
 
-//
-//            commentBox.setOnLongClickListener {
-//                if (curComment.userId == thisUser?.userid && context != null) {
-//                    showDeleteCommentDialog(curComment)
-//                } else {
-//                    Toast.makeText(context, "Can't delete other's comments.", Toast.LENGTH_SHORT).show()
-//                }
-//                true  // Return true to indicate that the long click event is consumed
-//            }
+
+            commentBox.setOnLongClickListener {
+                onItemLongClick?.invoke(curComment)
+                true
+            }
 
         }
     }
-//    private fun showDeleteCommentDialog(comment: Comment) {
-//        val alertDialog = AlertDialog.Builder(context)
-//        alertDialog.setTitle("Delete Comment")
-//        alertDialog.setMessage("Are you sure you want to delete this comment?")
 //
-//        alertDialog.setPositiveButton("Delete") { dialog, _ ->
-//            // Delete the comment from the database
-//            deleteComment(comment.commentId)
-//            dialog.dismiss()
-//        }
-//
-//        alertDialog.setNegativeButton("Cancel") { dialog, _ ->
-//            dialog.dismiss()
-//        }
-//
-//        alertDialog.create().show()
-//    }
-//
-//
-//
-//    private fun deleteComment(commentId: String) {
-//        val Post = event
-//        val eventKey = Post!!.eventKey // Use the not-null assertion here
-//
-//        val commRef = database.getReference("Events/$eventKey/Comments")
-//
-//        // Remove the comment from the database using commentId
-//        commRef.child(commentId).removeValue()
-//            .addOnSuccessListener {
-//                Toast.makeText(context, "Comment deleted successfully", Toast.LENGTH_SHORT).show()
-//            }
-//            .addOnFailureListener {
-//                Toast.makeText(context, "Failed to delete comment", Toast.LENGTH_SHORT).show()
-//            }
-//    }
+
+
 }

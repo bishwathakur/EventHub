@@ -5,6 +5,7 @@ data class Comment(
     var comment:String="",
     var userId:String="",
     var userImage:String="",
-    var userName:String=""
+    var userName:String="",
+    var uid: String=""
 
 )

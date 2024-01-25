@@ -11,6 +11,7 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.eventhub.NewMessageActivity
 import com.example.eventhub.PostDetailsActivity
 import com.example.eventhub.R
 import com.example.eventhub.databinding.ItemEventsBinding
@@ -26,7 +27,9 @@ class PostAdapter(
     private val eveList: ArrayList<Post>,
     private val auth: FirebaseAuth,
     private val evedetRef: DatabaseReference,
-    private val eveRef: DatabaseReference
+    private val eveRef: DatabaseReference,
+    private val isProfileFragment: Boolean // Add a flag for identification
+    //    private val listener: EventClickListener
 ) : RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
 
     var onItemClick: ((Post) -> Unit)? = null
@@ -100,6 +103,9 @@ class PostAdapter(
             // Comment inflate
             postCommentBtn.setOnClickListener {
                 onItemClick?.invoke(currentEvent)
+            }
+
+            postShareBtn.setOnClickListener{
 
             }
 
@@ -110,6 +116,28 @@ class PostAdapter(
             card.setOnClickListener{
                 onItemClick?.invoke(currentEvent)
             }
+
+
+
+            card.setOnLongClickListener {
+                if (isProfileFragment) {
+                    onItemLongClick?.invoke(currentEvent)
+                    true // Return true to indicate that the long click event is consumed
+                } else {
+                    // Handle long click for HomeFragment (if needed)
+                    false // Return false to propagate long click event further
+                }
+            }
+            postImage.setOnLongClickListener {
+                if (isProfileFragment) {
+                    onItemLongClick?.invoke(currentEvent)
+                    true // Return true to indicate that the long click event is consumed
+                } else {
+                    // Handle long click for HomeFragment (if needed)
+                    false // Return false to propagate long click event further
+                }
+            }
+
         }
     }
 
@@ -278,4 +306,11 @@ class PostAdapter(
                 })
         }
     }
+
+//    interface EventClickListener {
+//
+//        fun onLongItemClicked(post: Post, cardView: CardView)
+//
+//
+//    }
 }

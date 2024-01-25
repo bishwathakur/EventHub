@@ -40,11 +40,9 @@ class ChatAdapter(private val context: Context, val chatList: ArrayList<Chat>, v
         val currentMessage = chatList[position]
 
         if (holder.javaClass == SentViewHolder::class.java){
-
             val viewHolder = holder as SentViewHolder
             holder.sentmessage.text = currentMessage.message
         }else{
-
             val viewHolder =  holder as ReceiveViewHolder
             holder.recmessage.text = currentMessage.message
         }
@@ -52,15 +50,11 @@ class ChatAdapter(private val context: Context, val chatList: ArrayList<Chat>, v
     }
 
     class SentViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
         val sentmessage = itemView.findViewById<TextView>(R.id.sent_msg_text)
     }
     class ReceiveViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
         val recmessage = itemView.findViewById<TextView>(R.id.rec_msg_text)
     }
-
-
 
     override fun getItemViewType(position: Int): Int {
 

@@ -97,11 +97,18 @@ class Profile : Fragment() {
         eveRef = FirebaseDatabase.getInstance().getReference("Events")
         auth = FirebaseAuth.getInstance()
 
-        mAdapter = PostAdapter(eveList, auth, evedetRef, eveRef)
+        mAdapter = PostAdapter(eveList, auth, evedetRef, eveRef, isProfileFragment = true)
 
-        mAdapter.onItemLongClick = { currentEvent ->
-            // Handle the long click on the event
-            showDeleteEventDialog(currentEvent)
+        mAdapter.onItemLongClick = { post ->
+            // Handle long click on the post (event)
+            // e.g., showDeleteEventDialog(post)
+            showDeleteEventDialog(post)
+        }
+
+        mAdapter.onItemClick = {
+            val intent = Intent(activity, PostDetailsActivity::class.java)
+            intent.putExtra("post", it)
+            startActivity(intent)
         }
         eveRecyclerView.adapter = mAdapter
 
