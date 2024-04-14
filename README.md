@@ -1,4 +1,4 @@
-# Description: 
+# 1. Description: 
 
 Designed an event management app that enables users to
 sign up and upload pictures text, and events. Users have the ability to
@@ -8,7 +8,7 @@ invite their friends to attend an event.
 
 
 
-# Features:-
+# 2. Features:-
 
 • Login Signnup for authentication of the user who will also provide an
   individual user id with password and some personal details.
@@ -26,7 +26,7 @@ invite their friends to attend an event.
 
 
 
-# Technology stack:-
+# 3. Technology stack:-
 
 The Technology stack which will be used in this problem statement
 comprises:
@@ -45,7 +45,7 @@ comprises:
 
 
 
-# Brief Implementation Details:-
+# 4. Brief Implementation Details:-
 
 For starters, Android Studio that comprises of Kotlin, Java and XML will be
 used to des ign the basic layout of all the landing screens in the app In
