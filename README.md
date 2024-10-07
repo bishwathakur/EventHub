@@ -1,3 +1,5 @@
+## EVENT HUB
+
 # 1. Description: 
 
 Designed an event management app that enables users to
