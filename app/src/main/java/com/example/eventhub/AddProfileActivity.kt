@@ -199,6 +199,14 @@ class AddProfileActivity : AppCompatActivity() {
                                                 Toast.LENGTH_SHORT
                                             ).show()
                                         }
+                                        .addOnProgressListener { taskSnapshot ->
+                                            // Optional: Track progress
+                                            val progress = (100.0 * taskSnapshot.bytesTransferred) / taskSnapshot.totalByteCount
+                                            // You can show this progress to the user
+                                        }
+                                        .addOnPausedListener {
+                                            // Upload task was paused
+                                        }
                                 }
                             }
 

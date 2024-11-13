@@ -3,6 +3,7 @@ package com.example.eventhub
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -49,7 +50,6 @@ class PostDetailsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_postdetails)
-
 
         val post = intent.getParcelableExtra<Post?>("post")
         event = post
@@ -132,6 +132,55 @@ class PostDetailsActivity : AppCompatActivity() {
         }
 
         //Implement a back feature to go a stackk behind not exit the app...
+    }
+    private fun loadPostDetails(eventId: String?) {
+        if (eventId == null) {
+            Toast.makeText(this, "Event not found", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        // Reference to the Firebase database for the specific event
+        val postRef = FirebaseDatabase.getInstance().getReference("Events/$eventId")
+
+        postRef.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.exists()) {
+                    // Get the Post object from the snapshot
+                    val post = snapshot.getValue(Post::class.java)
+
+                    // Check if post is not null
+                    if (post != null) {
+                        // Update UI with post details
+                        val nameEvent: TextView = findViewById(R.id.postdetails_event_name)
+                        val dateEvent: TextView = findViewById(R.id.postdetails_event_date)
+                        val venueEvent: TextView = findViewById(R.id.postdetails_event_venue)
+                        val byUserEvent: TextView = findViewById(R.id.postdetails_event_byuser)
+                        val imageEvent: ImageView = findViewById(R.id.postdetails_Image)
+                        val eventLikesTV: TextView = findViewById(R.id.postdetails_LikesTV)
+                        val eventCommentsTV: TextView = findViewById(R.id.postdetails_CommentTV)
+
+                        // Set the values to the UI components
+                        nameEvent.text = post.eventname
+                        dateEvent.text = post.eventdate
+                        venueEvent.text = post.eventvenue
+                        byUserEvent.text = post.userName // Assuming you want to show the user's name
+                        eventLikesTV.text = "${post.postLikes} likes"
+                        eventCommentsTV.text = "${post.postComments} comments"
+
+                        // Load images using Glide
+                        Glide.with(this@PostDetailsActivity)
+                            .load(post.eventpicUrl)
+                            .into(imageEvent)
+                    }
+                } else {
+                    Toast.makeText(this@PostDetailsActivity, "Event not found", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Toast.makeText(this@PostDetailsActivity, "Failed to load event details", Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 
     private fun getComments() {

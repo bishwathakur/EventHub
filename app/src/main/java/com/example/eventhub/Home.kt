@@ -21,6 +21,7 @@ import com.example.eventhub.models.Post
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
+import java.util.ArrayList
 
 class Home : Fragment() {
 
@@ -58,6 +59,7 @@ class Home : Fragment() {
 
 
         mAdapter = PostAdapter(eveList, firebaseAuth, evedetRef, eveRef, isProfileFragment = false)
+        
         eveRecyclerView.adapter = mAdapter
 
         mAdapter.onItemClick = {
@@ -65,11 +67,38 @@ class Home : Fragment() {
             intent.putExtra("post", it)
             startActivity(intent)
         }
-        mAdapter.onShareClick = {
-            val intent = Intent(activity, ShareActivity::class.java)
-            intent.putExtra("post", it)
-            startActivity(intent)
-        }
+        mAdapter.onShareClick = { post ->
+
+            // Create the deep link to the specific post
+            val deepLink = "eventhub://post/details/${post.eventKey}"
+
+                // Format the content for sharing
+                val shareText = """
+            Check out this event!
+            Event Name: ${post.eventname}
+            Date: ${post.eventdate}
+            Venue: ${post.eventvenue}
+            Likes: ${post.postLikes}
+            Registrations: ${post.postRegistrations}
+            Comments: ${post.postComments}
+            Organized by: ${post.userName}
+            
+            Click here to view the event: 
+             $deepLink
+            """.trimIndent()
+
+                // Create the sharing intent
+                val shareIntent = Intent(Intent.ACTION_SEND).apply {
+                    type = "text/plain"
+                    putExtra(Intent.EXTRA_TEXT, shareText)
+                }
+
+                // Show the share sheet (chooser)
+                val chooser = Intent.createChooser(shareIntent, "Share Event via")
+                startActivity(chooser)
+            }
+
+
 
 
 

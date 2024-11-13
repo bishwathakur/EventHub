@@ -23,14 +23,25 @@ class MainActivity : AppCompatActivity() {
 
         binding.bottomNavigator.setOnItemSelectedListener { item ->
             when (item.itemId) {
-                R.id.home -> replaceFragment(Home())
-                R.id.profile -> replaceFragment(Profile())
-                R.id.chats -> replaceFragment(Chats())
+                R.id.home -> navigateToFragment(Home())
+                R.id.profile -> navigateToFragment(Profile())
+                R.id.chats -> navigateToFragment(Chats())
             }
             true
         }
         // Opens Home fragment by default
-        replaceFragment(Home())
+        navigateToFragment(Home())
+    }
+
+    private fun navigateToFragment(fragment: Fragment) {
+        // Check if the fragment is already displayed
+        val currentFragment = supportFragmentManager.findFragmentById(R.id.main_fragment)
+        if (currentFragment?.javaClass == fragment.javaClass) {
+            // Do nothing if it's already the current fragment
+            return
+        }
+        // Replace fragment if it's not currently displayed
+        replaceFragment(fragment)
     }
 
     private fun replaceFragment(fragment: Fragment) {
@@ -39,4 +50,4 @@ class MainActivity : AppCompatActivity() {
         fragmentTransaction.replace(R.id.main_fragment, fragment)
         fragmentTransaction.commit()
     }
-}
+    }

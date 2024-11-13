@@ -72,11 +72,10 @@ class NewMessageActivity : AppCompatActivity() {
 
     }
     override fun onBackPressed() {
-        super.onBackPressed()
-
-        startActivity(Intent(this, MainActivity::class.java))
-        finish()
+        super.onBackPressed() // This will go back to the previous activity in the stack
+        finish() // This is optional, as super.onBackPressed() will handle it
     }
+
 
     private fun getFriendsList(){
 

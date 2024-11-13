@@ -11,7 +11,8 @@
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nestedScrollView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        >
 
 
         <LinearLayout
@@ -21,7 +22,9 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+
+            >
 
             <ImageView
                 android:id="@+id/back_button"
@@ -41,7 +44,9 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="12dp"
                 android:orientation="vertical"
-                android:paddingTop="270dp">
+                android:paddingTop="270dp"
+
+                >
 
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -52,11 +57,11 @@
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/emailEt"
+                        style="@style/txtcolo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/hint_email"
                         android:inputType="textEmailAddress"
-                        style="@style/txtcolo"
                         android:textColorHint="#4a6572" />
 
                 </com.google.android.material.textfield.TextInputLayout>

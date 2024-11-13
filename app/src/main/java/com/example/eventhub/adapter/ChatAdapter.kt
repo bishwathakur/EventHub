@@ -11,6 +11,7 @@ import com.example.eventhub.models.Chat
 import com.example.eventhub.models.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import java.util.ArrayList
 
 class ChatAdapter(private val context: Context, val chatList: ArrayList<Chat>, var user: User? = null) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -36,17 +37,15 @@ class ChatAdapter(private val context: Context, val chatList: ArrayList<Chat>, v
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-
         val currentMessage = chatList[position]
 
-        if (holder.javaClass == SentViewHolder::class.java){
+        if (holder.javaClass == SentViewHolder::class.java) {
             val viewHolder = holder as SentViewHolder
             viewHolder.sentmessage.text = currentMessage.message
-        }else{
-            val viewHolder =  holder as ReceiveViewHolder
+        } else {
+            val viewHolder = holder as ReceiveViewHolder
             viewHolder.recmessage.text = currentMessage.message
         }
-
     }
 
     class SentViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

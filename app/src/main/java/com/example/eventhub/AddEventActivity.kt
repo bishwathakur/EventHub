@@ -78,6 +78,14 @@ class AddEventActivity : AppCompatActivity() {
 
         binding.addeventbtn.setOnClickListener {
 
+//            val eventname = binding.insEventname.text.toString()
+//            val eventdate = binding.insEventdate.text.toString()
+//            val eventvenue = binding.insEventvenue.text.toString()
+//
+//
+//            if (eventname.isEmpty()) binding.insEventname.error= "Required Field!!"
+//            if (eventdate.isEmpty()) binding.insEventdate.error= "Required Field!!"
+//            if (eventvenue.isEmpty()) binding.insEventvenue.error= "Required Field!!"
 
             if (!isFinishing && !isDestroyed) {
                 dialog = Dialog(this)

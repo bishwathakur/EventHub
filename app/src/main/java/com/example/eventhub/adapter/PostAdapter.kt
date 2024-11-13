@@ -22,6 +22,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.ValueEventListener
+import java.util.ArrayList
 
 class PostAdapter(
     private val eveList: ArrayList<Post>,
@@ -36,7 +37,7 @@ class PostAdapter(
     var onItemLongClick: ((Post) -> Unit)? = null
     var onShareClick: ((Post) -> Unit)? = null
 
-    class PostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class  PostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val postUserPicture: ImageView = itemView.findViewById(R.id.post_userPicture)
         val postImage: ImageView = itemView.findViewById(R.id.post_Image)
         val postEventName: TextView = itemView.findViewById(R.id.post_event_name)

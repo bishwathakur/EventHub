@@ -18,6 +18,8 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import java.util.ArrayList
+
 
 class ShareActivity : AppCompatActivity() {
 
@@ -26,6 +28,7 @@ class ShareActivity : AppCompatActivity() {
     private lateinit var dataBaseReference: DatabaseReference
 
     private lateinit var frieRecyclerView: RecyclerView
+
     private lateinit var frieList: ArrayList<User>
 
     private lateinit var loader: ProgressBar
@@ -98,12 +101,6 @@ class ShareActivity : AppCompatActivity() {
                 frieRecyclerView.visibility = View.VISIBLE
                 loader.visibility = View.GONE
             }
-
-
-
-
-
-
             override fun onCancelled(error: DatabaseError) {
                 loader.visibility = View.GONE
             }
