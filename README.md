@@ -1,59 +1,118 @@
-# EVENT HUB
+# EventHub
 
-## 1. Description: 
+EventHub is an Android application built with Kotlin that enables seamless event management and social interaction. The app allows users to create, discover, and interact with events while connecting with other users. It leverages Firebase for backend services and provides a rich, engaging experience through real-time features and a user-friendly design.
 
-Designed an event management app that enables users to
-sign up and upload pictures text, and events. Users have the ability to
-invite their friends to attend an event.
+---
 
+## Table of Contents
 
+- [Core Architecture](#core-architecture)
+- [Features](#features)
+  - [Authentication](#authentication)
+  - [Event Management](#event-management)
+  - [Social Features](#social-features)
+  - [UI Components](#ui-components)
+- [Firebase Integration](#firebase-integration)
+- [Getting Started](#getting-started)
+- [Contributing](#contributing)
+- [License](#license)
 
+---
 
+## Core Architecture
 
-## 2. Features:-
+EventHub is built with a modular architecture that organizes functionality into feature-specific components. The main activity uses a bottom navigation bar to manage fragments and navigate between sections. Key architectural components include:
 
-• Login Signnup for authentication of the user who will also provide an
-  individual user id with password and some personal details.
+- **Main Activity** with bottom navigation (Home, Profile, Chats)
+- **Fragment-based navigation system** to streamline in-app transitions and user experience
 
-• A Dashboard which will be showcasing all the upcoming events.
+---
 
-• User will be able to upvote, comment and register for an event too.
+## Features
 
-• User will also be able to add an Event with the Name of the Event, Venue and the Date of the Event.
+### Authentication
 
-• A User profile will also be created for all the users who had created their user on the app.
+EventHub uses Firebase Authentication to enable a secure, flexible authentication system, providing users with seamless sign-in and sign-up options.
 
+- **Sign In/Sign Up functionality**
+- **Profile management** with the ability to upload profile images
 
+### Event Management
 
+Users can manage events effortlessly, including creating, updating, and deleting events. EventHub also supports image uploads and date selection to enhance the event creation experience.
 
+- **Create, read, update, delete (CRUD) events**
+- **Image upload** capability for event banners and profiles
+- **Date selection** with an interactive calendar dialog
 
+### Social Features
 
-## 3. Technology stack:-
+Enhancing the social aspect, EventHub includes real-time interactions and communication options to keep users connected and engaged with ongoing events.
 
-The Technology stack which will be used in this problem statement
-comprises:
+- **Real-time chat system** for one-on-one or group communication
+- **Comment functionality** on events for user feedback and interaction
+- **Like and registration system** to boost engagement on events
+- **Event sharing** with deep links to allow easy sharing and access
 
+### UI Components
 
-• Android Studio – Kotlin, Java and XML 
+EventHub is designed with Material Design principles, ensuring a consistent and modern user interface across different devices.
 
-• Firebase (Authentication, Firebase storage, Firebase Realtime Database)
+- **Material Design** implementation for intuitive UI
+- **Custom themes** supporting both light and dark modes
+- **RecyclerView** for efficient list rendering
+- **SwipeRefreshLayout** for refreshing event data
+- **Progress indicators** to improve user feedback during loading states
 
-• RecyclerView (for effective adding of Events)
+---
 
-• Glide (for effective image uploading and loading)
+## Firebase Integration
 
-• CircleImage Viewer(de.hdodenhof:circleimageview)
+EventHub integrates Firebase services to provide a reliable backend for data storage, real-time communication, and authentication.
 
+- **Firebase Realtime Database** to store event and user data
+- **Firebase Storage** for storing user and event images
+- **Firebase Authentication** to manage secure user access
 
+---
 
+## Getting Started
 
-## 4. Brief Implementation Details:-
+To get a local copy up and running, follow these steps.
 
-For starters, Android Studio that comprises of Kotlin, Java and XML will be
-used to des ign the basic layout of all the landing screens in the app In
-addition to the above Google Firebase will be used for authentication
-pur poses and will serve as the back bone of the app Will also be utilizing
-RecyclerView in Android Studio to efficiently display and manage a
-dynamic list of diverse events in the app. And lastl y will be implementing
-Glide library for seamless loading and caching of diverse event images in
-the Android app.
+### Prerequisites
+
+- Android Studio
+- Firebase Project for API keys and configuration
+
+### Installation
+
+1. Clone the repository:
+    ```bash
+    git clone https://github.com/bishwathakur/EventHub.git
+    ```
+
+2. Open the project in Android Studio.
+
+3. Set up Firebase:
+    - Create a Firebase project.
+    - Enable Authentication, Realtime Database, and Storage.
+    - Download the `google-services.json` file and add it to the `app` directory.
+
+4. Build and run the project.
+
+---
+
+## Contributing
+
+Contributions are welcome! If you'd like to improve EventHub, please fork the repository and create a pull request. For major changes, open an issue first to discuss what you’d like to change.
+
+---
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
+
+EventHub brings people together through events and social interaction. Enjoy exploring and managing events with this versatile app!
