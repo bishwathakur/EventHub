@@ -20,6 +20,8 @@ import com.example.eventhub.ui.viewmodel.EventViewModel
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
+    onNavigateToCreateEvent: () -> Unit,
+    onNavigateToEventDetails: (String) -> Unit,
     viewModel: EventViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -42,7 +44,7 @@ fun HomeScreen(
         },
         floatingActionButton = {
             FloatingActionButton(
-                onClick = { /* TODO: Navigate to create event */ }
+                onClick = onNavigateToCreateEvent
             ) {
                 Icon(Icons.Default.Add, contentDescription = "Create Event")
             }
@@ -102,9 +104,9 @@ fun HomeScreen(
                             EventCard(
                                 event = event,
                                 onLikeClick = { viewModel.likeEvent(event.eventKey) },
-                                onCommentClick = { /* TODO: Navigate to comments */ },
+                                onCommentClick = { onNavigateToEventDetails(event.eventKey) },
                                 onRegisterClick = { viewModel.registerForEvent(event.eventKey) },
-                                onEventClick = { /* TODO: Navigate to event details */ }
+                                onEventClick = { onNavigateToEventDetails(event.eventKey) }
                             )
                         }
                     }

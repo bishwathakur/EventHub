@@ -23,18 +23,11 @@ class ChatViewModel @Inject constructor(
         viewModelScope.launch {
             _uiState.value = _uiState.value.copy(isLoading = true, error = null)
             
-            try {
-                // TODO: Implement getAllUsers in AuthRepository
-                // For now, we'll use an empty list
+            authRepository.getAllUsers().collect { users ->
                 _uiState.value = _uiState.value.copy(
                     isLoading = false,
-                    users = emptyList(),
+                    users = users,
                     error = null
-                )
-            } catch (e: Exception) {
-                _uiState.value = _uiState.value.copy(
-                    isLoading = false,
-                    error = e.message ?: "Failed to load users"
                 )
             }
         }

@@ -9,6 +9,8 @@ import com.example.eventhub.ui.screens.auth.SignInScreen
 import com.example.eventhub.ui.screens.auth.SignUpScreen
 import com.example.eventhub.ui.screens.auth.AddProfileScreen
 import com.example.eventhub.ui.screens.main.MainScreen
+import com.example.eventhub.ui.screens.event.CreateEventScreen
+import com.example.eventhub.ui.screens.event.EventDetailsScreen
 
 @Composable
 fun EventHubNavigation(
@@ -66,6 +68,30 @@ fun EventHubNavigation(
                     navController.navigate(Screen.SignIn.route) {
                         popUpTo(Screen.Main.route) { inclusive = true }
                     }
+                },
+                onNavigateToCreateEvent = {
+                    navController.navigate(Screen.CreateEvent.route)
+                },
+                onNavigateToEventDetails = { eventKey ->
+                    navController.navigate("${Screen.EventDetails.route}/$eventKey")
+                }
+            )
+        }
+        
+        composable(Screen.CreateEvent.route) {
+            CreateEventScreen(
+                onNavigateBack = {
+                    navController.popBackStack()
+                }
+            )
+        }
+        
+        composable("${Screen.EventDetails.route}/{eventKey}") { backStackEntry ->
+            val eventKey = backStackEntry.arguments?.getString("eventKey") ?: ""
+            EventDetailsScreen(
+                eventKey = eventKey,
+                onNavigateBack = {
+                    navController.popBackStack()
                 }
             )
         }
@@ -77,4 +103,6 @@ sealed class Screen(val route: String) {
     object SignUp : Screen("sign_up")
     object AddProfile : Screen("add_profile")
     object Main : Screen("main")
+    object CreateEvent : Screen("create_event")
+    object EventDetails : Screen("event_details")
 }

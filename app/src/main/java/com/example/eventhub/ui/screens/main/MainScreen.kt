@@ -19,7 +19,9 @@ import androidx.navigation.compose.rememberNavController
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainScreen(
-    onNavigateToSignIn: () -> Unit
+    onNavigateToSignIn: () -> Unit,
+    onNavigateToCreateEvent: () -> Unit,
+    onNavigateToEventDetails: (String) -> Unit
 ) {
     val navController = rememberNavController()
     
@@ -54,10 +56,16 @@ fun MainScreen(
             modifier = Modifier.padding(innerPadding)
         ) {
             composable("home") {
-                HomeScreen()
+                HomeScreen(
+                    onNavigateToCreateEvent = onNavigateToCreateEvent,
+                    onNavigateToEventDetails = onNavigateToEventDetails
+                )
             }
             composable("profile") {
-                ProfileScreen(onSignOut = onNavigateToSignIn)
+                ProfileScreen(
+                    onSignOut = onNavigateToSignIn,
+                    onNavigateToEventDetails = onNavigateToEventDetails
+                )
             }
             composable("chats") {
                 ChatsScreen()

@@ -30,6 +30,7 @@ import com.example.eventhub.ui.viewmodel.EventViewModel
 @Composable
 fun ProfileScreen(
     onSignOut: () -> Unit,
+    onNavigateToEventDetails: (String) -> Unit,
     authViewModel: AuthViewModel = hiltViewModel(),
     eventViewModel: EventViewModel = hiltViewModel()
 ) {
@@ -173,9 +174,9 @@ fun ProfileScreen(
                         EventCard(
                             event = event,
                             onLikeClick = { eventViewModel.likeEvent(event.eventKey) },
-                            onCommentClick = { /* TODO: Navigate to comments */ },
+                            onCommentClick = { onNavigateToEventDetails(event.eventKey) },
                             onRegisterClick = { eventViewModel.registerForEvent(event.eventKey) },
-                            onEventClick = { /* TODO: Navigate to event details */ },
+                            onEventClick = { onNavigateToEventDetails(event.eventKey) },
                             showDeleteOption = true,
                             onDeleteClick = { eventViewModel.deleteEvent(event.eventKey) }
                         )

@@ -100,4 +100,32 @@ class AuthRepository @Inject constructor(
             database.reference.child("Users").child(uid).removeEventListener(listener)
         }
     }
+    
+    fun getAllUsers(): Flow<List<User>> = callbackFlow {
+        val listener = object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val users = mutableListOf<User>()
+                val currentUserId = firebaseAuth.currentUser?.uid
+                
+                for (userSnapshot in snapshot.children) {
+                    val user = userSnapshot.getValue(User::class.java)
+                    // Exclude current user from the list
+                    if (user != null && user.uid != currentUserId) {
+                        users.add(user)
+                    }
+                }
+                trySend(users)
+            }
+            
+            override fun onCancelled(error: DatabaseError) {
+                close(error.toException())
+            }
+        }
+        
+        database.reference.child("Users").addValueEventListener(listener)
+        
+        awaitClose {
+            database.reference.child("Users").removeEventListener(listener)
+        }
+    }
 }
