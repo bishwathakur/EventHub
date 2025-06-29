@@ -1,96 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
-
-
-
-    <style name="Theme.EventHub" parent="Theme.MaterialComponents.NoActionBar">
-        <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/blue</item>
-        <!-- Secondary brand color. -->
-        <item name="buttonIconTint">@color/b</item>
-        <!-- Status bar color. -->
-        <item name="android:statusBarColor" >@color/lavendar</item>
-
-        <!-- Bg style dark mode -->
-        <item name="android:windowBackground">@color/dark</item>
-
-
-        <!-- Card bg. -->
-        <item name="cardBackgroundColor">#40414A</item>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.EventHub" parent="Theme.Material3.DayNight">
+        <!-- Customize your dark theme here. -->
+        <item name="colorPrimary">@color/lavendar</item>
+        <item name="colorOnPrimary">@color/black</item>
+        <item name="colorPrimaryContainer">@color/lavendar</item>
+        <item name="colorOnPrimaryContainer">@color/black</item>
+        <item name="colorSecondary">@color/blue</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <item name="colorError">@color/rred</item>
+        <item name="colorOnError">@color/white</item>
+        <item name="colorSurface">@color/dark</item>
+        <item name="colorOnSurface">@color/white</item>
+        <item name="android:statusBarColor">@color/lavendar</item>
     </style>
-
-    <style name="box">
-        <item name="android:backgroundTint">#2C2A2A</item>
-    </style>
-
-    <style name="bgg">
-        <item name="android:backgroundTint">@color/dark</item>
-    </style>
-
-
-
-    <!-- Button style dark mode -->
-    <style name="BUTTON">
-        <item name="android:background">@drawable/rounded_button_bg_dark</item>
-    </style>
-
-
-    <!-- text style dark mode -->
-    <style name="TEXT">
-        <item name="android:textColor">@color/white</item>
-    </style>
-
-
-    <!--invert text style dark mode -->
-    <style name="INV_TEXT">
-        <item name="android:color">@color/black</item>
-    </style>
-
-    <!-- Bg style dark mode -->
-    <style name="bg">
-        <item name="android:background">#ba86fc</item>
-    </style>
-
-
-
-    <!-- Text color-->
-    <style name="txtcolo">
-        <item name="android:textColor">@color/white</item>
-    </style>
-
-
-    <style name="ProfileLayout">
-        <item name="backgroundColor">@color/trans</item>
-    </style>
-
-
-
-
-
-
-
-
-
-    //Login signup input outer box style
-    <style name="LoginTextInputOuterFieldStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginTop">15dp</item>
-        <item name="android:layout_marginBottom">15dp</item>
-    </style>
-
-    //Login signup input inner box style
-    <style name="LoginTextInputInnerFieldStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:textColor">@color/white</item>
-        <item name="android:textColorHint">@color/white</item>
-        <item name="android:maxLines">1</item>
-        <item name="android:textSize">14sp</item>
-        <item name="android:singleLine">true</item>
-    </style>
-
-
-
-
 </resources>

@@ -1,91 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
-
-
-
-    <style name="Theme.EventHub" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/blue</item>
-        <!-- Status bar color. -->
-        <item name="android:statusBarColor" >@color/lavendar</item>
-        <!-- Bg style dark mode -->
-        <item name="android:windowBackground">@color/white</item>
-
-
-        <item name="cardBackgroundColor">#F3E4DBDB</item>
-
-    </style>
-
-    <style name="Chats" parent="Theme.MaterialComponents.Light.DarkActionBar">
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.EventHub" parent="Theme.Material3.DayNight">
+        <!-- Customize your light theme here. -->
         <item name="colorPrimary">@color/lavendar</item>
-        <item name="android:statusBarColor" >@color/lavendar</item>
-
-    </style>
-
-
-
-    <!-- Button style light mode -->
-    <style name="BUTTON">
-        <item name="android:background">@drawable/rounded_button_bg</item>
-    </style>
-
-    <!--invert text style light mode -->
-    <style name="INV_TEXT">
-        <item name="android:color">@color/white</item>
-    </style>
-
-    <style name="box">
-        <item name="android:backgroundTint">@color/offwhite</item>
-    </style>
-
-    <style name="TEXT">
-        <item name="android:textColor">@color/black</item>
-    </style>
-
-
-    <style name="bg">
-        <item name="android:background">@color/lavendar</item>
-    </style>
-
-    <!-- Text color-->
-    <style name="txtcolo">
-        <item name="android:textColor">@color/black</item>
-    </style>
-
-    <style name="bgg">
-        <item name="android:backgroundTint">@color/white</item>
-    </style>
-
-
-    <style name="CardColor">
-        <item name="android:background">@color/white</item>
-        <item name="colorButtonNormal">@color/lavendar</item>
-    </style>
-
-
-    <style name="ProfileLayout">
-        <item name="backgroundColor">@color/trans</item>
-    </style>
-
-
-
-
-    //Login signup input outer box style
-    <style name="LoginTextInputOuterFieldStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginTop">15dp</item>
-        <item name="android:layout_marginBottom">15dp</item>
-    </style>
-
-    //Login signup input inner box style
-    <style name="LoginTextInputInnerFieldStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:textColor">@color/black</item>
-        <item name="android:textColorHint">@color/black</item>
-        <item name="android:maxLines">1</item>
-        <item name="android:textSize">14sp</item>
-        <item name="android:singleLine">true</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorPrimaryContainer">@color/lavendar</item>
+        <item name="colorOnPrimaryContainer">@color/white</item>
+        <item name="colorSecondary">@color/blue</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <item name="colorError">@color/rred</item>
+        <item name="colorOnError">@color/white</item>
+        <item name="colorSurface">@color/white</item>
+        <item name="colorOnSurface">@color/black</item>
+        <item name="android:statusBarColor">@color/lavendar</item>
     </style>
 </resources>
